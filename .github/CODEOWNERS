@@ -2,15 +2,15 @@
 # a exigência de revisão por CODEOWNERS.
 
 # Revisão padrão: um Tech Lead e um QA da turma devem ser notificados.
-*                            @ORGANIZACAO/tech-leads @ORGANIZACAO/qas
+*                            @1TDSPJ-26/tech-leads @1TDSPJ-26/qas
 
 # Áreas críticas também notificam a equipe de professores.
-/.github/                    @ORGANIZACAO/professores @ORGANIZACAO/tech-leads
-/package.json                @ORGANIZACAO/professores @ORGANIZACAO/tech-leads
-/package-lock.json           @ORGANIZACAO/professores @ORGANIZACAO/tech-leads
-/vite.config.*               @ORGANIZACAO/professores @ORGANIZACAO/tech-leads
-/vercel.json                 @ORGANIZACAO/professores @ORGANIZACAO/tech-leads
-/tsconfig*.json              @ORGANIZACAO/professores @ORGANIZACAO/tech-leads
+/.github/                    @1TDSPJ-26/professores @1TDSPJ-26/tech-leads
+/package.json                @1TDSPJ-26/professores @1TDSPJ-26/tech-leads
+/package-lock.json           @1TDSPJ-26/professores @1TDSPJ-26/tech-leads
+/vite.config.*               @1TDSPJ-26/professores @1TDSPJ-26/tech-leads
+/vercel.json                 @1TDSPJ-26/professores @1TDSPJ-26/tech-leads
+/tsconfig*.json              @1TDSPJ-26/professores @1TDSPJ-26/tech-leads
 
 # As squads são registradas no campo Squad do GitHub Project, evitando a
 # manutenção de cinco equipes adicionais na organização da turma.
