@@ -1,0 +1,120 @@
+name: Relatório de defeito
+description: Registre uma falha encontrada durante revisão, teste ou uso do sistema.
+title: "[BUG] "
+labels:
+  - "tipo:bug"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Um defeito precisa ser reproduzível. Não utilize apenas frases como "não funciona" ou "deu erro".
+
+  - type: input
+    id: origem
+    attributes:
+      label: Issue ou Pull Request relacionado
+      placeholder: "#42 ou link do Pull Request"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ambiente
+    attributes:
+      label: Ambiente
+      options:
+        - Local
+        - Preview da Vercel
+        - Produção
+        - API
+        - Outro
+    validations:
+      required: true
+
+  - type: input
+    id: dispositivo
+    attributes:
+      label: Navegador e dispositivo
+      placeholder: "Firefox 153, Windows 11, resolução 1366x768"
+    validations:
+      required: true
+
+  - type: textarea
+    id: precondicoes
+    attributes:
+      label: Pré-condições
+      description: Informe dados, rota, autenticação ou estado necessário antes do teste.
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      placeholder: |
+        1. Acessar...
+        2. Preencher...
+        3. Selecionar...
+        4. Observar...
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado
+    validations:
+      required: true
+
+  - type: textarea
+    id: encontrado
+    attributes:
+      label: Resultado encontrado
+    validations:
+      required: true
+
+  - type: dropdown
+    id: gravidade
+    attributes:
+      label: Gravidade sugerida
+      options:
+        - Crítica — bloqueia o sistema ou a Release
+        - Alta — funcionalidade obrigatória não funciona
+        - Média — funcionamento parcial ou existe alternativa
+        - Baixa — problema visual, textual ou de pequeno impacto
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequencia
+    attributes:
+      label: Frequência
+      options:
+        - Sempre
+        - Frequentemente
+        - Ocasionalmente
+        - Ocorreu uma vez
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências
+      description: Anexe imagens, vídeo curto, mensagem do console ou resposta da API. Remova dados sensíveis.
+    validations:
+      required: true
+
+  - type: textarea
+    id: contorno
+    attributes:
+      label: Solução temporária conhecida
+      placeholder: "Existe alguma forma temporária de continuar o trabalho?"
+
+  - type: checkboxes
+    id: seguranca
+    attributes:
+      label: Verificação antes de enviar
+      options:
+        - label: Confirmei que a falha ainda existe na versão indicada.
+          required: true
+        - label: Não incluí senha, token, dado médico ou informação pessoal na evidência.
+          required: true
+

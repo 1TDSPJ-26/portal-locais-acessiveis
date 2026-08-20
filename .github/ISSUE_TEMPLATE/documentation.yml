@@ -1,0 +1,56 @@
+name: Documentação
+description: Registre criação ou atualização de documentação do projeto.
+title: "[DOCS] "
+labels:
+  - "tipo:documentacao"
+body:
+  - type: dropdown
+    id: documento
+    attributes:
+      label: Documento afetado
+      options:
+        - README
+        - Arquitetura
+        - API
+        - Acessibilidade
+        - Release
+        - Guia de contribuição
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: necessidade
+    attributes:
+      label: Necessidade
+      description: Explique o que está ausente, incorreto ou desatualizado.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alteracoes
+    attributes:
+      label: Alterações esperadas
+      placeholder: |
+        - [ ] Atualizar...
+        - [ ] Adicionar...
+        - [ ] Corrigir...
+    validations:
+      required: true
+
+  - type: textarea
+    id: referencias
+    attributes:
+      label: Referências e evidências
+      placeholder: "Links para Issues, Pull Requests, telas ou documentação oficial."
+
+  - type: checkboxes
+    id: revisao
+    attributes:
+      label: Revisão
+      options:
+        - label: O texto não contém nota, RM, justificativa médica, senha ou dado pessoal indevido.
+          required: true
+        - label: Os links e comandos foram conferidos.
+          required: true
+

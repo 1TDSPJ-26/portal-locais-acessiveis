@@ -1,0 +1,102 @@
+name: Ciclo de teste do QA
+description: Registre o planejamento, a execução e a decisão do QA.
+title: "[QA] "
+labels:
+  - "tipo:teste"
+body:
+  - type: input
+    id: demanda
+    attributes:
+      label: Demanda e Pull Request testados
+      placeholder: "Issue #42 — Pull Request #58"
+    validations:
+      required: true
+
+  - type: input
+    id: qa
+    attributes:
+      label: QA responsável
+      placeholder: "@usuario"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ambiente
+    attributes:
+      label: Ambiente de teste
+      options:
+        - Preview da Vercel
+        - Local
+        - Release Candidate
+        - Produção
+    validations:
+      required: true
+
+  - type: textarea
+    id: precondicoes
+    attributes:
+      label: Pré-condições e dados utilizados
+      placeholder: "Informe rota, registros, permissões e dados preparados para o teste."
+    validations:
+      required: true
+
+  - type: textarea
+    id: cenarios
+    attributes:
+      label: Cenários executados
+      placeholder: |
+        - [ ] Cenário 1 — dados válidos
+        - [ ] Cenário 2 — campo obrigatório vazio
+        - [ ] Cenário 3 — falha da API
+        - [ ] Cenário 4 — navegação por teclado
+    validations:
+      required: true
+
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Resultado dos critérios de aceite
+      description: Relacione cada critério ao resultado obtido.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: decisao
+    attributes:
+      label: Decisão do QA
+      options:
+        - Aprovado
+        - Aprovado com ressalva
+        - Reprovado
+        - Bloqueado
+    validations:
+      required: true
+
+  - type: textarea
+    id: defeitos
+    attributes:
+      label: Defeitos e pendências
+      placeholder: "Liste as Issues de defeito abertas ou informe que não foram encontrados defeitos."
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências dos testes
+      description: Inclua links, imagens ou resultados sem expor dados sensíveis.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmacao
+    attributes:
+      label: Confirmações do QA
+      options:
+        - label: Testei os critérios registrados antes da entrega.
+          required: true
+        - label: Não criei requisito novo para reprovar a demanda.
+          required: true
+        - label: Registrei evidência suficiente para justificar a decisão.
+          required: true
+

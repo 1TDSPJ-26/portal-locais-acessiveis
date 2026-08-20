@@ -1,0 +1,61 @@
+name: Verificação de qualidade
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: lint-build-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v7
+
+      - name: Verificar se o projeto Node foi inicializado
+        id: project
+        shell: bash
+        run: |
+          if [[ -f package.json && -f package-lock.json ]]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Projeto Vite ainda não inicializado. As verificações Node serão ativadas após a criação do package-lock.json."
+          fi
+
+      - name: Configurar Node.js
+        if: steps.project.outputs.ready == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Instalar dependências
+        if: steps.project.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Verificar lint
+        if: steps.project.outputs.ready == 'true'
+        run: npm run lint --if-present
+
+      - name: Gerar build
+        if: steps.project.outputs.ready == 'true'
+        run: npm run build
+
+      - name: Executar testes disponíveis
+        if: steps.project.outputs.ready == 'true'
+        run: npm run test --if-present

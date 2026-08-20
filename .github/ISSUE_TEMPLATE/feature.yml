@@ -1,0 +1,91 @@
+name: Nova funcionalidade
+description: Registre uma demanda de desenvolvimento com critérios de aceite verificáveis.
+title: "[FEATURE] "
+labels:
+  - "tipo:feature"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este formulário somente depois do refinamento da demanda. Uma funcionalidade não deve começar sem responsável, QA, esforço, prazo e critérios de aceite.
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto
+      description: Explique por que esta demanda é necessária e qual problema ela resolve.
+      placeholder: "Como usuário do portal, preciso..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: Descreva o resultado esperado de forma direta.
+      placeholder: "Permitir que..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: escopo
+    attributes:
+      label: Escopo da implementação
+      description: Liste o que deverá ser criado ou alterado.
+      placeholder: |
+        - Criar o componente...
+        - Integrar com...
+        - Exibir mensagem quando...
+    validations:
+      required: true
+
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceite
+      description: Cada item precisa ser observável e testável pelo QA.
+      placeholder: |
+        - [ ] A página apresenta...
+        - [ ] Ao informar dados válidos...
+        - [ ] Quando a API falhar...
+    validations:
+      required: true
+
+  - type: textarea
+    id: fora-escopo
+    attributes:
+      label: Fora do escopo
+      description: Registre o que não faz parte desta entrega para evitar cobrança retroativa.
+      placeholder: "Esta demanda não inclui..."
+
+  - type: textarea
+    id: dependencias
+    attributes:
+      label: Dependências e riscos conhecidos
+      description: Informe APIs, componentes, decisões ou outras Issues necessárias.
+      placeholder: "Depende da Issue #..."
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências esperadas
+      description: Indique o que deverá acompanhar o Pull Request.
+      placeholder: "Capturas de tela, roteiro de teste, resposta da API..."
+
+  - type: checkboxes
+    id: pronto
+    attributes:
+      label: Definição de Pronto para Iniciar
+      description: Todos os itens devem ser confirmados antes de mover a demanda para Pronta para iniciar.
+      options:
+        - label: O conteúdo necessário já foi apresentado ou autorizado pelo professor.
+          required: true
+        - label: O Milestone do CP foi definido.
+          required: true
+        - label: A squad, o esforço e a data limite foram preenchidos no Project.
+          required: true
+        - label: O responsável principal e o QA foram definidos.
+          required: true
+        - label: Os critérios de aceite podem ser testados.
+          required: true
+
