@@ -1,5 +1,7 @@
 # Pacote GitHub — CP Continuado
 
+- Atendendo as solicitações
+
 Este pacote contém modelos padronizados para o projeto continuado do Portal de Locais e Serviços Acessíveis.
 
 ## Conteúdo
