@@ -1,8 +1,9 @@
-
+import { MainLayout } from './layouts/MainLayout/MainLayout'
 
 export default function App() {
   return (
-    <div>App</div>
+    <MainLayout>
+      <div>App</div>
+    </MainLayout>
   )
 }
-
