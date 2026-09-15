@@ -1,9 +1,10 @@
-import { MainLayout } from './layouts/MainLayout/MainLayout'
+import { MainLayout } from './layouts/MainLayout/MainLayout';
+import AppRoutes from "./routes/AppRoutes";
 
 export default function App() {
   return (
     <MainLayout>
-      <div>App</div>
+      <AppRoutes />
     </MainLayout>
   )
 }
