@@ -14,7 +14,7 @@ export function Header() {
         <NavLink to="/locais" className={linkClass}>
           Locais
         </NavLink>
-        <NavLink to="/cadastro" className={linkClass}>
+        <NavLink to="/cadastrar" className={linkClass}>
           Cadastro
         </NavLink>
         <NavLink to="/sobre" className={linkClass}>
