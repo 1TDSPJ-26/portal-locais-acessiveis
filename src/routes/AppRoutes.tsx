@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import NotFound  from "../pages/NotFound";
 import Home from '../pages/Home';
 import Locais from '../pages/Locais';
 import Cadastro from '../pages/Cadastro';
@@ -11,6 +12,7 @@ export default function AppRoutes() {
       <Route path="/locais" element={<Locais />} />
       <Route path="/cadastrar" element={<Cadastro />} />
       <Route path="/sobre" element={<Sobre />} />
+      <Route path="*" element={<NotFound/>} />
     </Routes>
   );
 }
