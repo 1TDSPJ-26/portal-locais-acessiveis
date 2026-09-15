@@ -1,12 +1,12 @@
-// src/pages/NotFound/index.jsx
+import { Link } from 'react-router-dom';
+
 export default function NotFound() {
-    return(
-        <main className={styles.container}>
-            <h1>Página não encontrada</h1>
-            <p>O endereço acessado não existe ou não está mais disponível.</p>
-            <Link to="/">Voltar para a página inicial</Link>
-            </main>
-    )
+  return (
+    <main>
+      <h1>404</h1>
+      <h2>Página não encontrada</h2>
+      <p>O endereço que você tentou acessar não foi encontrado.</p>
+      <Link to="/">Voltar para a página inicial</Link>
+    </main>
+  );
 }
-
-
