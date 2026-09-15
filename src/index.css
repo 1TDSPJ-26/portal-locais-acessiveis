@@ -109,3 +109,20 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.nav-link {
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  color: var(--text);
+}
+ 
+.nav-link.active {
+  font-weight: 600;
+  color: var(--text-h);
+  border-bottom: 2px solid var(--accent);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
