@@ -9,11 +9,30 @@ export function Header() {
   return (
     <header>
       <h1>Portal de Locais e Serviços Acessíveis</h1>
+<<<<<<< HEAD
       <nav aria-label="Navegação principal">
         <NavLink to="/" end className={linkClass}>Home</NavLink>
         <NavLink to="/locais" className={linkClass}>Locais</NavLink>
         <NavLink to="/cadastrar" className={linkClass}>Cadastro</NavLink>
         <NavLink to="/sobre" className={linkClass}>Sobre</NavLink>
+=======
+       <nav aria-label="Navegação principal">
+        <NavLink to="/" end className={linkClass}>
+          Home
+        </NavLink>
+        <NavLink to="/locais" className={linkClass}>
+          Locais
+        </NavLink>
+        <NavLink to="/cadastrar" className={linkClass}>
+          Cadastro
+        </NavLink>
+        <NavLink to="/sobre" className={linkClass}>
+          Sobre
+        </NavLink>
+        <NavLink to="/acessibilidade" className={linkClass}>
+          Acessibilidade
+        </NavLink>
+>>>>>>> e7df4cf (feat: Foi criado a página Acessibilidade, rota acessibilidade, link adicionado no header e footer e conteudo inicial da página foi colocado.)
       </nav>
       <fieldset className="controles-exibicao">
         <legend className="sr-only">Preferências de exibição</legend>
