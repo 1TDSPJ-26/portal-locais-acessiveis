@@ -1,0 +1,48 @@
+name: Relatório do Tech Lead
+
+# Preenche automaticamente os indicadores do `docs/modelo-relatorio-tech-lead.md`
+# e publica o resultado como Issue. A contagem é trabalho mecânico; a leitura dos
+# números continua sendo do Tech Lead, e o relatório reserva espaço para ela.
+
+on:
+  schedule:
+    # Segunda-feira, 12h UTC, equivalente a 9h de Brasília.
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+    inputs:
+      dias:
+        description: "Tamanho do período considerado, em dias"
+        required: false
+        default: "7"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+concurrency:
+  group: relatorio-techlead
+  cancel-in-progress: false
+
+jobs:
+  relatorio:
+    name: relatorio-semanal
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v7
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Testar as regras de contagem
+        run: node --test .github/scripts/relatorio-techlead.test.cjs
+
+      - name: Gerar e publicar o relatório
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JANELA_EM_DIAS: ${{ inputs.dias || '7' }}
+        run: node .github/scripts/rodar-relatorio.cjs
