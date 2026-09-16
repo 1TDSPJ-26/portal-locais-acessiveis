@@ -1,0 +1,50 @@
+name: Conferência do Pull Request
+
+# Verifica automaticamente os itens do Tutorial 4, Parte B, Passo 1, que hoje o
+# Tech Lead confere manualmente em cada Pull Request. O resultado é registrado
+# como um comentário único, atualizado a cada nova execução.
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+      - ready_for_review
+      - assigned
+      - unassigned
+    branches:
+      - develop
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: read
+
+concurrency:
+  group: higiene-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  higiene:
+    name: higiene-do-pr
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v7
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Testar o próprio script de conferência
+        run: node --test .github/scripts/higiene-pr.test.cjs
+
+      - name: Conferir o Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/scripts/rodar-higiene.cjs
