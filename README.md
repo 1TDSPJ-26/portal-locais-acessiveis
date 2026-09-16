@@ -1,5 +1,17 @@
 # Pacote GitHub — CP Continuado
 
+## Configuração da API
+
+Quando a equipe da API fornecer a URL base, copie `.env.example` para `.env` e
+preencha `VITE_API_URL` com essa URL. Reinicie o servidor Vite após alterar o
+arquivo. O `.env` é local e não deve ser versionado. Variáveis `VITE_` ficam
+visíveis no navegador; não coloque credenciais nessa URL.
+
+O contrato de cadastro ainda não foi disponibilizado. A integração depende da
+definição do endpoint, método HTTP, campos e validações do corpo, resposta de
+sucesso e formato dos erros. A página de cadastro não envia dados até que essas
+informações sejam confirmadas.
+
 ## MAIS INFORMAÇÕES ABAIXO
 
 
