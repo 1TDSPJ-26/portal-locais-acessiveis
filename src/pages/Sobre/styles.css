@@ -6,6 +6,7 @@
 
 .about-hero {
     max-width: 48rem;
+    margin-inline: auto;
     margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
@@ -67,6 +68,13 @@
     margin-top: 0.5rem;
 }
 
+.about-section:nth-child(3) {
+    grid-column: 1 / -1;
+    width: calc(50% - 0.625rem);
+    box-sizing: border-box;
+    justify-self: center;
+}
+
 .about-section--notice {
     grid-column: 1 / -1;
     border: 2px solid var(--accent);
@@ -88,5 +96,10 @@
 
     .about-section--notice {
         grid-column: auto;
+    }
+
+    .about-section:nth-child(3) {
+        grid-column: auto;
+        width: auto;
     }
 }
