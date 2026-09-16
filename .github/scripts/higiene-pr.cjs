@@ -15,8 +15,19 @@ function numeroDaBranch(branch) {
   return encontrado ? Number(encontrado[1]) : null;
 }
 
+/**
+ * Remove blocos e trechos de código antes da busca. O GitHub não encerra Issue
+ * referenciada dentro de código, e considerar essas ocorrências faria a
+ * conferência aprovar um Pull Request que, no merge, não fecha Issue alguma.
+ */
+function semTrechosDeCodigo(texto) {
+  return String(texto || "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`\n]*`/g, " ");
+}
+
 function issuesReferenciadas(corpo) {
-  const achados = String(corpo || "").matchAll(PALAVRAS_DE_FECHAMENTO);
+  const achados = semTrechosDeCodigo(corpo).matchAll(PALAVRAS_DE_FECHAMENTO);
   return [...new Set([...achados].map((m) => Number(m[1])))];
 }
 
@@ -142,6 +153,7 @@ function montarComentario({ erros, avisos }) {
 
 module.exports = {
   numeroDaBranch,
+  semTrechosDeCodigo,
   issuesReferenciadas,
   secoes,
   estaVazia,

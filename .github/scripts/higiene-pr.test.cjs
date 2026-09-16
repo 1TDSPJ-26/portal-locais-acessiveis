@@ -109,3 +109,15 @@ test("não aponta pendência alguma em um Pull Request completo", () => {
   assert.deepEqual(erros, []);
   assert.deepEqual(avisos, []);
 });
+
+test("ignora referência escrita dentro de trecho de código", () => {
+  assert.deepEqual(issuesReferenciadas("Remova a linha `Closes #34` do corpo"), []);
+  assert.deepEqual(issuesReferenciadas("```\nCloses #12\n```"), []);
+});
+
+test("continua encontrando a referência fora do código", () => {
+  assert.deepEqual(
+    issuesReferenciadas("Closes #7\n\nDepois remova `Closes #99` do exemplo"),
+    [7]
+  );
+});
