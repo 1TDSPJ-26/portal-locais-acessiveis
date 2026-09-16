@@ -1,4 +1,4 @@
-import type { FiltrosLocais, Local, RecursoAcessibilidade } from '../types/local'
+import type { FiltrosLocais, Local, RecursoAcessibilidade } from "../types/local"
 
 const normalizar = (valor: string) => valor.trim().toLocaleLowerCase('pt-BR')
 
