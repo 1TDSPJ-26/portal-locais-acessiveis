@@ -1,10 +1,13 @@
-import { MainLayout } from './layouts/MainLayout/MainLayout';
+import { MainLayout } from "./layouts/MainLayout/MainLayout";
 import AppRoutes from "./routes/AppRoutes";
+import { PreferenciasProvider } from "./PreferenciasProvider";
 
 export default function App() {
   return (
-    <MainLayout>
-      <AppRoutes />
-    </MainLayout>
-  )
+    <PreferenciasProvider>
+      <MainLayout>
+        <AppRoutes />
+      </MainLayout>
+    </PreferenciasProvider>
+  );
 }
