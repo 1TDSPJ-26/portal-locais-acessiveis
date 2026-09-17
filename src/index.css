@@ -231,7 +231,6 @@ legend span {
   outline-offset: 2px;
 }
 
-/* Preferências de exibição: a escala parte da raiz. */
 :root { font-size: 100%; }
 :root[data-fonte="grande"] { font-size: 112.5%; }
 :root[data-fonte="maior"] { font-size: 125%; }
@@ -261,12 +260,12 @@ legend span {
   border: 0.125rem solid #ffffff;
 }
 
- .controles-exibicao {
-   display: flex;
-   flex-wrap: wrap;
-   align-items: center;
-   gap: 0.5rem;
-   margin-top: 0.75rem;
+.controles-exibicao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
   border: none;
   padding: 0;
   margin-inline: 0;
@@ -282,7 +281,7 @@ legend span {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
- }
+}
 
 .controles-exibicao button {
   min-width: 2.75rem;
@@ -306,10 +305,9 @@ legend span {
   outline-offset: 0.1875rem;
 }
 
-header nav { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
 header, main, footer { min-width: 0; }
 
-/* Os títulos também acompanham a escala definida na raiz. */
 h1 {
   font-size: clamp(1.75rem, 5vw, 3.5rem);
   overflow-wrap: anywhere;
@@ -323,4 +321,21 @@ code, .counter { font-size: 0.9375rem; }
 .controles-exibicao button:disabled {
   cursor: not-allowed;
   border-style: dashed;
+}
+
+footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+}
+
+footer nav a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+footer nav a:focus-visible {
+  outline: 0.1875rem solid var(--accent);
+  outline-offset: 0.1875rem;
 }
