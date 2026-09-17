@@ -55,6 +55,9 @@ button {
   right: -70px;
   top: -100px;
 }
+/* Os dois vivem sobre fundos diferentes: a faixa de destaque é escura e o
+   conteúdo é claro. Com uma cor só, um dos dois fica sempre sem contraste
+   suficiente — sobre o fundo claro, esta cor rende 1,57:1. */
 .eyebrow,
 .section-kicker {
   margin: 0 0 12px;
@@ -62,7 +65,12 @@ button {
   letter-spacing: 1.8px;
   font-size: 11px;
   font-weight: bold;
+}
+.eyebrow {
   color: #a5cfaf;
+}
+.section-kicker {
+  color: var(--leaf);
 }
 h1 {
   max-width: 720px;
