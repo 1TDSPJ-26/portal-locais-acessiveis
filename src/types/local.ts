@@ -1,22 +1,27 @@
-export const CATEGORIAS_LOCAL = [
-  'restaurante',
-  'cafe',
-  'parque',
-  'museu',
-  'biblioteca',
-  'outro',
-] as const;
+export const categoriasLocais = ['Cultura', 'Alimentação', 'Lazer', 'Serviços'] as const
+export type CategoriaLocal = (typeof categoriasLocais)[number]
 
-export type CategoriaLocal = (typeof CATEGORIAS_LOCAL)[number];
+export const recursosAcessibilidade = ['Entrada sem degraus', 'Banheiro acessível', 'Piso tátil', 'Libras', 'Audiodescrição'] as const
+export type RecursoAcessibilidade = (typeof recursosAcessibilidade)[number]
 
-export const ROTULOS_CATEGORIA: Record<CategoriaLocal, string> = {
-  restaurante: 'Restaurante',
-  cafe: 'Café',
-  parque: 'Parque',
-  museu: 'Museu',
-  biblioteca: 'Biblioteca',
-  outro: 'Outro',
-};
+export interface Local {
+  id: number
+  nome: string
+  categoria: CategoriaLocal
+  endereco: string
+  recursos: RecursoAcessibilidade[]
+}
+
+export interface FiltrosLocais {
+  categoria: CategoriaLocal | ''
+  recursos: RecursoAcessibilidade[]
+}
+
+/* ── Formulário de cadastro ────────────────────────────────────────────────
+   A categoria reaproveita `CategoriaLocal`, o mesmo tipo que a listagem e os
+   filtros utilizam. Manter duas listas de categoria faria o local cadastrado
+   não corresponder a nenhum filtro. Assim como a UF, começa vazia para que a
+   escolha seja explícita. */
 
 export const UFS_BRASIL = [
   'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
@@ -29,7 +34,7 @@ export type UnidadeFederativa = (typeof UFS_BRASIL)[number];
 export interface DadosFormularioLocal {
   // Identificação
   nome: string;
-  categoria: CategoriaLocal;
+  categoria: CategoriaLocal | '';
   descricao: string;
   // Endereço
   logradouro: string;
@@ -53,7 +58,7 @@ export interface DadosFormularioLocal {
 
 export const DADOS_INICIAIS: DadosFormularioLocal = {
   nome: '',
-  categoria: 'restaurante',
+  categoria: '',
   descricao: '',
   logradouro: '',
   numero: '',

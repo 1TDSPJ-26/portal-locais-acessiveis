@@ -39,9 +39,9 @@
 .about-section {
     min-width: 0;
     padding: clamp(1.25rem, 3vw, 2rem);
-    border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
     border-radius: 1rem;
-    background: var(--code-bg);
+    background: var(--card);
 }
 
 .about-section h2 {
@@ -62,6 +62,7 @@
 .about-section ul {
     margin: 0;
     padding-left: 1.25rem;
+    text-align: left;
 }
 
 .about-section li + li {
@@ -78,7 +79,7 @@
 .about-section--notice {
     grid-column: 1 / -1;
     border: 2px solid var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+    background: color-mix(in srgb, var(--accent) 12%, var(--card));
 }
 
 .about-section--notice h2 {

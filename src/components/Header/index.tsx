@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import { usePreferencias } from "../../PreferenciasContext";
 
 export function Header() {
@@ -15,13 +15,14 @@ export function Header() {
         <NavLink to="/cadastrar" className={linkClass}>Cadastro</NavLink>
         <NavLink to="/sobre" className={linkClass}>Sobre</NavLink>
       </nav>
-      <div className="controles-exibicao" role="group" aria-label="Preferências de exibição">
+      <fieldset className="controles-exibicao">
+        <legend className="sr-only">Preferências de exibição</legend>
         <button type="button" aria-label="Diminuir fonte" disabled={fonte === "normal"} onClick={() => definirFonte(fonte === "maior" ? "grande" : "normal")}>A−</button>
         <button type="button" aria-label="Fonte padrão" aria-pressed={fonte === "normal"} onClick={() => definirFonte("normal")}>A</button>
         <button type="button" aria-label="Aumentar fonte" disabled={fonte === "maior"} onClick={() => definirFonte(fonte === "normal" ? "grande" : "maior")}>A+</button>
         <button type="button" aria-pressed={contraste === "alto"} onClick={alternarContraste}>Alto contraste</button>
         <button type="button" onClick={restaurar}>Restaurar padrão</button>
-      </div>
+      </fieldset>
     </header>
   );
 }
