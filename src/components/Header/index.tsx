@@ -21,6 +21,16 @@ export function Header() {
           Sobre
         </NavLink>
       </nav>
+<<<<<<< Updated upstream
+=======
+      <div className="controles-exibicao">
+        <button type="button" aria-label="Diminuir fonte" disabled={fonte === "normal"} onClick={() => definirFonte(fonte === "maior" ? "grande" : "normal")}>A−</button>
+        <button type="button" aria-label="Fonte padrão" aria-pressed={fonte === "normal"} onClick={() => definirFonte("normal")}>A</button>
+        <button type="button" aria-label="Aumentar fonte" disabled={fonte === "maior"} onClick={() => definirFonte(fonte === "normal" ? "grande" : "maior")}>A+</button>
+        <button type="button" aria-pressed={contraste === "alto"} onClick={alternarContraste}>Alto contraste</button>
+        <button type="button" onClick={restaurar}>Restaurar padrão</button>
+      </div>
+>>>>>>> Stashed changes
     </header>
 
   );
