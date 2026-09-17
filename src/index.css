@@ -14,6 +14,7 @@
   --hero-muted: #cfc3dd;
   --hero-accent: #d8b4fe;
   --alert: #b3451f;
+  --shadow: 0 10px 15px -3px rgb(33 29 43 / 8%), 0 4px 6px -2px rgb(33 29 43 / 4%);
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--paper);
@@ -40,6 +41,7 @@
     --hero-muted: #cfc3dd;
     --hero-accent: #d8b4fe;
     --alert: #f0906b;
+    --shadow: 0 10px 15px -3px rgb(0 0 0 / 50%), 0 4px 6px -2px rgb(0 0 0 / 30%);
     color-scheme: dark;
   }
 }
@@ -282,6 +284,7 @@ legend span {
   --hero-muted: #ffffff;
   --hero-accent: #ffff00;
   --alert: #ffff00;
+  --shadow: none;
   color-scheme: dark;
 }
 
