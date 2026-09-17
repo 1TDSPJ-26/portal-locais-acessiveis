@@ -236,15 +236,17 @@ legend span {
 :root[data-fonte="maior"] { font-size: 125%; }
 
 :root[data-contraste="alto"] {
-  --text: #ffffff;
-  --text-h: #ffffff;
-  --bg: #000000;
-  --border: #ffffff;
-  --code-bg: #000000;
-  --accent: #ffff00;
-  --accent-bg: #000000;
-  --accent-border: #ffff00;
-  --social-bg: #000000;
+  /* Sobrescreve as mesmas variáveis do tema, em vez de criar outros nomes.
+     Nomes exclusivos daqui ficariam sem valor no modo normal, e as regras que
+     dependessem deles seriam descartadas pelo navegador. */
+  --ink: #ffffff;
+  --muted: #ffffff;
+  --paper: #000000;
+  --card: #000000;
+  --line: #ffffff;
+  --leaf: #ffff00;
+  --leaf-soft: #000000;
+  --coral: #ffff00;
   color-scheme: dark;
 }
 
@@ -287,21 +289,21 @@ legend span {
   min-width: 2.75rem;
   min-height: 2.75rem;
   padding: 0.4rem 0.75rem;
-  border: 0.125rem solid var(--border);
+  border: 0.125rem solid var(--line);
   border-radius: 0.4rem;
-  color: var(--text-h);
-  background: var(--bg);
+  color: var(--ink);
+  background: var(--card);
   font: inherit;
   cursor: pointer;
 }
 
 .controles-exibicao button[aria-pressed="true"] {
-  border-color: var(--accent);
-  box-shadow: inset 0 0 0 0.125rem var(--accent);
+  border-color: var(--leaf);
+  box-shadow: inset 0 0 0 0.125rem var(--leaf);
 }
 
 .controles-exibicao button:focus-visible {
-  outline: 0.1875rem solid var(--accent);
+  outline: 0.1875rem solid var(--leaf);
   outline-offset: 0.1875rem;
 }
 
@@ -336,6 +338,6 @@ footer nav a {
 }
 
 footer nav a:focus-visible {
-  outline: 0.1875rem solid var(--accent);
+  outline: 0.1875rem solid var(--leaf);
   outline-offset: 0.1875rem;
 }
