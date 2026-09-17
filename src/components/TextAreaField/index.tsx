@@ -23,7 +23,7 @@ export default function TextAreaField({
 }: TextAreaFieldProps) {
   return (
     <div className={fullWidth ? 'flex flex-col gap-1.5 md:col-span-2' : 'flex flex-col gap-1.5'}>
-      <label htmlFor={id} className="text-sm font-medium text-(--text-h)">
+      <label htmlFor={id} className="text-sm font-medium text-(--ink)">
         {label}
       </label>
       <textarea
@@ -35,7 +35,7 @@ export default function TextAreaField({
         onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
           onChange(event.target.name, event.target.value)
         }
-        className="w-full resize-none rounded-md border border-(--border) bg-(--bg) px-3 py-2 text-(--text-h) placeholder:text-(--text) outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg)"
+        className="w-full resize-none rounded-md border border-(--control) bg-(--card) px-3 py-2 text-(--ink) placeholder:text-(--muted) outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
       />
     </div>
   );

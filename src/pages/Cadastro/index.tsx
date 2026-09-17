@@ -5,16 +5,16 @@ import SelectField from "../../components/SelectField/index";
 import TextAreaField from "../../components/TextAreaField/index";
 import CheckboxField from "../../components/CheckboxField/index";
 import {
-  CATEGORIAS_LOCAL,
+  categoriasLocais,
   DADOS_INICIAIS,
-  ROTULOS_CATEGORIA,
   UFS_BRASIL,
 } from "../../types/local.ts";
 import type { DadosFormularioLocal } from "../../types/local.ts";
 
-const OPCOES_CATEGORIA = CATEGORIAS_LOCAL.map((categoria) => ({
+// As categorias da listagem já são legíveis, então servem de valor e de rótulo.
+const OPCOES_CATEGORIA = categoriasLocais.map((categoria) => ({
   valor: categoria,
-  rotulo: ROTULOS_CATEGORIA[categoria],
+  rotulo: categoria,
 }));
 
 const OPCOES_ESTADO = UFS_BRASIL.map((uf) => ({ valor: uf, rotulo: uf }));
@@ -50,14 +50,14 @@ export default function Cadastro() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8 text-left text-(--text)">
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 text-left text-(--ink)">
       <h1>Cadastro</h1>
 
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         {/* TODO (Issue 13): adicionar somente campos e validações aprovados. */}
 
-        <fieldset className="rounded-lg border border-(--border) bg-(--bg) px-5 pb-6 pt-4 shadow-(--shadow)">
-          <legend className="px-2 text-sm font-semibold text-(--text-h)">
+        <fieldset className="rounded-lg border border-(--control) bg-(--card) px-5 pb-6 pt-4 shadow-(--shadow)">
+          <legend className="px-2 text-sm font-semibold text-(--ink)">
             Identificação
           </legend>
           <div className={CLASSE_GRADE}>
@@ -75,6 +75,7 @@ export default function Cadastro() {
               value={form.categoria}
               options={OPCOES_CATEGORIA}
               onChange={atualizarCampo}
+              placeholder="Selecione a categoria"
             />
             <TextAreaField
               id="descricao"
@@ -87,8 +88,8 @@ export default function Cadastro() {
           </div>
         </fieldset>
 
-        <fieldset className="rounded-lg border border-(--border) bg-(--bg) px-5 pb-6 pt-4 shadow-(--shadow)">
-          <legend className="px-2 text-sm font-semibold text-(--text-h)">
+        <fieldset className="rounded-lg border border-(--control) bg-(--card) px-5 pb-6 pt-4 shadow-(--shadow)">
+          <legend className="px-2 text-sm font-semibold text-(--ink)">
             Endereço
           </legend>
           <div className={CLASSE_GRADE}>
@@ -148,8 +149,8 @@ export default function Cadastro() {
           </div>
         </fieldset>
 
-        <fieldset className="rounded-lg border border-(--border) bg-(--bg) px-5 pb-6 pt-4 shadow-(--shadow)">
-          <legend className="px-2 text-sm font-semibold text-(--text-h)">
+        <fieldset className="rounded-lg border border-(--control) bg-(--card) px-5 pb-6 pt-4 shadow-(--shadow)">
+          <legend className="px-2 text-sm font-semibold text-(--ink)">
             Recursos de acessibilidade
           </legend>
           <div className={CLASSE_GRADE}>
@@ -191,8 +192,8 @@ export default function Cadastro() {
           </div>
         </fieldset>
 
-        <fieldset className="rounded-lg border border-(--border) bg-(--bg) px-5 pb-6 pt-4 shadow-(--shadow)">
-          <legend className="px-2 text-sm font-semibold text-(--text-h)">
+        <fieldset className="rounded-lg border border-(--control) bg-(--card) px-5 pb-6 pt-4 shadow-(--shadow)">
+          <legend className="px-2 text-sm font-semibold text-(--ink)">
             Contato
           </legend>
           <div className={CLASSE_GRADE}>
@@ -227,7 +228,7 @@ export default function Cadastro() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="self-start rounded-md bg-(--accent) px-7 py-3 font-semibold text-white outline-none transition hover:brightness-95 focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg)"
+          className="self-start rounded-md bg-(--accent) px-7 py-3 font-semibold text-white outline-none transition hover:brightness-95 focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
         >
           {status === "loading" ? "Enviando..." : "Cadastrar local"}
         </button>

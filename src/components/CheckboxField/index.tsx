@@ -27,7 +27,7 @@ export default function CheckboxField({
         }
         className="h-4 w-4 shrink-0 accent-(--accent)"
       />
-      <label htmlFor={id} className="text-sm text-(--text-h)">
+      <label htmlFor={id} className="text-sm text-(--ink)">
         {label}
       </label>
     </div>
