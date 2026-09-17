@@ -1,25 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #172321;
-  --muted: #687572;
+  --ink: #211d2b;
+  --muted: #5f5870;
   --paper: #f6f4ed;
   --card: #fffdf8;
-  --line: #d8ded5;
-  --leaf: #1d6b55;
-  --leaf-soft: #dcefe3;
-  --coral: #d56b4b;
-  --control: #9daaa2;
-  --hero: #1d3d35;
+  --line: #ded8e3;
+  --control: #7d7589;
+  --accent: #6d28d9;
+  --accent-soft: #ece4fa;
+  --hero: #2e1d3d;
   --hero-ink: #f5f3e9;
-  --hero-muted: #c9d8cb;
-  --hero-accent: #a5cfaf;
+  --hero-muted: #cfc3dd;
+  --hero-accent: #d8b4fe;
+  --alert: #b3451f;
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--paper);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Acompanha a configuração do sistema de quem acessa. O portal tinha esse
+   comportamento e ele se perdeu na troca de tema; aqui ele volta, já com a
+   paleta atual. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f3f4f6;
+    --muted: #9ca3af;
+    --paper: #16171d;
+    --card: #1f2028;
+    --line: #2e303a;
+    --control: #7a7e92;
+    --accent: #c084fc;
+    --accent-soft: #2a2140;
+    --hero: #241a33;
+    --hero-ink: #f5f3e9;
+    --hero-muted: #cfc3dd;
+    --hero-accent: #d8b4fe;
+    --alert: #f0906b;
+    color-scheme: dark;
+  }
 }
 #root {
   min-height: 100svh;
@@ -60,9 +82,9 @@ button {
   right: -70px;
   top: -100px;
 }
-/* Os dois vivem sobre fundos diferentes: a faixa de destaque é escura e o
-   conteúdo é claro. Com uma cor só, um dos dois fica sempre sem contraste
-   suficiente — sobre o fundo claro, esta cor rende 1,57:1. */
+/* Os dois textos de apoio estavam na mesma regra, mas vivem sobre fundos
+   diferentes: um no hero escuro, outro no conteúdo claro. Com uma cor só, um
+   dos dois fica sempre com contraste insuficiente. */
 .eyebrow,
 .section-kicker {
   margin: 0 0 12px;
@@ -70,12 +92,10 @@ button {
   letter-spacing: 1.8px;
   font-size: 11px;
   font-weight: bold;
-}
-.eyebrow {
   color: var(--hero-accent);
 }
 .section-kicker {
-  color: var(--leaf);
+  color: var(--accent);
 }
 h1 {
   max-width: 720px;
@@ -102,7 +122,7 @@ h1 {
   color: var(--ink);
 }
 .search-field:focus-within {
-  border-color: var(--hero-accent);
+  border-color: var(--accent);
 }
 .search-field input {
   min-width: 0;
@@ -143,7 +163,7 @@ h3 {
 }
 .filter-toggle,
 .clear-button {
-  border: 1px solid var(--line);
+  border: 1px solid var(--control);
   background: transparent;
   color: var(--ink);
   padding: 10px 15px;
@@ -151,7 +171,7 @@ h3 {
 }
 .filter-toggle span:first-child {
   margin-right: 6px;
-  color: var(--leaf);
+  color: var(--accent);
 }
 .filter-count {
   display: inline-grid;
@@ -160,7 +180,7 @@ h3 {
   height: 20px;
   margin-left: 7px;
   border-radius: 50%;
-  background: var(--leaf);
+  background: var(--accent);
   color: white;
   font-size: 12px;
 }
@@ -171,7 +191,7 @@ h3 {
   background: var(--card);
 }
 .clear-button {
-  color: var(--leaf);
+  color: var(--accent);
   text-decoration: underline;
   border-color: transparent;
   padding-inline: 0;
@@ -203,7 +223,7 @@ legend span {
   gap: 9px;
 }
 .category-option {
-  border: 1px solid var(--line);
+  border: 1px solid var(--control);
   padding: 9px 14px;
   background: var(--card);
 }
@@ -213,9 +233,9 @@ legend span {
   opacity: 0;
 }
 .category-option.is-selected {
-  border-color: var(--leaf);
-  background: var(--leaf-soft);
-  color: var(--leaf);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 .check-option {
   display: flex;
@@ -234,13 +254,13 @@ legend span {
   font-size: 13px;
 }
 .check-option input:checked + .custom-check {
-  border-color: var(--leaf);
-  background: var(--leaf);
+  border-color: var(--accent);
+  background: var(--accent);
   color: white;
 }
 .check-option input:focus-visible + .custom-check,
 .category-option:has(input:focus-visible) {
-  outline: 3px solid var(--hero-accent);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -249,17 +269,19 @@ legend span {
 :root[data-fonte="maior"] { font-size: 125%; }
 
 :root[data-contraste="alto"] {
-  /* Sobrescreve as mesmas variáveis do tema, em vez de criar outros nomes.
-     Nomes exclusivos daqui ficariam sem valor no modo normal, e as regras que
-     dependessem deles seriam descartadas pelo navegador. */
   --ink: #ffffff;
   --muted: #ffffff;
   --paper: #000000;
   --card: #000000;
   --line: #ffffff;
-  --leaf: #ffff00;
-  --leaf-soft: #000000;
-  --coral: #ffff00;
+  --control: #ffffff;
+  --accent: #ffff00;
+  --accent-soft: #000000;
+  --hero: #000000;
+  --hero-ink: #ffffff;
+  --hero-muted: #ffffff;
+  --hero-accent: #ffff00;
+  --alert: #ffff00;
   color-scheme: dark;
 }
 
@@ -302,7 +324,7 @@ legend span {
   min-width: 2.75rem;
   min-height: 2.75rem;
   padding: 0.4rem 0.75rem;
-  border: 0.125rem solid var(--line);
+  border: 0.125rem solid var(--control);
   border-radius: 0.4rem;
   color: var(--ink);
   background: var(--card);
@@ -311,12 +333,12 @@ legend span {
 }
 
 .controles-exibicao button[aria-pressed="true"] {
-  border-color: var(--leaf);
-  box-shadow: inset 0 0 0 0.125rem var(--leaf);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 0.125rem var(--accent);
 }
 
 .controles-exibicao button:focus-visible {
-  outline: 0.1875rem solid var(--leaf);
+  outline: 0.1875rem solid var(--accent);
   outline-offset: 0.1875rem;
 }
 
@@ -351,6 +373,6 @@ footer nav a {
 }
 
 footer nav a:focus-visible {
-  outline: 0.1875rem solid var(--leaf);
+  outline: 0.1875rem solid var(--accent);
   outline-offset: 0.1875rem;
 }
