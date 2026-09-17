@@ -45,12 +45,13 @@ export default function LocaisPage() {
           Pesquise por nome ou combine recursos de acessibilidade para planejar
           sua próxima saída.
         </p>
-        <label className="search-field">
+        <label className="search-field" htmlFor="campo-busca-locais">
           <span className="search-icon" aria-hidden="true">
             ⌕
           </span>
           <span className="sr-only">Buscar por nome, bairro ou endereço</span>
           <input
+            id="campo-busca-locais"
             type="search"
             value={termo}
             onChange={(evento) => setTermo(evento.target.value)}
