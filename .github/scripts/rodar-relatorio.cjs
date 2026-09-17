@@ -6,7 +6,7 @@
  */
 
 const { vincular, atividadePorPessoa, decisaoDaRevisao } = require("./relatorio-techlead.cjs");
-const { montar } = require("./montar-relatorio.cjs");
+const { montar} = require("./montar-relatorio.cjs");
 
 const API = "https://api.github.com";
 const token = process.env.GITHUB_TOKEN;
