@@ -9,6 +9,11 @@
   --leaf: #1d6b55;
   --leaf-soft: #dcefe3;
   --coral: #d56b4b;
+  --control: #9daaa2;
+  --hero: #1d3d35;
+  --hero-ink: #f5f3e9;
+  --hero-muted: #c9d8cb;
+  --hero-accent: #a5cfaf;
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--paper);
@@ -41,8 +46,8 @@ button {
 }
 .hero {
   padding: 58px 7.5% 64px;
-  color: #f5f3e9;
-  background: #1d3d35;
+  color: var(--hero-ink);
+  background: var(--hero);
   position: relative;
 }
 .hero::after {
@@ -67,7 +72,7 @@ button {
   font-weight: bold;
 }
 .eyebrow {
-  color: #a5cfaf;
+  color: var(--hero-accent);
 }
 .section-kicker {
   color: var(--leaf);
@@ -84,7 +89,7 @@ h1 {
 .hero-copy {
   max-width: 520px;
   margin: 22px 0 32px;
-  color: #c9d8cb;
+  color: var(--hero-muted);
 }
 .search-field {
   display: flex;
@@ -92,12 +97,12 @@ h1 {
   gap: 12px;
   max-width: 650px;
   padding: 0 18px;
-  background: #fffdf8;
+  background: var(--card);
   border: 2px solid transparent;
   color: var(--ink);
 }
 .search-field:focus-within {
-  border-color: #a5cfaf;
+  border-color: var(--hero-accent);
 }
 .search-field input {
   min-width: 0;
@@ -163,7 +168,7 @@ h3 {
   margin: 28px 0;
   padding: 25px 28px;
   border: 1px solid var(--line);
-  background: rgba(255, 253, 248, 0.7);
+  background: var(--card);
 }
 .clear-button {
   color: var(--leaf);
@@ -172,7 +177,7 @@ h3 {
   padding-inline: 0;
 }
 .clear-button:disabled {
-  color: #a5aeaa;
+  color: var(--muted);
   text-decoration: none;
   cursor: not-allowed;
 }
@@ -222,7 +227,7 @@ legend span {
 .custom-check {
   width: 19px;
   height: 19px;
-  border: 1px solid #9daaa2;
+  border: 1px solid var(--control);
   display: grid;
   place-items: center;
   color: transparent;
@@ -235,7 +240,7 @@ legend span {
 }
 .check-option input:focus-visible + .custom-check,
 .category-option:has(input:focus-visible) {
-  outline: 3px solid #a5cfaf;
+  outline: 3px solid var(--hero-accent);
   outline-offset: 2px;
 }
 
