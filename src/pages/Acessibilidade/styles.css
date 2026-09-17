@@ -1,0 +1,105 @@
+.accessibility-page {
+    width: min(calc(100% - 2rem), 72rem);
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.accessibility-header {
+    max-width: 48rem;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+}
+
+.accessibility-eyebrow {
+    margin: 0 0 0.5rem;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.accessibility-header h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.1;
+}
+
+.accessibility-header > p:last-child {
+    margin: 0;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.7;
+}
+
+.accessibility-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.accessibility-content section {
+    min-width: 0;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    border-radius: 1rem;
+    background: var(--code-bg);
+}
+
+.accessibility-content h2 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.accessibility-content p,
+.accessibility-content li {
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.accessibility-content p {
+    margin: 0;
+}
+
+.accessibility-content ul {
+    margin: 1rem 0 0;
+    padding-left: 1.25rem;
+}
+
+.accessibility-content li + li {
+    margin-top: 0.5rem;
+}
+
+.accessibility-content section:nth-child(3),
+.accessibility-content section:nth-child(4),
+.accessibility-content section:nth-child(5) {
+    grid-column: 1 / -1;
+}
+
+.accessibility-content a {
+    font-weight: 700;
+}
+
+.accessibility-content a:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 0.2rem;
+}
+
+.accessibility-content section:focus-within {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+@media (max-width: 48rem) {
+    .accessibility-page {
+        width: min(calc(100% - 1.25rem), 72rem);
+    }
+
+    .accessibility-content {
+        grid-template-columns: 1fr;
+    }
+
+    .accessibility-content section:nth-child(3),
+    .accessibility-content section:nth-child(4),
+    .accessibility-content section:nth-child(5) {
+        grid-column: auto;
+    }
+}

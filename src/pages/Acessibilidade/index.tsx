@@ -1,9 +1,15 @@
+import "./styles.css";
+
 export default function Acessibilidade() {
   return (
-    <article className="accessibility-page">
-      <header>
-        <p>Compromisso com a inclusão</p>
+    <main className="accessibility-page">
+      <header className="accessibility-header">
+        <p className="accessibility-eyebrow">
+          Compromisso com a inclusão
+        </p>
+
         <h1>Acessibilidade</h1>
+
         <p>
           Nosso objetivo é tornar o acesso às informações sobre locais e
           serviços acessíveis mais simples, claro e inclusivo para todas as
@@ -11,80 +17,75 @@ export default function Acessibilidade() {
         </p>
       </header>
 
-      <section aria-labelledby="accessibility-resources">
-        <h2 id="accessibility-resources">
-          Recursos de acessibilidade
-        </h2>
+      <div className="accessibility-content">
+        <section aria-labelledby="recursos">
+          <h2 id="recursos">Recursos de acessibilidade</h2>
 
-        <p>
-          O portal busca oferecer uma experiência acessível e facilitar a
-          navegação e o acesso às informações.
-        </p>
+          <p>
+            O portal utiliza uma estrutura organizada para facilitar o acesso
+            às informações e a navegação entre as páginas.
+          </p>
 
-        <ul>
-          <li>
-            Navegação por teclado nas principais áreas do portal.
-          </li>
-          <li>
-            Estrutura de conteúdo organizada com títulos e seções.
-          </li>
-          <li>
-            Textos e informações apresentados de forma clara e objetiva.
-          </li>
-          <li>
-            Identificação visual dos elementos que recebem foco durante a
-            navegação.
-          </li>
-        </ul>
-      </section>
+          <ul>
+            <li>Conteúdo organizado por títulos e seções.</li>
+            <li>Textos apresentados de forma clara e objetiva.</li>
+            <li>Elementos de navegação identificados de forma clara.</li>
+          </ul>
+        </section>
 
-      <section aria-labelledby="accessibility-navigation">
-        <h2 id="accessibility-navigation">
-          Navegação por teclado
-        </h2>
+        <section aria-labelledby="teclado">
+          <h2 id="teclado">Navegação por teclado</h2>
 
-        <p>
-          Os elementos interativos do portal podem ser acessados utilizando a
-          tecla Tab. O foco visual indica o elemento que está selecionado
-          durante a navegação.
-        </p>
-      </section>
+          <p>
+            A navegação pelo portal pode ser realizada utilizando o teclado.
+            A tecla Tab permite percorrer os elementos interativos disponíveis
+            na página.
+          </p>
+        </section>
 
-      <section aria-labelledby="accessibility-standard">
-        <h2 id="accessibility-standard">
-          Conformidade e compromisso
-        </h2>
+        <section aria-labelledby="conformidade">
+          <h2 id="conformidade">Nível de conformidade</h2>
 
-        <p>
-          O portal busca seguir boas práticas de acessibilidade digital e
-          utiliza as diretrizes de acessibilidade como referência para a
-          construção e evolução da plataforma.
-        </p>
-      </section>
+          <p>
+            O portal utiliza as diretrizes WCAG 2.2 como referência para suas
+            práticas de acessibilidade.
+          </p>
 
-      <section aria-labelledby="accessibility-limitations">
-        <h2 id="accessibility-limitations">
-          Limitações conhecidas
-        </h2>
+          <p>
+            <strong>Nível de conformidade almejado: A.</strong>
+          </p>
+        </section>
 
-        <p>
-          Apesar dos esforços para oferecer uma experiência acessível, alguns
-          conteúdos ou funcionalidades podem apresentar limitações. Estamos
-          trabalhando continuamente para identificar e melhorar esses pontos.
-        </p>
-      </section>
+        <section aria-labelledby="limitacoes">
+          <h2 id="limitacoes">Limitações conhecidas</h2>
 
-      <section aria-labelledby="accessibility-contact">
-        <h2 id="accessibility-contact">
-          Entre em contato
-        </h2>
+          <p>
+            Algumas funcionalidades de acessibilidade ainda estão em processo
+            de implementação e melhoria.
+          </p>
+        </section>
 
-        <p>
-          Caso encontre alguma dificuldade de acessibilidade ou tenha uma
-          sugestão para melhorar o portal, entre em contato com a equipe
-          responsável pelo projeto.
-        </p>
-      </section>
-    </article>
+        <section aria-labelledby="contato">
+          <h2 id="contato">Entre em contato</h2>
+
+          <p>
+            Caso encontre alguma barreira de acessibilidade ou tenha uma
+            sugestão de melhoria, utilize o canal abaixo.
+          </p>
+
+          <p>
+            <strong>Canal para relatar barreiras:</strong>{" "}
+            <a
+              href="https://github.com/1TDSPJ-26/portal-locais-acessiveis"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub Issues do projeto
+            </a>
+            .
+          </p>
+        </section>
+      </div>
+    </main>
   );
 }
