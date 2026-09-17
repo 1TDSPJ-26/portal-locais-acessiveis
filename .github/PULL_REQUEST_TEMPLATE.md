@@ -21,7 +21,6 @@ Explique objetivamente o que foi desenvolvido e por quê.
 - 
 - 
 - 
-
 ## Como testar
 
 1. 
