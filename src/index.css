@@ -236,15 +236,17 @@ legend span {
 :root[data-fonte="maior"] { font-size: 125%; }
 
 :root[data-contraste="alto"] {
-  --text: #ffffff;
-  --text-h: #ffffff;
-  --bg: #000000;
-  --border: #ffffff;
-  --code-bg: #000000;
-  --accent: #ffff00;
-  --accent-bg: #000000;
-  --accent-border: #ffff00;
-  --social-bg: #000000;
+  /* Sobrescreve as mesmas variáveis do tema, em vez de criar outros nomes.
+     Nomes exclusivos daqui ficariam sem valor no modo normal, e as regras que
+     dependessem deles seriam descartadas pelo navegador. */
+  --ink: #ffffff;
+  --muted: #ffffff;
+  --paper: #000000;
+  --card: #000000;
+  --line: #ffffff;
+  --leaf: #ffff00;
+  --leaf-soft: #000000;
+  --coral: #ffff00;
   color-scheme: dark;
 }
 
