@@ -212,7 +212,11 @@ export default function LocaisPage() {
               ⌁
             </span>
             <h2>Nenhum local encontrado</h2>
-            <p>Tente remover algum filtro ou buscar por outro termo.</p>
+            <p>
+              {termo.trim()
+                ? `Não foi possível encontrar locais para “${termo.trim()}”`
+                : "Tente remover algum filtro ou buscar por outro termo."}
+            </p>
             <button
               className="clear-button prominent"
               type="button"
