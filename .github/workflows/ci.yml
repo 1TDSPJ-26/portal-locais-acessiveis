@@ -26,36 +26,46 @@ jobs:
       - name: Baixar o código
         uses: actions/checkout@v7
 
-      - name: Verificar se o projeto Node foi inicializado
-        id: project
+      - name: Conferir os arquivos obrigatórios do projeto
         shell: bash
         run: |
-          if [[ -f package.json && -f package-lock.json ]]; then
-            echo "ready=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "Projeto Vite ainda não inicializado. As verificações Node serão ativadas após a criação do package-lock.json."
+          ausentes=()
+          [[ -f package.json ]] || ausentes+=("package.json")
+          [[ -f package-lock.json ]] || ausentes+=("package-lock.json")
+
+          if (( ${#ausentes[@]} > 0 )); then
+            echo "::error::Arquivo obrigatório ausente: ${ausentes[*]}"
+            echo "Sem esses arquivos o CI não consegue verificar a alteração."
+            echo "Execute 'npm install' e versione o package-lock.json gerado."
+            exit 1
           fi
 
+          echo "package.json e package-lock.json presentes."
+
       - name: Configurar Node.js
-        if: steps.project.outputs.ready == 'true'
         uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: npm
 
       - name: Instalar dependências
-        if: steps.project.outputs.ready == 'true'
         run: npm ci
 
       - name: Verificar lint
-        if: steps.project.outputs.ready == 'true'
-        run: npm run lint --if-present
+        run: npm run lint
+
+      - name: Verificar tipos
+        run: npx tsc -b --force
 
       - name: Gerar build
-        if: steps.project.outputs.ready == 'true'
         run: npm run build
 
-      - name: Executar testes disponíveis
-        if: steps.project.outputs.ready == 'true'
-        run: npm run test --if-present
+      - name: Executar testes
+        shell: bash
+        run: |
+          if node -e "process.exit(require('./package.json').scripts?.test ? 0 : 1)"; then
+            npm test
+          else
+            echo "::warning::Nenhum script de teste definido no package.json — etapa não executada."
+            echo "Enquanto não houver testes automatizados, esta etapa não verifica nada."
+          fi
