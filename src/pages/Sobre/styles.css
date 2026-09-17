@@ -12,7 +12,7 @@
 
 .about-eyebrow {
     margin: 0 0 0.5rem;
-    color: var(--accent);
+    color: var(--leaf);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -39,9 +39,9 @@
 .about-section {
     min-width: 0;
     padding: clamp(1.25rem, 3vw, 2rem);
-    border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
     border-radius: 1rem;
-    background: var(--code-bg);
+    background: var(--card);
 }
 
 .about-section h2 {
@@ -78,12 +78,12 @@
 
 .about-section--notice {
     grid-column: 1 / -1;
-    border: 2px solid var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+    border: 2px solid var(--leaf);
+    background: color-mix(in srgb, var(--leaf) 12%, var(--card));
 }
 
 .about-section--notice h2 {
-    color: var(--accent);
+    color: var(--leaf);
 }
 
 @media (max-width: 48rem) {
