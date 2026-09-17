@@ -1,9 +1,10 @@
 import { createContext } from "react";
+import type { DadosCadastroLocal } from "./services/cadastroLocal";
 import type { Local } from "./types/local";
 
 export interface LocaisContextValue {
   locais: Local[];
-  adicionarLocal: (local: Local) => void;
+  cadastrarLocal: (dados: DadosCadastroLocal) => Local;
 }
 
 export const LocaisContext = createContext<LocaisContextValue | null>(null);

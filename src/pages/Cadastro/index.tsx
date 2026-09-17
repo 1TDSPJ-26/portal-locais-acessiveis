@@ -5,7 +5,7 @@ type StatusEnvio = "idle" | "loading" | "success" | "error";
 export default function Cadastro() {
   const [status, setStatus] = useState<StatusEnvio>("idle");
   const [mensagem, setMensagem] = useState(
-    "O formulário de cadastro aguarda a definição dos campos e do contrato da API.",
+    "O formulário de cadastro aguarda a conclusão dos campos e da validação.",
   );
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -15,17 +15,17 @@ export default function Cadastro() {
       return;
     }
 
-    // TODO (Issue 14): validar os campos aprovados e chamar o serviço quando
-    // endpoint, método, corpo e resposta da API estiverem documentados.
+    // A integração com cadastrarLocal depende dos campos e da validação
+    // previstos nas Issues #15 e #16.
     setStatus("error");
-    setMensagem("Cadastro indisponível enquanto o contrato da API não for definido.");
+    setMensagem("Cadastro indisponível até a conclusão do formulário.");
   }
 
   return (
     <div>
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit}>
-        {/* TODO (Issue 13): adicionar somente campos e validações aprovados. */}
+        {/* Os campos e a validação pertencem às Issues #15 e #16. */}
         <button type="submit" disabled={status === "loading"}>
           {status === "loading" ? "Enviando..." : "Cadastrar local"}
         </button>
