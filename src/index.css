@@ -126,3 +126,82 @@ code {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* Preferências de exibição: a escala parte da raiz. */
+:root { font-size: 100%; }
+:root[data-fonte="grande"] { font-size: 112.5%; }
+:root[data-fonte="maior"] { font-size: 125%; }
+
+:root[data-contraste="alto"] {
+  --text: #ffffff;
+  --text-h: #ffffff;
+  --bg: #000000;
+  --border: #ffffff;
+  --code-bg: #000000;
+  --accent: #ffff00;
+  --accent-bg: #000000;
+  --accent-border: #ffff00;
+  --social-bg: #000000;
+  color-scheme: dark;
+}
+
+:root[data-contraste="alto"] :is(header, footer, main, section, article) {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+:root[data-contraste="alto"] a { color: #ffff00; }
+:root[data-contraste="alto"] button {
+  color: #ffffff;
+  background-color: #000000;
+  border: 0.125rem solid #ffffff;
+}
+
+.controles-exibicao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.controles-exibicao button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.75rem;
+  border: 0.125rem solid var(--border);
+  border-radius: 0.4rem;
+  color: var(--text-h);
+  background: var(--bg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.controles-exibicao button[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 0.125rem var(--accent);
+}
+
+.controles-exibicao button:focus-visible {
+  outline: 0.1875rem solid var(--accent);
+  outline-offset: 0.1875rem;
+}
+
+header nav { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+header, main, footer { min-width: 0; }
+
+/* Os títulos também acompanham a escala definida na raiz. */
+h1 {
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  overflow-wrap: anywhere;
+}
+h2 { font-size: 1.5rem; }
+code, .counter { font-size: 0.9375rem; }
+@media (max-width: 64rem) {
+  h1 { font-size: clamp(1.75rem, 5vw, 2.25rem); }
+  h2 { font-size: 1.25rem; }
+}
+.controles-exibicao button:disabled {
+  cursor: not-allowed;
+  border-style: dashed;
+}
