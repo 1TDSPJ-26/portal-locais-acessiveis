@@ -131,7 +131,6 @@ h1 {
   flex: 1;
   padding: 17px 0;
   border: 0;
-  outline: 0;
   background: transparent;
   color: var(--ink);
 }
@@ -260,11 +259,6 @@ legend span {
   background: var(--accent);
   color: white;
 }
-.check-option input:focus-visible + .custom-check,
-.category-option:has(input:focus-visible) {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
-}
 
 :root { font-size: 100%; }
 :root[data-fonte="grande"] { font-size: 112.5%; }
@@ -340,13 +334,86 @@ legend span {
   box-shadow: inset 0 0 0 0.125rem var(--accent);
 }
 
-.controles-exibicao button:focus-visible {
-  outline: 0.1875rem solid var(--accent);
-  outline-offset: 0.1875rem;
-}
 
 header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
 header, main, footer { min-width: 0; }
+
+/* Linha que agrupa o título e o botão do menu mobile. Em telas largas o
+   botão fica escondido e essa linha se comporta como antes. */
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Escondido acima do breakpoint mobile: nesse tamanho a navegação já
+   aparece inteira, sem precisar do disclosure. */
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 48rem) {
+  /* position: relative aqui (e não no elemento inteiro) é suficiente para
+     ancorar o painel como um overlay, sem afetar o layout em telas largas. */
+  header {
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Alvo de toque de 44x44px (WCAG 2.5.5): a área cresce com padding,
+       não com margin, para não empurrar o título ao lado. */
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem;
+    border: 0.125rem solid var(--control);
+    border-radius: 0.4rem;
+    color: var(--ink);
+    background: var(--card);
+    flex-shrink: 0;
+  }
+
+  .menu-toggle-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* Painel fechado por padrão. Ele é posicionado sobre o conteúdo (não
+     empurra o restante do header) para que abrir e fechar não causem
+     layout shift. */
+  header nav#menu-principal {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 20;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    margin: 0;
+    padding: 0.5rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  header nav#menu-principal.nav-aberto {
+    display: flex;
+  }
+
+  header nav#menu-principal .nav-link {
+    /* Também respeita o alvo mínimo de toque de 44px. */
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
 
 h1 {
   font-size: clamp(1.75rem, 5vw, 3.5rem);
@@ -375,7 +442,48 @@ footer nav a {
   text-underline-offset: 0.2em;
 }
 
-footer nav a:focus-visible {
-  outline: 0.1875rem solid var(--accent);
-  outline-offset: 0.1875rem;
+/* Cores compartilhadas do indicador de foco. */
+:root {
+  --cor-foco: #000000;
+  --cor-foco-externa: #ffffff;
+}
+
+/* Continua acessível pelo teclado, mesmo fora da tela. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--ink);
+  background: var(--card);
+  border-radius: 0.25rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  z-index: 100;
+}
+
+/* Contorno preto com faixa branca para fundos claros e escuros.
+   Nos filtros transparentes, o foco aparece no controle visual. */
+:focus-visible,
+.controles-exibicao button:focus-visible,
+.check-option input:focus-visible + .custom-check,
+.category-option:has(input:focus-visible) {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px var(--cor-foco-externa),
+    0 0 0 6px var(--cor-foco-externa);
+}
+
+@media (forced-colors: active) {
+  :focus-visible,
+  .controles-exibicao button:focus-visible,
+  .check-option input:focus-visible + .custom-check,
+  .category-option:has(input:focus-visible) {
+    outline-color: Highlight;
+  }
 }
