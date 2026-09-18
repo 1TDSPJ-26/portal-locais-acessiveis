@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import type { FormEvent } from "react";
+import { Link } from "react-router";
 import TextField from "../../components/TextField/index";
 import SelectField from "../../components/SelectField/index";
 import TextAreaField from "../../components/TextAreaField/index";
@@ -17,9 +18,16 @@ import type {
 import {
   categoriasLocais,
   DADOS_INICIAIS,
+  recursosAcessibilidade,
   UFS_BRASIL,
 } from "../../types/local.ts";
-import type { DadosFormularioLocal } from "../../types/local.ts";
+import type {
+  DadosFormularioLocal,
+  RecursoAcessibilidade,
+} from "../../types/local.ts";
+import { useLocais } from "../../useLocais";
+import { LocalDuplicadoError } from "../../services/cadastroLocal";
+import { dadosFormularioParaCadastro } from "../../utils/converter-formulario";
 
 // As categorias da listagem já são legíveis, então servem de valor e de rótulo.
 const OPCOES_CATEGORIA = categoriasLocais.map((categoria) => ({
@@ -52,24 +60,32 @@ function ehCampoCadastro(name: string): name is CampoCadastro {
   return CAMPOS_VALIDAVEIS.includes(name as CampoCadastro);
 }
 
+// O rótulo do recurso tem espaço e acento, que não servem como id de elemento.
+const idDoRecurso = (recurso: RecursoAcessibilidade) =>
+  `recurso-${recurso
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")}`;
+
 export default function Cadastro() {
   // Issue #15: campos controlados pelo estado (objeto único + manipulador genérico)
   const [form, setForm] = useState<DadosFormularioLocal>(DADOS_INICIAIS);
   const [erros, setErros] = useState<ErrosCadastro>({});
 
   const [status, setStatus] = useState<StatusEnvio>("idle");
-  const [mensagem, setMensagem] = useState(
-    "O formulário de cadastro aguarda a ligação com a lista de locais da aplicação.",
-  );
+  const [mensagem, setMensagem] = useState("");
+
+  const { cadastrarLocal } = useLocais();
 
   const resumoErrosRef = useRef<HTMLDivElement>(null);
 
   const camposComErro = CAMPOS_VALIDAVEIS.filter((campo) => erros[campo]);
 
-  function atualizarCampo(name: string, value: string | boolean) {
+  function atualizarCampo(name: string, value: string) {
     setForm((prev) => ({ ...prev, [name]: value }));
 
-    if (typeof value === "string" && ehCampoCadastro(name) && erros[name]) {
+    if (ehCampoCadastro(name) && erros[name]) {
       const mensagemErro = validarCampo(name, value);
       setErros((prev) => {
         const proximosErros = { ...prev };
@@ -106,6 +122,15 @@ export default function Cadastro() {
     });
   }
 
+  function alternarRecurso(recurso: RecursoAcessibilidade) {
+    setForm((prev) => ({
+      ...prev,
+      recursos: prev.recursos.includes(recurso)
+        ? prev.recursos.filter((item) => item !== recurso)
+        : [...prev.recursos, recurso],
+    }));
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -118,15 +143,32 @@ export default function Cadastro() {
 
     if (!formularioValido(errosEncontrados)) {
       setStatus("error");
-      setMensagem("Corrija os campos indicados antes de enviar o cadastro.");
+      // O resumo de erros já anuncia e recebe o foco; repetir a recusa na
+      // região do rodapé faria o leitor de tela anunciar duas vezes.
+      setMensagem("");
       window.setTimeout(() => resumoErrosRef.current?.focus(), 0);
       return;
     }
 
-    // A chamada a cadastrarLocal, com os estados de envio, sucesso e erro,
-    // permanece pendente: ver a Issue aberta na sequência da Issue #17.
-    setStatus("error");
-    setMensagem("Cadastro indisponível até a ligação com a lista de locais.");
+    setStatus("loading");
+
+    try {
+      const novoLocal = cadastrarLocal(dadosFormularioParaCadastro(form));
+
+      setForm({ ...DADOS_INICIAIS, recursos: [] });
+      setErros({});
+      setStatus("success");
+      setMensagem(
+        `${novoLocal.nome} foi cadastrado e já aparece na listagem de locais.`,
+      );
+    } catch (erro) {
+      setStatus("error");
+      setMensagem(
+        erro instanceof LocalDuplicadoError
+          ? erro.message
+          : "Não foi possível cadastrar o local. Confira os dados e tente novamente.",
+      );
+    }
   }
 
   return (
@@ -139,9 +181,9 @@ export default function Cadastro() {
             ref={resumoErrosRef}
             role="alert"
             tabIndex={-1}
-            className="rounded-md border border-red-600 bg-red-50 px-4 py-3 text-red-900 outline-none focus-visible:ring-2 focus-visible:ring-red-700 focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
+            className="rounded-md border-2 border-(--alert) bg-(--card) px-4 py-3 text-(--ink) outline-none focus-visible:ring-2 focus-visible:ring-(--alert) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
           >
-            <h2 className="text-base font-semibold">
+            <h2 className="text-base font-semibold text-(--alert)">
               Corrija os campos antes de enviar
             </h2>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
@@ -271,42 +313,20 @@ export default function Cadastro() {
           <legend className="px-2 text-sm font-semibold text-(--ink)">
             Recursos de acessibilidade
           </legend>
+          {/* Gerados a partir de `recursosAcessibilidade`, a mesma lista que o
+              painel de filtros da listagem percorre. Acrescentar um recurso
+              ali faz o campo aparecer aqui, sem as duas telas divergirem. */}
           <div className={CLASSE_GRADE}>
-            <CheckboxField
-              id="rampaAcesso"
-              name="rampaAcesso"
-              label="Rampa de acesso"
-              checked={form.rampaAcesso}
-              onChange={atualizarCampo}
-            />
-            <CheckboxField
-              id="banheiroAdaptado"
-              name="banheiroAdaptado"
-              label="Banheiro adaptado"
-              checked={form.banheiroAdaptado}
-              onChange={atualizarCampo}
-            />
-            <CheckboxField
-              id="sinalizacaoTatil"
-              name="sinalizacaoTatil"
-              label="Sinalização tátil"
-              checked={form.sinalizacaoTatil}
-              onChange={atualizarCampo}
-            />
-            <CheckboxField
-              id="pisoTatil"
-              name="pisoTatil"
-              label="Piso tátil"
-              checked={form.pisoTatil}
-              onChange={atualizarCampo}
-            />
-            <CheckboxField
-              id="vagasPreferenciais"
-              name="vagasPreferenciais"
-              label="Vagas preferenciais"
-              checked={form.vagasPreferenciais}
-              onChange={atualizarCampo}
-            />
+            {recursosAcessibilidade.map((recurso) => (
+              <CheckboxField
+                key={recurso}
+                id={idDoRecurso(recurso)}
+                name={recurso}
+                label={recurso}
+                checked={form.recursos.includes(recurso)}
+                onChange={() => alternarRecurso(recurso)}
+              />
+            ))}
           </div>
         </fieldset>
 
@@ -358,8 +378,26 @@ export default function Cadastro() {
         </button>
       </form>
 
-      <div role={status === "error" ? "alert" : "status"} aria-live="polite">
-        {status === "loading" ? "Enviando..." : mensagem}
+      {/* Duas regiões fixas, em vez de uma que troca de papel: alterar `role`
+          ou `aria-live` de um elemento já montado costuma fazer o leitor de
+          tela deixar de anunciar a mensagem. */}
+      <div className="mt-6 flex flex-col gap-2">
+        <output aria-live="polite" className="text-sm text-(--ink)">
+          {status === "success" ? mensagem : ""}
+        </output>
+        <div role="alert" className="text-sm font-medium text-(--alert)">
+          {status === "error" ? mensagem : ""}
+        </div>
+        {status === "success" && (
+          <p className="text-sm">
+            <Link
+              to="/locais"
+              className="text-(--accent) underline underline-offset-2"
+            >
+              Ver o local na listagem
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );
