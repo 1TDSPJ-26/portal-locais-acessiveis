@@ -7,9 +7,10 @@ que o formulário for conectado, os novos locais aparecerão na listagem sem
 recarregar a página, mas não permanecerão após atualizar o navegador. Não há
 configuração de servidor para essa funcionalidade.
 
-A ligação do formulário à função de cadastro depende da conclusão das Issues
-#15 (campos) e #16 (validação). Até lá, a página de cadastro informa que o
-formulário está indisponível.
+As Issues #15 (campos) e #16 (validação) já foram integradas. O que resta é
+ligar o formulário à função de cadastro e tratar os estados de envio, sucesso
+e erro. Até que isso seja feito, a página de cadastro informa que o formulário
+está indisponível.
 
 ## MAIS INFORMAÇÕES ABAIXO
 
