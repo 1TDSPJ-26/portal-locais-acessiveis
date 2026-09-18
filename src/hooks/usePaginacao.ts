@@ -38,6 +38,12 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
     const intervaloFim = Math.min(inicio + visiveis.length, totalItems);
     const intervaloLabel = `Exibindo ${intervaloInicio} a ${intervaloFim} de ${totalItems} itens`;
 
+    // Auxiliares para UI: páginas e status de controles
+    const pages = Array.from({ length: totalPaginas }, (_, i) => i + 1);
+    const canPrev = paginaAtual > 1;
+    const canNext = paginaAtual < totalPaginas;
+    const isSinglePage = totalPaginas === 1;
+
     return {
         paginaAtual,
         totalPaginas,
@@ -48,6 +54,10 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
         intervaloFim,
         totalItems,
         intervaloLabel,
+        pages,
+        canPrev,
+        canNext,
+        isSinglePage,
         topoListaRef,
         handleMudarPagina,
         handleMudarPorPagina,
