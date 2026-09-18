@@ -59,7 +59,7 @@ export default function Cadastro() {
 
   const [status, setStatus] = useState<StatusEnvio>("idle");
   const [mensagem, setMensagem] = useState(
-    "O formulário de cadastro aguarda a definição dos campos e do contrato da API.",
+    "O formulário de cadastro aguarda a ligação com a lista de locais da aplicação.",
   );
 
   const resumoErrosRef = useRef<HTMLDivElement>(null);
@@ -123,10 +123,10 @@ export default function Cadastro() {
       return;
     }
 
-    // TODO (Issue 14): chamar o serviço quando
-    // endpoint, método, corpo e resposta da API estiverem documentados.
+    // A chamada a cadastrarLocal, com os estados de envio, sucesso e erro,
+    // permanece pendente: ver a Issue aberta na sequência da Issue #17.
     setStatus("error");
-    setMensagem("Cadastro indisponível enquanto o contrato da API não for definido.");
+    setMensagem("Cadastro indisponível até a ligação com a lista de locais.");
   }
 
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { locais } from "../data/locais";
+import { useLocais } from "../useLocais";
 import {
   categoriasLocais,
   recursosAcessibilidade,
@@ -12,6 +12,7 @@ import { filtrarLocais } from "../utils/filtrar-locais";
 const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
 
 export default function LocaisPage() {
+  const { locais } = useLocais();
   const [termo, setTermo] = useState("");
   const [filtros, setFiltros] = useState<FiltrosLocais>(filtrosVazios);
   const [painelAberto, setPainelAberto] = useState(false);
