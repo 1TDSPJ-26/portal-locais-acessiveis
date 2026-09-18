@@ -35,7 +35,7 @@ export default function TextField({
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
           onChange(event.target.name, event.target.value)
         }
-        className="w-full rounded-md border border-(--control) bg-(--card) px-3 py-2 text-(--ink) placeholder:text-(--muted) outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
+        className="w-full rounded-md border border-(--control) bg-(--card) px-3 py-2 text-(--ink) placeholder:text-(--muted)"
       />
     </div>
   );

@@ -35,7 +35,7 @@ export default function TextAreaField({
         onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
           onChange(event.target.name, event.target.value)
         }
-        className="w-full resize-none rounded-md border border-(--control) bg-(--card) px-3 py-2 text-(--ink) placeholder:text-(--muted) outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
+        className="w-full resize-none rounded-md border border-(--control) bg-(--card) px-3 py-2 text-(--ink) placeholder:text-(--muted)"
       />
     </div>
   );

@@ -37,7 +37,7 @@ export default function LocaisPage() {
   };
 
   return (
-    <main className="app-shell">
+    <div className="app-shell">
       <header className="hero">
         <p className="eyebrow">Mapa de acesso para todos</p>
         <h1>Encontre lugares que acolhem você.</h1>
@@ -222,6 +222,6 @@ export default function LocaisPage() {
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 }
