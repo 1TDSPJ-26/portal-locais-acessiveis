@@ -2,7 +2,7 @@ import "./styles.css";
 
 export default function Acessibilidade() {
   return (
-    <main className="accessibility-page">
+    <div className="accessibility-page">
       <header className="accessibility-header">
         <p className="accessibility-eyebrow">
           Compromisso com a inclusão
@@ -86,6 +86,6 @@ export default function Acessibilidade() {
           </p>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

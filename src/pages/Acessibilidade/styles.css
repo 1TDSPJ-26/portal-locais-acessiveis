@@ -77,12 +77,6 @@
     font-weight: 700;
 }
 
-.accessibility-content a:focus-visible {
-    outline: 3px solid currentColor;
-    outline-offset: 4px;
-    border-radius: 0.2rem;
-}
-
 .accessibility-content section:focus-within {
     outline: 2px solid currentColor;
     outline-offset: 2px;
