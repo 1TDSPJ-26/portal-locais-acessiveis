@@ -338,6 +338,83 @@ legend span {
 header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
 header, main, footer { min-width: 0; }
 
+/* Linha que agrupa o título e o botão do menu mobile. Em telas largas o
+   botão fica escondido e essa linha se comporta como antes. */
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Escondido acima do breakpoint mobile: nesse tamanho a navegação já
+   aparece inteira, sem precisar do disclosure. */
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 48rem) {
+  /* position: relative aqui (e não no elemento inteiro) é suficiente para
+     ancorar o painel como um overlay, sem afetar o layout em telas largas. */
+  header {
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Alvo de toque de 44x44px (WCAG 2.5.5): a área cresce com padding,
+       não com margin, para não empurrar o título ao lado. */
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem;
+    border: 0.125rem solid var(--control);
+    border-radius: 0.4rem;
+    color: var(--ink);
+    background: var(--card);
+    flex-shrink: 0;
+  }
+
+  .menu-toggle-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* Painel fechado por padrão. Ele é posicionado sobre o conteúdo (não
+     empurra o restante do header) para que abrir e fechar não causem
+     layout shift. */
+  header nav#menu-principal {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 20;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    margin: 0;
+    padding: 0.5rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  header nav#menu-principal.nav-aberto {
+    display: flex;
+  }
+
+  header nav#menu-principal .nav-link {
+    /* Também respeita o alvo mínimo de toque de 44px. */
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
 h1 {
   font-size: clamp(1.75rem, 5vw, 3.5rem);
   overflow-wrap: anywhere;
@@ -410,3 +487,4 @@ footer nav a {
     outline-color: Highlight;
   }
 }
+

@@ -1,6 +1,6 @@
 import type { FiltrosLocais, Local, RecursoAcessibilidade } from "../types/local"
 
-const normalizar = (valor: string) => valor.trim().toLocaleLowerCase('pt-BR')
+const normalizar = (valor: string) => valor.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR')
 
 const atendeRecursos = (local: Local, recursos: RecursoAcessibilidade[]) =>
   recursos.every((recurso) => local.recursos.includes(recurso))
