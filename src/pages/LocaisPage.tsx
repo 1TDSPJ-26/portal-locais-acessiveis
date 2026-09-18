@@ -57,6 +57,9 @@ export default function LocaisPage() {
             onChange={(evento) => setTermo(evento.target.value)}
             placeholder="Buscar por nome, bairro ou endereço"
           />
+          <output aria-live="polite">
+            {resultados.length} {resultados.length === 1 ? "local encontrado" : "locais encontrados"}
+          </output>
         </label>
       </header>
 
