@@ -372,7 +372,7 @@ export default function Cadastro() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="self-start rounded-md bg-(--accent) px-7 py-3 font-semibold text-white outline-none transition hover:brightness-95 focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
+          className="self-start rounded-md bg-(--accent) px-7 py-3 font-semibold text-white transition hover:brightness-95"
         >
           {status === "loading" ? "Enviando..." : "Cadastrar local"}
         </button>

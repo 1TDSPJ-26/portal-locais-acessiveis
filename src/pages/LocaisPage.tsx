@@ -38,7 +38,7 @@ export default function LocaisPage() {
   };
 
   return (
-    <main className="app-shell">
+    <div className="app-shell">
       <header className="hero">
         <p className="eyebrow">Mapa de acesso para todos</p>
         <h1>Encontre lugares que acolhem você.</h1>
@@ -46,17 +46,21 @@ export default function LocaisPage() {
           Pesquise por nome ou combine recursos de acessibilidade para planejar
           sua próxima saída.
         </p>
-        <label className="search-field">
+        <label className="search-field" htmlFor="campo-busca-locais">
           <span className="search-icon" aria-hidden="true">
             ⌕
           </span>
           <span className="sr-only">Buscar por nome, bairro ou endereço</span>
           <input
+            id="campo-busca-locais"
             type="search"
             value={termo}
             onChange={(evento) => setTermo(evento.target.value)}
             placeholder="Buscar por nome, bairro ou endereço"
           />
+          <output aria-live="polite">
+            {resultados.length} {resultados.length === 1 ? "local encontrado" : "locais encontrados"}
+          </output>
         </label>
       </header>
 
@@ -212,7 +216,11 @@ export default function LocaisPage() {
               ⌁
             </span>
             <h2>Nenhum local encontrado</h2>
-            <p>Tente remover algum filtro ou buscar por outro termo.</p>
+            <p>
+              {termo.trim()
+                ? `Não foi possível encontrar locais para “${termo.trim()}”`
+                : "Tente remover algum filtro ou buscar por outro termo."}
+            </p>
             <button
               className="clear-button prominent"
               type="button"
@@ -223,6 +231,6 @@ export default function LocaisPage() {
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 }
