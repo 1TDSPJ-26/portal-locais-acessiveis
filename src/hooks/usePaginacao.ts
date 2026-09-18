@@ -5,7 +5,7 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
     const [porPagina, setPorPagina] = useState<number>(10);
 
     const availableOptions = optionsPorPagina ?? [10, 20, 50];
-
+        
     const totalPaginas = Math.max(1, Math.ceil(filtrados.length / porPagina));
     const paginaAtual = Math.min(pagina, totalPaginas);
 
@@ -63,4 +63,6 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
         handleMudarPorPagina,
         handleFiltroAlterado,
     } as const;
+
+   
 }
