@@ -1,7 +1,18 @@
 export const categoriasLocais = ['Cultura', 'Alimentação', 'Lazer', 'Serviços'] as const
 export type CategoriaLocal = (typeof categoriasLocais)[number]
 
-export const recursosAcessibilidade = ['Entrada sem degraus', 'Banheiro acessível', 'Piso tátil', 'Libras', 'Audiodescrição'] as const
+/* Esta e a unica lista de recursos de acessibilidade do projeto. O formulario
+   de cadastro e o painel de filtros da listagem geram seus campos a partir
+   dela, de modo que nao podem voltar a divergir. */
+export const recursosAcessibilidade = [
+  'Entrada sem degraus',
+  'Banheiro acessível',
+  'Piso tátil',
+  'Sinalização tátil',
+  'Vagas preferenciais',
+  'Libras',
+  'Audiodescrição',
+] as const
 export type RecursoAcessibilidade = (typeof recursosAcessibilidade)[number]
 
 export interface Local {
@@ -10,6 +21,12 @@ export interface Local {
   categoria: CategoriaLocal
   endereco: string
   recursos: RecursoAcessibilidade[]
+  /* Preenchidos pelo cadastro. Sao opcionais porque os locais de exemplo em
+     `src/data/locais.ts` antecedem o formulario e nao os possuem. */
+  descricao?: string
+  email?: string
+  telefone?: string
+  site?: string
 }
 
 export interface FiltrosLocais {
@@ -45,11 +62,7 @@ export interface DadosFormularioLocal {
   estado: UnidadeFederativa | '';
   cep: string;
   // Recursos de acessibilidade
-  rampaAcesso: boolean;
-  banheiroAdaptado: boolean;
-  sinalizacaoTatil: boolean;
-  pisoTatil: boolean;
-  vagasPreferenciais: boolean;
+  recursos: RecursoAcessibilidade[];
   // Contato
   email: string;
   telefone: string;
@@ -67,11 +80,7 @@ export const DADOS_INICIAIS: DadosFormularioLocal = {
   cidade: '',
   estado: '',
   cep: '',
-  rampaAcesso: false,
-  banheiroAdaptado: false,
-  sinalizacaoTatil: false,
-  pisoTatil: false,
-  vagasPreferenciais: false,
+  recursos: [],
   email: '',
   telefone: '',
   site: '',
