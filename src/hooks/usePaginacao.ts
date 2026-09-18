@@ -20,13 +20,16 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
 
     function handleMudarPagina(novaPagina: number) {
         setPagina(novaPagina);
-        // mover foco para o topo da lista (se anexado pela UI)
         topoListaRef.current?.focus();
     }
 
     function handleMudarPorPagina(novoValor: number) {
         setPorPagina(novoValor);
-        // paginaAtual é derivado e fará o clamp automaticamente
+    }
+
+    // Handler que o componente de busca/filters deve chamar ao alterar o termo/filtros
+    function handleFiltroAlterado() {
+        setPagina(1);
     }
 
     // Contador de intervalo e total
@@ -35,25 +38,19 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
     const intervaloFim = Math.min(inicio + visiveis.length, totalItems);
     const intervaloLabel = `Exibindo ${intervaloInicio} a ${intervaloFim} de ${totalItems} itens`;
 
-    // Handler que o componente de busca/filters deve chamar ao alterar o termo/filtros
-    function handleFiltroAlterado() {
-        setPagina(1);
-    }
-
     return {
         paginaAtual,
         totalPaginas,
         visiveis,
         porPagina,
         availableOptions,
-        topoListaRef,
-        handleMudarPagina,
-        handleMudarPorPagina,
-        handleFiltroAlterado,
-        availableOptions,
         intervaloInicio,
         intervaloFim,
         totalItems,
         intervaloLabel,
+        topoListaRef,
+        handleMudarPagina,
+        handleMudarPorPagina,
+        handleFiltroAlterado,
     } as const;
 }
