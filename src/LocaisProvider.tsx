@@ -13,7 +13,8 @@ export function LocaisProvider({ children }: { children: ReactNode }) {
   const [locais, setLocais] = useState<Local[]>([...locaisIniciais]);
 
   const carregar = useCallback(() => {
-    setEstado("carregando");
+    // Sem setState síncrono aqui: os únicos setEstado ocorrem dentro
+    // do then/catch, depois da carga, e o efeito não causa cascata.
     carregarLocais()
       .then((carregados) => {
         setLocais(carregados);
@@ -35,7 +36,11 @@ export function LocaisProvider({ children }: { children: ReactNode }) {
     }
   }, [estado, locais]);
 
-  const tentarNovamente = () => carregar();
+  const tentarNovamente = () => {
+    // Evento de clique, não efeito: pode setar estado síncrono sem problema.
+    setEstado("carregando");
+    carregar();
+  };
 
   /* Fonte unica: o estado. `criarLocal` le a lista do render corrente para
      conferir duplicidade e gerar o identificador, e o acrescimo usa a forma
