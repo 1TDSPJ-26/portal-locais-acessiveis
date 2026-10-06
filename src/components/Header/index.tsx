@@ -33,18 +33,18 @@ export function Header() {
       if (e.key === "Tab" && painelMenuRef.current) {
         const focaveis = Array.from(
           painelMenuRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-);
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
 
-      if (botaoMenuRef.current) {
-        focaveis.unshift(botaoMenuRef.current);
-}
+        if (botaoMenuRef.current) {
+          focaveis.unshift(botaoMenuRef.current);
+        }
 
-      if (focaveis.length === 0) return;
+        if (focaveis.length === 0) return;
 
-      const primeiro = focaveis[0];
-      const ultimo = focaveis[focaveis.length - 1];
+        const primeiro = focaveis[0];
+        const ultimo = focaveis[focaveis.length - 1];
 
         if (e.shiftKey && document.activeElement === primeiro) {
           e.preventDefault();
@@ -58,6 +58,44 @@ export function Header() {
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
+  }, [menuAberto]);
+  useEffect(() => {
+    if (!menuAberto) return;
+
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+
+      if (
+        !painelMenuRef.current?.contains(target) &&
+        !botaoMenuRef.current?.contains(target)
+      ) {
+        setMenuAberto(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [menuAberto]);
+
+  useEffect(() => {
+    if (!menuAberto) return;
+
+    const mediaQuery = window.matchMedia("(max-width: 48rem)");
+
+    const onChange = () => {
+      if (!mediaQuery.matches) {
+        setMenuAberto(false);
+      }
+    };
+
+    mediaQuery.addEventListener("change", onChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", onChange);
+    };
   }, [menuAberto]);
 
   return (
