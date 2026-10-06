@@ -1,0 +1,31 @@
+npm test
+
+npm notice run portal-acessivel-template@0.0.0 test
+npm notice run node --test "tests/**/*.test.mjs"
+✔ gera o ID a partir do maior ID, mesmo com lacunas (6.2515ms)
+✔ recusa nome e endereço iguais sem distinguir caixa ou acentos (4.1097ms)
+✔ permite mesmo nome em outro endereço (0.6552ms)
+✔ não repete IDs em cadastros sucessivos (0.6453ms)
+✔ copia os recursos para não compartilhar o arranjo do formulário (3.3159ms)
+✔ carrega os locais de exemplo somente depois do atraso simulado (11.3795ms)
+✔ alterar uma carga não modifica os dados de exemplo nem a próxima carga (1.7827ms)
+✔ cargas simultâneas devolvem listas e recursos independentes (1.5917ms)
+✔ reune os campos de endereço numa linha unica (4.5953ms)
+✔ nao deixa separador solto quando o complemento esta vazio (1.1118ms)
+✔ preserva os recursos marcados no formulario (2.7106ms)
+✔ nao compartilha o arranjo de recursos com o formulario (0.7497ms)
+✔ recorta os espacos em volta do nome (0.5298ms)
+✔ preserva descricao e contato (0.592ms)
+✔ campo opcional em branco fica ausente, e nao texto vazio (2.1855ms)
+✔ recusa converter enquanto a categoria nao for escolhida (2.0694ms)
+✔ deve possuir contraste mínimo de 4.5:1 (3.3599ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 943.1876
+
+Exit code: 0

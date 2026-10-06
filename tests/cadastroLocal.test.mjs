@@ -1,49 +1,169 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
-import { criarLocal, LocalDuplicadoError } from "../src/services/cadastroLocal.ts";
+import test from "node:test";
 
-const dados = {
+import {
+  criarLocal,
+  LocalDuplicadoError,
+} from "../src/services/cadastroLocal.ts";
+
+const base = {
   nome: "Biblioteca Central",
   categoria: "Cultura",
-  endereco: "Rua das Flores, 10",
-  recursos: ["Piso tátil"],
+  endereco: "Rua Principal, 100",
+  recursos: ["Entrada sem degraus"],
 };
 
 test("gera o ID a partir do maior ID, mesmo com lacunas", () => {
   const locais = [
-    { id: 2, ...dados, nome: "Outro local" },
-    { id: 7, ...dados, nome: "Mais um local" },
+    { id: 2, ...base },
+    {
+      id: 8,
+      ...base,
+      nome: "Museu Municipal",
+      endereco: "Rua Secundária, 200",
+    },
   ];
 
-  assert.equal(criarLocal(locais, dados).id, 8);
-  assert.equal(locais.length, 2);
+  const novoLocal = criarLocal(locais, {
+    ...base,
+    nome: "Centro Cultural",
+    endereco: "Avenida Central, 300",
+  });
+
+  assert.equal(novoLocal.id, 9);
 });
 
 test("recusa nome e endereço iguais sem distinguir caixa ou acentos", () => {
   const locais = [
-    { id: 1, ...dados, nome: "BIBLIOTÉCA CENTRAL", endereco: "RUA DAS FLÓRES, 10" },
+    {
+      id: 1,
+      ...base,
+      nome: "Café Central",
+      endereco: "Rua São João, 100",
+    },
   ];
 
-  assert.throws(() => criarLocal(locais, dados), LocalDuplicadoError);
+  assert.throws(
+    () =>
+      criarLocal(locais, {
+        ...base,
+        nome: "cafe central",
+        endereco: "rua sao joao, 100",
+      }),
+    LocalDuplicadoError,
+  );
 });
 
 test("permite mesmo nome em outro endereço", () => {
-  const locais = [{ id: 1, ...dados, endereco: "Rua das Flores, 11" }];
+  const locais = [{ id: 1, ...base }];
 
-  assert.equal(criarLocal(locais, dados).id, 2);
+  const novoLocal = criarLocal(locais, {
+    ...base,
+    endereco: "Rua Secundária, 200",
+  });
+
+  assert.equal(novoLocal.id, 2);
+  assert.equal(novoLocal.nome, base.nome);
+  assert.equal(novoLocal.endereco, "Rua Secundária, 200");
 });
 
 test("não repete IDs em cadastros sucessivos", () => {
-  const primeiro = criarLocal([], dados);
-  const segundo = criarLocal([primeiro], { ...dados, nome: "Museu Central" });
+  const locais = [{ id: 1, ...base }];
 
-  assert.equal(primeiro.id, 1);
-  assert.equal(segundo.id, 2);
+  const primeiro = criarLocal(locais, {
+    ...base,
+    nome: "Museu Municipal",
+    endereco: "Rua A, 10",
+  });
+
+  const segundo = criarLocal([...locais, primeiro], {
+    ...base,
+    nome: "Centro Cultural",
+    endereco: "Rua B, 20",
+  });
+
+  assert.equal(primeiro.id, 2);
+  assert.equal(segundo.id, 3);
 });
 
 test("copia os recursos para não compartilhar o arranjo do formulário", () => {
-  const local = criarLocal([], dados);
+  const recursos = ["Entrada sem degraus"];
 
-  assert.deepEqual(local.recursos, dados.recursos);
-  assert.notEqual(local.recursos, dados.recursos);
+  const novoLocal = criarLocal([], {
+    ...base,
+    recursos,
+  });
+
+  assert.deepEqual(novoLocal.recursos, recursos);
+  assert.notEqual(novoLocal.recursos, recursos);
+});
+
+test("sanitiza os dados antes de criar o local", () => {
+  const local = criarLocal([], {
+    nome: "  Biblioteca   Central  ",
+    categoria: "Cultura",
+    endereco: "  Rua   das   Flores, 100  ",
+    recursos: ["Entrada sem degraus", "Entrada sem degraus"],
+    email: "  CONTATO@EXEMPLO.COM  ",
+    site: "biblioteca.com.br",
+  });
+
+  assert.equal(local.nome, "Biblioteca Central");
+  assert.equal(local.endereco, "Rua das Flores, 100");
+  assert.equal(local.email, "contato@exemplo.com");
+  assert.equal(local.site, "https://biblioteca.com.br");
+  assert.deepEqual(local.recursos, ["Entrada sem degraus"]);
+});
+
+test("detecta duplicidade mesmo com espaços diferentes", () => {
+  const locais = [
+    {
+      id: 1,
+      nome: "Biblioteca Central",
+      categoria: "Cultura",
+      endereco: "Rua das Flores, 100",
+      recursos: [],
+    },
+  ];
+
+  assert.throws(() =>
+    criarLocal(locais, {
+      nome: "  Biblioteca   Central  ",
+      categoria: "Cultura",
+      endereco: "Rua   das   Flores, 100",
+      recursos: [],
+    }),
+  );
+});
+
+test("detecta duplicidade com representações Unicode diferentes", () => {
+  const locais = [
+    {
+      id: 1,
+      nome: "Café Central",
+      categoria: "Alimentação",
+      endereco: "Rua Principal, 10",
+      recursos: [],
+    },
+  ];
+
+  assert.throws(() =>
+    criarLocal(locais, {
+      nome: "Cafe\u0301 Central",
+      categoria: "Alimentação",
+      endereco: "Rua Principal, 10",
+      recursos: [],
+    }),
+  );
+});
+
+test("não cria local inválido após sanitização", () => {
+  assert.throws(() =>
+    criarLocal([], {
+      nome: "   ",
+      categoria: "Cultura",
+      endereco: "Rua das Flores, 100",
+      recursos: [],
+    }),
+  );
 });

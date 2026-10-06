@@ -1,4 +1,10 @@
-import type { Local } from "../types/local";
+import type { Local } from "../types/local.ts";
+
+import {
+  sanitizarLocal,
+  validarLocal,
+  type DadosLocalEntrada,
+} from "../utils/sanitizar-local.ts";
 
 export type DadosCadastroLocal = Omit<Local, "id">;
 
@@ -19,14 +25,16 @@ const normalizar = (valor: string) =>
 
 export function criarLocal(
   locais: readonly Local[],
-  dados: DadosCadastroLocal,
+  dados: DadosLocalEntrada,
 ): Local {
-  const nome = dados.nome.trim();
-  const endereco = dados.endereco.trim();
+  const dadosSanitizados = sanitizarLocal(dados);
+
+  validarLocal(dadosSanitizados);
+
   const duplicado = locais.some(
     (local) =>
-      normalizar(local.nome) === normalizar(nome) &&
-      normalizar(local.endereco) === normalizar(endereco),
+      normalizar(local.nome) === normalizar(dadosSanitizados.nome) &&
+      normalizar(local.endereco) === normalizar(dadosSanitizados.endereco),
   );
 
   if (duplicado) {
@@ -34,5 +42,10 @@ export function criarLocal(
   }
 
   const id = locais.reduce((maior, local) => Math.max(maior, local.id), 0) + 1;
-  return { ...dados, id, nome, endereco, recursos: [...dados.recursos] };
+
+  return {
+    ...dadosSanitizados,
+    id,
+    recursos: [...dadosSanitizados.recursos],
+  };
 }
