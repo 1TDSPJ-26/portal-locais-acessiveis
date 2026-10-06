@@ -12,9 +12,7 @@ export default function Footer() {
 
       <p>&copy; 2026 Portas Acessíveis. Todos os direitos reservados.</p>
 
-      <a href="/acessibilidade">
-        Acessibilidade
-      </a>
+      <Link to="/acessibilidade">Acessibilidade</Link>
     </footer>
   );
 }
