@@ -1,229 +1,236 @@
+import { useState } from "react";
+import { useLocais } from "../../useLocais";
+import {
+  categoriasLocais,
+  recursosAcessibilidade,
+  type CategoriaLocal,
+  type FiltrosLocais,
+  type RecursoAcessibilidade,
+} from "../../types/local";
+import { filtrarLocais } from "../../utils/filtrar-locais";
 
-import { useRef, useState } from "react";
+const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
 
-type Local = {
-  id: number;
-  nome: string;
-  categoria?: "Cultura" | "Educação" | "Lazer" | "Saúde";
-  endereco?: string;
-};
-
-const locais: Local[] = [
-  { id: 1, nome: "Local 1" },
-  { id: 2, nome: "Local 2" },
-  { id: 3, nome: "Local 3" },
-  { id: 4, nome: "Local 4" },
-  { id: 5, nome: "Local 5" },
-  { id: 6, nome: "Local 6" },
-  { id: 7, nome: "Local 7" },
-  { id: 8, nome: "Local 8" },
-  { id: 9, nome: "Local 9" },
-  { id: 10, nome: "Local 10" },
-  { id: 11, nome: "Local 11" },
-];
-
-const opcoesPorPagina = [5, 10, 20];
-
-export default function Locais() {
+export default function LocaisPage() {
+  const { locais } = useLocais();
   const [termo, setTermo] = useState("");
-  const [categoria, setCategoria] = useState("todas");
-  const [pagina, setPagina] = useState(1);
-  const [porPagina, setPorPagina] = useState(10);
+  const [filtros, setFiltros] = useState<FiltrosLocais>(filtrosVazios);
+  const [painelAberto, setPainelAberto] = useState(false);
 
-  const inicioListagemRef = useRef<HTMLHeadingElement>(null);
+  const resultados = filtrarLocais(locais, termo, filtros);
+  const temFiltrosAtivos =
+    termo.trim() !== "" ||
+    filtros.categoria !== "" ||
+    filtros.recursos.length > 0;
 
-  const filtrados = locais.filter((local) => {
-    const correspondeAoTermo = `${local.nome} ${local.endereco ?? ""}`
-      .toLocaleLowerCase("pt-BR")
-      .includes(termo.trim().toLocaleLowerCase("pt-BR"));
+  const alternarRecurso = (recurso: RecursoAcessibilidade) => {
+    setFiltros((estadoAtual) => ({
+      ...estadoAtual,
+      recursos: estadoAtual.recursos.includes(recurso)
+        ? estadoAtual.recursos.filter((item) => item !== recurso)
+        : [...estadoAtual.recursos, recurso],
+    }));
+  };
 
-    const correspondeACategoria =
-      categoria === "todas" || local.categoria === categoria;
-
-    return correspondeAoTermo && correspondeACategoria;
-  });
-
-  const totalPaginas = Math.max(
-    1,
-    Math.ceil(filtrados.length / porPagina)
-  );
-
-  const paginaAtual = Math.min(pagina, totalPaginas);
-
-  const inicio = (paginaAtual - 1) * porPagina;
-
-  const visiveis = filtrados.slice(
-    inicio,
-    inicio + porPagina
-  );
-
-  const primeiroItem =
-    filtrados.length === 0 ? 0 : inicio + 1;
-
-  const ultimoItem = Math.min(
-    inicio + porPagina,
-    filtrados.length
-  );
-
-  function handleTermoChange(novoTermo: string) {
-    setTermo(novoTermo);
-    setPagina(1);
-  }
-
-  function handleCategoriaChange(novaCategoria: string) {
-    setCategoria(novaCategoria);
-    setPagina(1);
-  }
-
-  function irParaPagina(novaPagina: number) {
-    setPagina(novaPagina);
-    inicioListagemRef.current?.focus();
-  }
+  const limparFiltros = () => {
+    setTermo("");
+    setFiltros(filtrosVazios);
+  };
 
   return (
-    <section className="locais">
-      <h1>Locais</h1>
-
-      <div
-        className="locais-filtros"
-        aria-label="Filtros de locais"
-      >
-        <label>
-          Buscar local
-
+    <div className="app-shell">
+      <header className="hero">
+        <p className="eyebrow">Mapa de acesso para todos</p>
+        <h1>Encontre lugares que acolhem você.</h1>
+        <p className="hero-copy">
+          Pesquise por nome ou combine recursos de acessibilidade para planejar
+          sua próxima saída.
+        </p>
+        <label className="search-field" htmlFor="campo-busca-locais">
+          <span className="search-icon" aria-hidden="true">
+            ⌕
+          </span>
+          <span className="sr-only">Buscar por nome, bairro ou endereço</span>
           <input
+            id="campo-busca-locais"
             type="search"
             value={termo}
-            onChange={(event) =>
-              handleTermoChange(event.target.value)
-            }
-            placeholder="Nome ou endereço"
+            onChange={(evento) => setTermo(evento.target.value)}
+            placeholder="Buscar por nome, bairro ou endereço"
           />
+          <output aria-live="polite">
+            {resultados.length} {resultados.length === 1 ? "local encontrado" : "locais encontrados"}
+          </output>
         </label>
+      </header>
 
-        <label>
-          Categoria
-
-          <select
-            value={categoria}
-            onChange={(event) =>
-              handleCategoriaChange(event.target.value)
-            }
-          >
-            <option value="todas">Todas</option>
-            <option value="Cultura">Cultura</option>
-            <option value="Educação">Educação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
-      </div>
-
-      <div className="locais-resumo">
-        <p aria-live="polite">
-          Exibindo {primeiroItem} a {ultimoItem} de{" "}
-          {filtrados.length} locais
-        </p>
-
-        <label>
-          Itens por página
-
-          <select
-            value={porPagina}
-            onChange={(event) =>
-              setPorPagina(Number(event.target.value))
-            }
-          >
-            {opcoesPorPagina.map((opcao) => (
-              <option key={opcao} value={opcao}>
-                {opcao}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      <h2
-        id="inicio-listagem"
-        ref={inicioListagemRef}
-        tabIndex={-1}
-      >
-        Resultados
-      </h2>
-
-      {visiveis.length > 0 ? (
-        <ul
-          className="lista-locais"
-          aria-label="Locais encontrados"
-        >
-          {visiveis.map((local) => (
-            <li key={local.id}>
-              <h3>{local.nome}</h3>
-
-              <p>
-                {local.categoria ?? "Categoria não informada"} ·{" "}
-                {local.endereco ?? "Endereço não informado"}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <output>
-          Nenhum local foi encontrado para os filtros informados.
-        </output>
-      )}
-
-      {totalPaginas > 1 && (
-        <nav
-          className="paginacao"
-          aria-label="Paginação"
-        >
+      <section className="content" aria-label="Locais acessíveis">
+        <div className="results-heading">
+          <div>
+            <p className="section-kicker">Explorar locais</p>
+            <h2>
+              {resultados.length}{" "}
+              {resultados.length === 1
+                ? "resultado encontrado"
+                : "resultados encontrados"}
+            </h2>
+          </div>
           <button
+            className="filter-toggle"
             type="button"
-            onClick={() =>
-              irParaPagina(paginaAtual - 1)
-            }
-            disabled={paginaAtual === 1}
+            aria-expanded={painelAberto}
+            aria-controls="filtros-locais"
+            onClick={() => setPainelAberto((aberto) => !aberto)}
           >
-            Anterior
+            <span aria-hidden="true">☷</span> Filtros
+            {filtros.recursos.length + (filtros.categoria ? 1 : 0) > 0 && (
+              <span className="filter-count">
+                {filtros.recursos.length + (filtros.categoria ? 1 : 0)}
+              </span>
+            )}
           </button>
+        </div>
 
-          {Array.from(
-            { length: totalPaginas },
-            (_, indice) => indice + 1
-          ).map((numero) => (
-            <a
-              key={numero}
-              href="#inicio-listagem"
-              aria-current={
-                numero === paginaAtual
-                  ? "page"
-                  : undefined
-              }
-              onClick={(event) => {
-                event.preventDefault();
-                irParaPagina(numero);
-              }}
+        <aside
+          id="filtros-locais"
+          className={`filters-panel ${painelAberto ? "is-open" : ""}`}
+        >
+          <div className="filters-topline">
+            <div>
+              <p className="section-kicker">Refine sua busca</p>
+              <h2>O que você precisa?</h2>
+            </div>
+            <button
+              className="clear-button"
+              type="button"
+              onClick={limparFiltros}
+              disabled={!temFiltrosAtivos}
             >
-              {numero}
-            </a>
-          ))}
+              Limpar filtros
+            </button>
+          </div>
 
-          <button
-            type="button"
-            onClick={() =>
-              irParaPagina(paginaAtual + 1)
-            }
-            disabled={
-              paginaAtual === totalPaginas
-            }
-          >
-            Próxima
-          </button>
-        </nav>
-      )}
-    </section>
+          <fieldset>
+            <legend>Categoria</legend>
+            <div className="category-options">
+              {categoriasLocais.map((categoria) => (
+                <label
+                  className={`category-option ${filtros.categoria === categoria ? "is-selected" : ""}`}
+                  key={categoria}
+                >
+                  <input
+                    type="radio"
+                    name="categoria"
+                    value={categoria}
+                    checked={filtros.categoria === categoria}
+                    onChange={(evento) =>
+                      setFiltros((atual) => ({
+                        ...atual,
+                        categoria: evento.target.value as CategoriaLocal,
+                      }))
+                    }
+                  />
+                  <span>{categoria}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>
+              Recursos de acessibilidade{" "}
+              <span>(selecione todos que precisa)</span>
+            </legend>
+            <div className="resource-options">
+              {recursosAcessibilidade.map((recurso) => (
+                <label className="check-option" key={recurso}>
+                  <input
+                    type="checkbox"
+                    checked={filtros.recursos.includes(recurso)}
+                    onChange={() => alternarRecurso(recurso)}
+                  />
+                  <span className="custom-check" aria-hidden="true">
+                    ✓
+                  </span>
+                  <span>{recurso}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </aside>
+
+        {temFiltrosAtivos && (
+          <div className="active-filters" aria-label="Filtros ativos">
+            <span>Filtros ativos:</span>
+            {termo.trim() && (
+              <button type="button" onClick={() => setTermo("")}>
+                Busca: “{termo}” ×
+              </button>
+            )}
+            {filtros.categoria && (
+              <button
+                type="button"
+                onClick={() =>
+                  setFiltros((atual) => ({ ...atual, categoria: "" }))
+                }
+              >
+                {filtros.categoria} ×
+              </button>
+            )}
+            {filtros.recursos.map((recurso) => (
+              <button
+                type="button"
+                key={recurso}
+                onClick={() => alternarRecurso(recurso)}
+              >
+                {recurso} ×
+              </button>
+            ))}
+          </div>
+        )}
+
+        {resultados.length > 0 ? (
+          <div className="places-grid">
+            {resultados.map((local) => (
+              <article className="place-card" key={local.id}>
+                <div className="place-card-top">
+                  <span className="place-category">{local.categoria}</span>
+                  <span className="place-status">Aberto hoje</span>
+                </div>
+                <h3>{local.nome}</h3>
+                <p className="place-address">{local.endereco}</p>
+                <div
+                  className="resource-tags"
+                  aria-label="Recursos disponíveis"
+                >
+                  {local.recursos.map((recurso) => (
+                    <span key={recurso}>{recurso}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <span className="empty-icon" aria-hidden="true">
+              ⌁
+            </span>
+            <h2>Nenhum local encontrado</h2>
+            <p>
+              {termo.trim()
+                ? `Não foi possível encontrar locais para “${termo.trim()}”`
+                : "Tente remover algum filtro ou buscar por outro termo."}
+            </p>
+            <button
+              className="clear-button prominent"
+              type="button"
+              onClick={limparFiltros}
+            >
+              Limpar filtros
+            </button>
+          </div>
+        )}
+      </section>
+    </div>
   );
 }
-
-
