@@ -1,0 +1,13 @@
+Chromium headless — tests/browser/estados-locais.cjs
+
+PASS: carregamento anunciado, contador oculto, StrictMode sem duplicação (6 locais)
+PASS: busca vazia, limpar filtros, filtros por categoria e recurso preservados
+PASS: erro anunciado, recuperação pelo teclado, foco visível e recarga com sucesso
+PASS: lista vazia distinta de busca sem resultado e link ao cadastro funcional
+PASS: cadastro impedido durante carga e preservado após carga inicial
+PASS: cadastro informa falha e oferece caminho para tentar novamente
+PASS: StrictMode descarta erro e lista vazia de efeitos desmontados
+PASS: estados sem rolagem horizontal em 375px
+PASS: rota real /locais carrega 6 itens, sem controles de teste e sem erros JavaScript
+
+Exit code: 0

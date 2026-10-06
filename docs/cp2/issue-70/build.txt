@@ -1,0 +1,16 @@
+npm run build
+
+npm notice run portal-acessivel-template@0.0.0 build
+npm notice run tsc -b && vite build
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 102 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.42 kB │ gzip:  0.28 kB
+dist/assets/index-DhePl8-p.css   22.75 kB │ gzip:  5.82 kB
+dist/assets/index-C1X92Q5U.js   286.08 kB │ gzip: 89.71 kB
+
+✓ built in 981ms
+
+Exit code: 0
