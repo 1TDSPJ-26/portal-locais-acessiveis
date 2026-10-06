@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useLocais } from "../useLocais";
+import { useLocais } from "../../useLocais";
 import {
   categoriasLocais,
   recursosAcessibilidade,
   type CategoriaLocal,
   type FiltrosLocais,
   type RecursoAcessibilidade,
-} from "../types/local";
-import { filtrarLocais } from "../utils/filtrar-locais";
+} from "../../types/local";
+import { filtrarLocais } from "../../utils/filtrar-locais";
 
 const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
 
