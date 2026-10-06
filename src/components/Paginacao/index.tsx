@@ -31,10 +31,11 @@ export function Paginacao({
 
     return (
         <>
-            <p role="status" aria-live="polite" aria-atomic="true">
-                {intervaloLabel}
+            <p>
+                <output aria-live="polite" aria-atomic="true">
+                    {intervaloLabel}
+                </output>
             </p>
-
             <div className="paginacao-por-pagina">
                 <label htmlFor="locais-por-pagina">Locais por página</label>
                 <select
