@@ -39,6 +39,11 @@ Para recuperar uma falha, abra o cenário de erro, selecione **Com dados** no
 controle de teste e acione **Tentar novamente**. Trocar a seleção prepara
 somente a próxima carga: não dispara uma recarga nem remonta o Provider.
 Também é possível manter **Erro** para conferir uma segunda falha.
+Depois de uma falha, escolha **Lista vazia** e tente novamente: o alerta deve
+sumir e dar lugar à mensagem de ausência de locais e ao link de cadastro.
+Para conferir a preservação da busca, digite **Biblioteca** ainda no estado
+de erro, escolha **Com dados** e tente novamente: deve aparecer um resultado,
+sem apagar o termo digitado. Limpar a busca deve devolver os 6 locais.
 
 A fixture injeta uma função de carga e usa os mesmos Provider, layout, rotas
 e páginas do portal, dentro de `StrictMode`. A primeira chamada dos cenários
@@ -52,6 +57,9 @@ obsoletos responde depois da segunda. Esses controles pertencem exclusivamente
 - `npm test`: 17 testes aprovados, incluindo 3 testes novos do serviço.
 - Chromium headless via Playwright: carga, dados, busca vazia, filtros,
   falha e recuperação com Shift+Tab, Tab e Enter; foco visível no botão.
+- Novas tentativas: uma segunda falha mantém a opção de tentar novamente;
+  uma resposta vazia encerra o erro e oferece cadastro; uma resposta com dados
+  preserva o termo de busca e atualiza a contagem para o resultado filtrado.
 - Lista vazia e navegação ao cadastro; cadastro impedido durante carga ou
   falha; cadastro após carga mantém os 6 locais iniciais e acrescenta o sétimo.
 - StrictMode: falhas e listas vazias de efeitos descartados não mudam o estado.
@@ -97,6 +105,8 @@ cenário simulado. Os arquivos de saída dos comandos estão nesta pasta.
 ![Carregamento em 375 px](06-mobile-carregando.png)
 ![Erro em 375 px](06-mobile-erro.png)
 ![Lista vazia em 375 px](06-mobile-vazio.png)
+![Segunda tentativa que também falha](07-nova-tentativa-com-erro.png)
+![Nova tentativa que retorna lista vazia](08-nova-tentativa-com-lista-vazia.png)
 
 ## Integração
 

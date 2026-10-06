@@ -2,7 +2,9 @@ Chromium headless — tests/browser/estados-locais.cjs
 
 PASS: carregamento anunciado, contador oculto, StrictMode sem duplicação (6 locais)
 PASS: busca vazia, limpar filtros, filtros por categoria e recurso preservados
-PASS: erro anunciado, recuperação pelo teclado, foco visível e recarga com sucesso
+PASS: uma segunda falha mantém mensagem, nova tentativa e ausência de dados de reserva
+PASS: nova tentativa que retorna lista vazia encerra o erro e oferece cadastro
+PASS: erro anunciado, recuperação pelo teclado, foco visível e busca preservada após recarga
 PASS: lista vazia distinta de busca sem resultado e link ao cadastro funcional
 PASS: cadastro impedido durante carga e preservado após carga inicial
 PASS: cadastro informa falha e oferece caminho para tentar novamente
