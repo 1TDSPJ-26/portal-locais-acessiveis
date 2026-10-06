@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
 import {
   categoriasLocais,
@@ -56,7 +56,16 @@ export default function LocaisPage() {
             id="campo-busca-locais"
             type="search"
             value={termo}
-            onChange={(evento) => setTermo(evento.target.value)}
+            onChange={(evento) => {
+            const parametros = new URLSearchParams(searchParams);
+            const valor = evento.target.value;
+            if (valor.trim() === "") {
+              parametros.delete("busca");
+            } else {
+              parametros.set("busca", valor);
+            }
+          setSearchParams(parametros, { replace: true });
+        }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
@@ -150,12 +159,11 @@ export default function LocaisPage() {
                     name="categoria"
                     value={categoria}
                     checked={filtros.categoria === categoria}
-                    onChange={(evento) =>
-                      setFiltros((atual) => ({
-                        ...atual,
-                        categoria: evento.target.value as CategoriaLocal,
-                      }))
-                    }
+                    onChange={(evento) => {
+                      const parametros = new URLSearchParams(searchParams);
+                      parametros.set("categoria", evento.target.value);
+                      setSearchParams(parametros);
+                    }}
                   />
                   <span>{categoria}</span>
                 </label>
@@ -190,16 +198,22 @@ export default function LocaisPage() {
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
-              <button type="button" onClick={() => setTermo("")}>
+              <button type="button" onClick={() => {
+                const parametros = new URLSearchParams(searchParams);
+                parametros.delete("busca");
+                setSearchParams(parametros);
+              }}>
                 Busca: “{termo}” ×
               </button>
             )}
             {filtros.categoria && (
               <button
                 type="button"
-                onClick={() =>
-                  setFiltros((atual) => ({ ...atual, categoria: "" }))
-                }
+                onClick={() => {
+                  const parametros = new URLSearchParams(searchParams);
+                  parametros.delete("categoria");
+                  setSearchParams(parametros);
+                }}  
               >
                 {filtros.categoria} ×
               </button>
