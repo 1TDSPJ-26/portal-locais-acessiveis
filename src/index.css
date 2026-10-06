@@ -202,23 +202,6 @@ h3 {
   text-decoration: none;
   cursor: not-allowed;
 }
-.empty-state {
-  display: block;
-  margin-top: 28px;
-  padding: 28px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink);
-  text-align: center;
-}
-.empty-state p {
-  margin: 16px 0;
-}
-.empty-state .prominent {
-  display: inline-block;
-  min-height: 44px;
-  padding: 10px 15px;
-}
 fieldset {
   margin: 25px 0 0;
   padding: 0;
@@ -505,3 +488,26 @@ footer nav a {
   }
 }
 
+/* Paginação: alvo de toque mínimo de 44x44px */
+.paginacao button,
+.paginacao-por-pagina select {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.75rem;
+  border: 0.125rem solid var(--control);
+  border-radius: 0.4rem;
+  color: var(--ink);
+  background: var(--card);
+  font: inherit;
+  cursor: pointer;
+}
+
+.paginacao button[aria-current="page"] {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.paginacao button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
