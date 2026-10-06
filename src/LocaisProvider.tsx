@@ -1,11 +1,16 @@
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { locais as locaisIniciais } from "./data/locais";
 import { LocaisContext } from "./LocaisContext";
 import { criarLocal, type DadosCadastroLocal } from "./services/cadastroLocal";
 import type { Local } from "./types/local";
+import { carregarLocaisSalvos, salvarLocais } from "./persistenciaLocais";
 
 export function LocaisProvider({ children }: { children: ReactNode }) {
-  const [locais, setLocais] = useState<Local[]>(() => [...locaisIniciais]);
+  const [locais, setLocais] = useState<Local[]>(() => carregarLocaisSalvos() ?? [...locaisIniciais]);
+
+  useEffect(() => {
+  salvarLocais(locais);
+}, [locais]);
 
   /* Fonte unica: o estado. `criarLocal` le a lista do render corrente para
      conferir duplicidade e gerar o identificador, e o acrescimo usa a forma
