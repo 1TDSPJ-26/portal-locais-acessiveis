@@ -76,7 +76,7 @@ export default function Cadastro() {
   const [status, setStatus] = useState<StatusEnvio>("idle");
   const [mensagem, setMensagem] = useState("");
 
-  const { cadastrarLocal } = useLocais();
+  const { cadastrarLocal, estado } = useLocais();
 
   const resumoErrosRef = useRef<HTMLDivElement>(null);
 
@@ -134,7 +134,7 @@ export default function Cadastro() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (status === "loading") {
+    if (status === "loading" || estado !== "pronto") {
       return;
     }
 
@@ -369,9 +369,23 @@ export default function Cadastro() {
           </div>
         </fieldset>
 
+        {estado === "carregando" && (
+          <output aria-live="polite">
+            Carregando locais. Aguarde para enviar o cadastro.
+          </output>
+        )}
+        {estado === "erro" && (
+          <div role="alert">
+            <p>Não foi possível carregar os locais para conferir o cadastro.</p>
+            <Link to="/locais" className="underline underline-offset-2">
+              Ir à listagem para tentar novamente
+            </Link>
+          </div>
+        )}
+
         <button
           type="submit"
-          disabled={status === "loading"}
+          disabled={status === "loading" || estado !== "pronto"}
           className="self-start rounded-md bg-(--accent) px-7 py-3 font-semibold text-black transition hover:brightness-95"
         >
           {status === "loading" ? "Enviando..." : "Cadastrar local"}

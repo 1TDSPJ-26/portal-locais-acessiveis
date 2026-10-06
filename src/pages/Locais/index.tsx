@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { useLocais } from "../../useLocais";
 import {
   categoriasLocais,
@@ -12,7 +13,7 @@ import { filtrarLocais } from "../../utils/filtrar-locais";
 const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
 
 export default function LocaisPage() {
-  const { locais } = useLocais();
+  const { locais, estado, tentarNovamente } = useLocais();
   const [termo, setTermo] = useState("");
   const [filtros, setFiltros] = useState<FiltrosLocais>(filtrosVazios);
   const [painelAberto, setPainelAberto] = useState(false);
@@ -59,7 +60,9 @@ export default function LocaisPage() {
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
-            {resultados.length} {resultados.length === 1 ? "local encontrado" : "locais encontrados"}
+            {estado === "pronto" && (
+              <>{resultados.length} {resultados.length === 1 ? "local encontrado" : "locais encontrados"}</>
+            )}
           </output>
         </label>
       </header>
@@ -69,10 +72,9 @@ export default function LocaisPage() {
           <div>
             <p className="section-kicker">Explorar locais</p>
             <h2>
-              {resultados.length}{" "}
-              {resultados.length === 1
-                ? "resultado encontrado"
-                : "resultados encontrados"}
+              {estado === "pronto"
+                ? `${resultados.length} ${resultados.length === 1 ? "resultado encontrado" : "resultados encontrados"}`
+                : "Locais acessíveis"}
             </h2>
           </div>
           <button
@@ -80,6 +82,7 @@ export default function LocaisPage() {
             type="button"
             aria-expanded={painelAberto}
             aria-controls="filtros-locais"
+            disabled={estado !== "pronto" || locais.length === 0}
             onClick={() => setPainelAberto((aberto) => !aberto)}
           >
             <span aria-hidden="true">☷</span> Filtros
@@ -91,8 +94,32 @@ export default function LocaisPage() {
           </button>
         </div>
 
+        <output
+          aria-live="polite"
+          className={estado === "carregando" ? "empty-state" : "sr-only"}
+        >
+          {estado === "carregando" ? "Carregando locais..." : ""}
+        </output>
+
+        <div role="alert" className={estado === "erro" ? "empty-state" : undefined}>
+          {estado === "erro" && (
+            <>
+              <h2>Não foi possível carregar os locais</h2>
+              <p>Tente novamente para consultar os locais disponíveis.</p>
+              <button
+                className="clear-button prominent"
+                type="button"
+                onClick={tentarNovamente}
+              >
+                Tentar novamente
+              </button>
+            </>
+          )}
+        </div>
+
         <aside
           id="filtros-locais"
+          hidden={estado !== "pronto" || locais.length === 0}
           className={`filters-panel ${painelAberto ? "is-open" : ""}`}
         >
           <div className="filters-topline">
@@ -159,7 +186,7 @@ export default function LocaisPage() {
           </fieldset>
         </aside>
 
-        {temFiltrosAtivos && (
+        {estado === "pronto" && temFiltrosAtivos && (
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
@@ -189,7 +216,17 @@ export default function LocaisPage() {
           </div>
         )}
 
-        {resultados.length > 0 ? (
+        {estado === "pronto" && (locais.length === 0 ? (
+          <div className="empty-state">
+            <h2>Nenhum local cadastrado</h2>
+            <p>
+              Cadastre o primeiro local e ajude outras pessoas a encontrar lugares acessíveis.
+            </p>
+            <Link className="clear-button prominent" to="/cadastrar">
+              Cadastrar local
+            </Link>
+          </div>
+        ) : resultados.length > 0 ? (
           <div className="places-grid">
             {resultados.map((local) => (
               <article className="place-card" key={local.id}>
@@ -229,7 +266,7 @@ export default function LocaisPage() {
               Limpar filtros
             </button>
           </div>
-        )}
+        ))}
       </section>
     </div>
   );
