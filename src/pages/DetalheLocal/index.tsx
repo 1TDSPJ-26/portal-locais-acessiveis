@@ -44,6 +44,14 @@ export default function DetalheLocal() {
     );
   }
 
+  const descricao = local.descricao?.trim();
+  const email = local.email?.trim();
+  const telefone = local.telefone?.trim();
+  const site = local.site?.trim();
+  const urlSite = site
+    ? /^https?:\/\//i.test(site) ? site : `https://${site}`
+    : undefined;
+
   return (
     <article className="app-shell content">
       <h1>{local.nome}</h1>
@@ -53,6 +61,13 @@ export default function DetalheLocal() {
         <dt>Endereço</dt>
         <dd>{local.endereco}</dd>
       </dl>
+
+      {descricao && (
+        <section aria-labelledby="titulo-descricao-local">
+          <h2 id="titulo-descricao-local">Descrição</h2>
+          <p>{descricao}</p>
+        </section>
+      )}
 
       <section aria-labelledby="titulo-recursos-local">
         <h2 id="titulo-recursos-local">Recursos de acessibilidade</h2>
@@ -65,6 +80,40 @@ export default function DetalheLocal() {
           <p>Nenhum recurso de acessibilidade informado.</p>
         )}
       </section>
+
+      {(email || telefone || site) && (
+        <section aria-labelledby="titulo-contato-local">
+          <h2 id="titulo-contato-local">Contato</h2>
+          <dl>
+            {email && (
+              <>
+                <dt>E-mail</dt>
+                <dd><a href={`mailto:${email}`}>{email}</a></dd>
+              </>
+            )}
+            {telefone && (
+              <>
+                <dt>Telefone</dt>
+                <dd>
+                  <a href={`tel:${telefone.replace(/[^\d+]/g, "")}`}>
+                    {telefone}
+                  </a>
+                </dd>
+              </>
+            )}
+            {site && (
+              <>
+                <dt>Site</dt>
+                <dd>
+                  <a href={urlSite} target="_blank" rel="noopener noreferrer">
+                    {site} (abre em nova aba)
+                  </a>
+                </dd>
+              </>
+            )}
+          </dl>
+        </section>
+      )}
 
       <Link to="/locais">Voltar para a listagem de locais</Link>
     </article>
