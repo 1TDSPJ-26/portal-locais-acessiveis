@@ -10,12 +10,29 @@ import {
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
 
-const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
+
 
 export default function LocaisPage() {
   const { locais, estado, tentarNovamente } = useLocais();
-  const [termo, setTermo] = useState("");
-  const [filtros, setFiltros] = useState<FiltrosLocais>(filtrosVazios);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const termo = searchParams.get("busca") ?? "";
+  const categoriaParam = searchParams.get("categoria");
+  
+  const categoria: FiltrosLocais["categoria"] =
+  categoriasLocais.includes(categoriaParam as CategoriaLocal)
+    ? (categoriaParam as CategoriaLocal)
+    : "";
+
+  const recursos = searchParams
+    .getAll("recurso")
+    .filter((recurso): recurso is RecursoAcessibilidade =>
+      recursosAcessibilidade.includes(recurso as RecursoAcessibilidade)
+    );
+  const filtros: FiltrosLocais = {
+    categoria,
+    recursos,
+  };
   const [painelAberto, setPainelAberto] = useState(false);
 
   const resultados = filtrarLocais(locais, termo, filtros);
@@ -25,18 +42,26 @@ export default function LocaisPage() {
     filtros.recursos.length > 0;
 
   const alternarRecurso = (recurso: RecursoAcessibilidade) => {
-    setFiltros((estadoAtual) => ({
-      ...estadoAtual,
-      recursos: estadoAtual.recursos.includes(recurso)
-        ? estadoAtual.recursos.filter((item) => item !== recurso)
-        : [...estadoAtual.recursos, recurso],
-    }));
-  };
+  const parametros = new URLSearchParams(searchParams);
 
-  const limparFiltros = () => {
-    setTermo("");
-    setFiltros(filtrosVazios);
-  };
+  const recursosAtuais = parametros.getAll("recurso");
+
+  if (recursosAtuais.includes(recurso)) {
+    parametros.delete("recurso");
+
+    recursosAtuais
+      .filter((item) => item !== recurso)
+      .forEach((item) => parametros.append("recurso", item));
+  } else {
+    parametros.append("recurso", recurso);
+  }
+
+  setSearchParams(parametros);
+};
+
+const limparFiltros = () => {
+  setSearchParams({});
+};
 
   return (
     <div className="app-shell">
