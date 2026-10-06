@@ -1,47 +1,41 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { LocaisContext, type EstadoLocais } from "./LocaisContext";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { locais as locaisIniciais } from "./data/locais";
+import { LocaisContext } from "./LocaisContext";
 import { criarLocal, type DadosCadastroLocal } from "./services/cadastroLocal";
 import { carregarLocais } from "./services/locais";
 import type { Local } from "./types/local";
+import { salvarLocais } from "./persistenciaLocais";
 
-interface LocaisProviderProps {
-  children: ReactNode;
-  // Permite reproduzir falhas e lista vazia em testes sem alterar o serviço.
-  carregar?: () => Promise<Local[]>;
-}
+type EstadoLocais = "carregando" | "pronto" | "erro";
 
-export function LocaisProvider({
-  children,
-  carregar = carregarLocais,
-}: LocaisProviderProps) {
-  const [locais, setLocais] = useState<Local[]>([]);
+export function LocaisProvider({ children }: { children: ReactNode }) {
   const [estado, setEstado] = useState<EstadoLocais>("carregando");
-  const [tentativa, setTentativa] = useState(0);
+  const [locais, setLocais] = useState<Local[]>([...locaisIniciais]);
+
+  const carregar = useCallback(() => {
+    setEstado("carregando");
+    carregarLocais()
+      .then((carregados) => {
+        setLocais(carregados);
+        setEstado("pronto");
+      })
+      .catch(() => setEstado("erro"));
+  }, []);
 
   useEffect(() => {
-    let ativo = true;
+    carregar();
+  }, [carregar]);
 
-    async function carregarLista() {
-      try {
-        const dados = await carregar();
-        if (ativo) {
-          setLocais(dados);
-          setEstado("pronto");
-        }
-      } catch {
-        if (ativo) setEstado("erro");
-      }
+  /* Risco apontado pela Issue #71: gravar antes de o carregamento terminar
+     substituiria a lista salva pelos dados de exemplo. Só grava quando o
+     estado for "pronto". */
+  useEffect(() => {
+    if (estado === "pronto") {
+      salvarLocais(locais);
     }
+  }, [estado, locais]);
 
-    void carregarLista();
-    // Descarta respostas de efeitos desmontados, inclusive no StrictMode.
-    return () => { ativo = false; };
-  }, [carregar, tentativa]);
-
-  const tentarNovamente = () => {
-    setEstado("carregando");
-    setTentativa((atual) => atual + 1);
-  };
+  const tentarNovamente = () => carregar();
 
   /* Fonte unica: o estado. `criarLocal` le a lista do render corrente para
      conferir duplicidade e gerar o identificador, e o acrescimo usa a forma
@@ -58,7 +52,9 @@ export function LocaisProvider({
   };
 
   return (
-    <LocaisContext.Provider value={{ locais, estado, tentarNovamente, cadastrarLocal }}>
+    <LocaisContext.Provider
+      value={{ locais, estado, tentarNovamente, cadastrarLocal }}
+    >
       {children}
     </LocaisContext.Provider>
   );
