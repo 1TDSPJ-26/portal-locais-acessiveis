@@ -1,5 +1,4 @@
-import { categoriasLocais } from "./types/local";
-import { recursosAcessibilidade } from "./types/local";
+import { categoriasLocais, recursosAcessibilidade } from "./types/local.ts";
 import type { CategoriaLocal, Local, RecursoAcessibilidade } from "./types/local";
 
 export const CHAVE_LOCAIS = "locais-cadastrados";
