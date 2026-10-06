@@ -31,14 +31,20 @@ export function Header() {
       }
 
       if (e.key === "Tab" && painelMenuRef.current) {
-        const focaveis = painelMenuRef.current.querySelectorAll<HTMLElement>(
+        const focaveis = Array.from(
+          painelMenuRef.current.querySelectorAll<HTMLElement>(
           'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        );
+        )
+);
 
-        if (focaveis.length === 0) return;
+      if (botaoMenuRef.current) {
+        focaveis.unshift(botaoMenuRef.current);
+}
 
-        const primeiro = focaveis[0];
-        const ultimo = focaveis[focaveis.length - 1];
+      if (focaveis.length === 0) return;
+
+      const primeiro = focaveis[0];
+      const ultimo = focaveis[focaveis.length - 1];
 
         if (e.shiftKey && document.activeElement === primeiro) {
           e.preventDefault();
