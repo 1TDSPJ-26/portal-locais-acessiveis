@@ -9,6 +9,8 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { usePaginacao } from "../../hooks/usePaginacao";
+import { Paginacao } from "../../components/Paginacao";
 
 const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
 
@@ -19,23 +21,49 @@ export default function LocaisPage() {
   const [painelAberto, setPainelAberto] = useState(false);
 
   const resultados = filtrarLocais(locais, termo, filtros);
+  const {
+    visiveis,
+    paginaAtual,
+    pages,
+    canPrev,
+    canNext,
+    isSinglePage,
+    intervaloLabel,
+    porPagina,
+    availableOptions,
+    topoListaRef,
+    handleMudarPagina,
+    handleMudarPorPagina,
+    handleFiltroAlterado,
+  } = usePaginacao(resultados, [3, 6, 12], 3);
+
+  // Toda alteração de busca ou filtro volta para a primeira página.
+  const aoAlterarFiltros = (acao: () => void) => {
+    acao();
+    handleFiltroAlterado();
+  };
+
   const temFiltrosAtivos =
     termo.trim() !== "" ||
     filtros.categoria !== "" ||
     filtros.recursos.length > 0;
 
   const alternarRecurso = (recurso: RecursoAcessibilidade) => {
-    setFiltros((estadoAtual) => ({
-      ...estadoAtual,
-      recursos: estadoAtual.recursos.includes(recurso)
-        ? estadoAtual.recursos.filter((item) => item !== recurso)
-        : [...estadoAtual.recursos, recurso],
-    }));
+    aoAlterarFiltros(() =>
+      setFiltros((estadoAtual) => ({
+        ...estadoAtual,
+        recursos: estadoAtual.recursos.includes(recurso)
+          ? estadoAtual.recursos.filter((item) => item !== recurso)
+          : [...estadoAtual.recursos, recurso],
+      }))
+    );
   };
 
   const limparFiltros = () => {
-    setTermo("");
-    setFiltros(filtrosVazios);
+    aoAlterarFiltros(() => {
+      setTermo("");
+      setFiltros(filtrosVazios);
+    });
   };
 
   return (
@@ -56,7 +84,9 @@ export default function LocaisPage() {
             id="campo-busca-locais"
             type="search"
             value={termo}
-            onChange={(evento) => setTermo(evento.target.value)}
+            onChange={(evento) =>
+              aoAlterarFiltros(() => setTermo(evento.target.value))
+            }
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
@@ -71,7 +101,7 @@ export default function LocaisPage() {
         <div className="results-heading">
           <div>
             <p className="section-kicker">Explorar locais</p>
-            <h2>
+            <h2 ref={topoListaRef} tabIndex={-1}>
               {estado === "pronto"
                 ? `${resultados.length} ${resultados.length === 1 ? "resultado encontrado" : "resultados encontrados"}`
                 : "Locais acessíveis"}
@@ -151,10 +181,12 @@ export default function LocaisPage() {
                     value={categoria}
                     checked={filtros.categoria === categoria}
                     onChange={(evento) =>
-                      setFiltros((atual) => ({
-                        ...atual,
-                        categoria: evento.target.value as CategoriaLocal,
-                      }))
+                      aoAlterarFiltros(() =>
+                        setFiltros((atual) => ({
+                          ...atual,
+                          categoria: evento.target.value as CategoriaLocal,
+                        }))
+                      )
                     }
                   />
                   <span>{categoria}</span>
@@ -190,7 +222,10 @@ export default function LocaisPage() {
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
-              <button type="button" onClick={() => setTermo("")}>
+              <button
+                type="button"
+                onClick={() => aoAlterarFiltros(() => setTermo(""))}
+              >
                 Busca: “{termo}” ×
               </button>
             )}
@@ -198,7 +233,9 @@ export default function LocaisPage() {
               <button
                 type="button"
                 onClick={() =>
-                  setFiltros((atual) => ({ ...atual, categoria: "" }))
+                  aoAlterarFiltros(() =>
+                    setFiltros((atual) => ({ ...atual, categoria: "" }))
+                  )
                 }
               >
                 {filtros.categoria} ×
@@ -227,26 +264,40 @@ export default function LocaisPage() {
             </Link>
           </div>
         ) : resultados.length > 0 ? (
-          <div className="places-grid">
-            {resultados.map((local) => (
-              <article className="place-card" key={local.id}>
-                <div className="place-card-top">
-                  <span className="place-category">{local.categoria}</span>
-                  <span className="place-status">Aberto hoje</span>
-                </div>
-                <h3>{local.nome}</h3>
-                <p className="place-address">{local.endereco}</p>
-                <div
-                  className="resource-tags"
-                  aria-label="Recursos disponíveis"
-                >
-                  {local.recursos.map((recurso) => (
-                    <span key={recurso}>{recurso}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
+          <>
+            <div className="places-grid">
+              {visiveis.map((local) => (
+                <article className="place-card" key={local.id}>
+                  <div className="place-card-top">
+                    <span className="place-category">{local.categoria}</span>
+                    <span className="place-status">Aberto hoje</span>
+                  </div>
+                  <h3>{local.nome}</h3>
+                  <p className="place-address">{local.endereco}</p>
+                  <div
+                    className="resource-tags"
+                    aria-label="Recursos disponíveis"
+                  >
+                    {local.recursos.map((recurso) => (
+                      <span key={recurso}>{recurso}</span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <Paginacao
+              paginaAtual={paginaAtual}
+              pages={pages}
+              canPrev={canPrev}
+              canNext={canNext}
+              isSinglePage={isSinglePage}
+              intervaloLabel={intervaloLabel}
+              porPagina={porPagina}
+              availableOptions={availableOptions}
+              onMudarPagina={handleMudarPagina}
+              onMudarPorPagina={handleMudarPorPagina}
+            />
+          </>
         ) : (
           <div className="empty-state">
             <span className="empty-icon" aria-hidden="true">
