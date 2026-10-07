@@ -171,6 +171,33 @@ export default function EditarLocal() {
         }));
     };
 
+    const validarCampoAoSair = (name: string) => {
+        if (!erros[name]) {
+            return;
+        }
+
+        const valor = String(form[name as keyof typeof form] ?? "");
+        const proximoErro = validarEdicao({
+            nome: form.nome,
+            categoria: form.categoria,
+            descricao: form.descricao,
+            endereco: form.endereco,
+            email: form.email,
+            telefone: form.telefone,
+            site: form.site,
+        })[name];
+
+        setErros((anterior) => {
+            const proximo = { ...anterior };
+            if (proximoErro) {
+                proximo[name] = proximoErro;
+            } else {
+                delete proximo[name];
+            }
+            return proximo;
+        });
+    };
+
     const salvarEdicao = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -243,6 +270,7 @@ export default function EditarLocal() {
                             label="Nome do local"
                             value={form.nome}
                             onChange={atualizarCampo}
+                            onBlur={validarCampoAoSair}
                             error={erros.nome}
                         />
                         <SelectField
@@ -252,6 +280,7 @@ export default function EditarLocal() {
                             value={form.categoria}
                             options={OPCOES_CATEGORIA}
                             onChange={atualizarCampo}
+                            onBlur={validarCampoAoSair}
                             error={erros.categoria}
                             placeholder="Selecione a categoria"
                         />
@@ -261,6 +290,7 @@ export default function EditarLocal() {
                             label="Descrição"
                             value={form.descricao}
                             onChange={atualizarCampo}
+                            onBlur={validarCampoAoSair}
                             error={erros.descricao}
                             fullWidth
                         />
@@ -270,6 +300,7 @@ export default function EditarLocal() {
                             label="Endereço"
                             value={form.endereco}
                             onChange={atualizarCampo}
+                            onBlur={validarCampoAoSair}
                             error={erros.endereco}
                             fullWidth
                         />
@@ -302,6 +333,7 @@ export default function EditarLocal() {
                             type="email"
                             value={form.email}
                             onChange={atualizarCampo}
+                            onBlur={validarCampoAoSair}
                             error={erros.email}
                         />
                         <TextField
@@ -311,6 +343,7 @@ export default function EditarLocal() {
                             type="tel"
                             value={form.telefone}
                             onChange={atualizarCampo}
+                            onBlur={validarCampoAoSair}
                             error={erros.telefone}
                         />
                         <TextField
@@ -320,6 +353,7 @@ export default function EditarLocal() {
                             type="url"
                             value={form.site}
                             onChange={atualizarCampo}
+                            onBlur={validarCampoAoSair}
                             error={erros.site}
                             fullWidth
                         />
