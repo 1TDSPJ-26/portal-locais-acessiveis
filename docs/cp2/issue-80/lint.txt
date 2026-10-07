@@ -1,3 +1,0 @@
-
-> portal-acessivel-template@0.0.0 lint
-> oxlint --max-warnings=0

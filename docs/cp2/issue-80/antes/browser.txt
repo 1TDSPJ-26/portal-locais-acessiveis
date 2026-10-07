@@ -1,3 +1,0 @@
-CAPTURA ANTES: claro, cadastro inválido/sucesso, reserva e Header desktop/mobile.
-CAPTURA ANTES: escuro, cadastro inválido/sucesso, reserva e Header desktop/mobile.
-CAPTURA ANTES: alto-contraste, cadastro inválido/sucesso, reserva e Header desktop/mobile.

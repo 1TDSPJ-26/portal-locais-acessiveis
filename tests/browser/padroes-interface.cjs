@@ -1,5 +1,6 @@
 // Verificação opcional: não instala dependências e não integra npm test.
-// node tests/browser/padroes-interface.cjs --playwright <módulo> --chromium <executável> --base-url http://127.0.0.1:5180 --fase antes
+// node tests/browser/padroes-interface.cjs --playwright <módulo> --chromium <executável> --base-url http://127.0.0.1:5173
+// Capturas/medições ficam em work/issue-80.local, ignorado pelo Git; --saida altera o destino.
 const { parseArgs } = require('node:util');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -8,7 +9,7 @@ const { values } = parseArgs({ options: {
   playwright: { type: 'string', default: 'playwright' },
   chromium: { type: 'string' },
   'base-url': { type: 'string', default: 'http://127.0.0.1:5173' },
-  saida: { type: 'string', default: 'docs/cp2/issue-80' },
+  saida: { type: 'string', default: 'work/issue-80.local' },
   fase: { type: 'string', default: 'depois' },
 } });
 assert(['antes', 'depois'].includes(values.fase), '--fase deve ser antes ou depois');
