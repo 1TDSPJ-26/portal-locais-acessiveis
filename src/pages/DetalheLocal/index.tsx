@@ -2,8 +2,14 @@ import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useRef } from "react";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
+import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
 
-export default function DetalheLocal() {
+const niveisBase = [                                                // <- NOVO
+  { rotulo: "Início", destino: "/" },
+  { rotulo: "Locais", destino: "/locais" },
+];
+
+export default function DetalheLocal() { 
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,9 +47,12 @@ export default function DetalheLocal() {
 
   const local = buscarLocalPorId(locais, id);
 
-  if (!local) {
+    if (!local) {
     return (
       <div className="app-shell content">
+        <TrilhaNavegacao                                          // <- NOVO
+          niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
+        />
         <h1>Local não encontrado</h1>
         <p>Não existe um local com o identificador informado.</p>
         <Link to="/locais">Voltar para a listagem de locais</Link>
@@ -63,10 +72,12 @@ export default function DetalheLocal() {
 
   return (
     <article className="app-shell content">
+      <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
+
       {mensagemSucesso && (
         <output
           aria-live="polite"
-          className="mb-4 block rounded-md border border-(--success) bg-(--card) px-4 py-3 text-sm font-medium text-(--ink)"
+          className="mb-4 block rounded-md border border-(--accent) bg-(--card) px-4 py-3 text-sm font-medium text-(--ink)"
         >
           {mensagemSucesso}
         </output>
@@ -78,6 +89,7 @@ export default function DetalheLocal() {
         </Link>
       </div>
       <dl>
+        ...
         <dt>Categoria</dt>
         <dd>{local.categoria}</dd>
         <dt>Endereço</dt>
@@ -189,3 +201,4 @@ export default function DetalheLocal() {
     </article>
   );
 }
+
