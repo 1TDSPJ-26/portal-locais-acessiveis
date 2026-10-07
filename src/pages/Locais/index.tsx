@@ -9,6 +9,7 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { LocalCard } from "../../components/LocalCard";
 
 const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
 
@@ -229,22 +230,7 @@ export default function LocaisPage() {
         ) : resultados.length > 0 ? (
           <div className="places-grid">
             {resultados.map((local) => (
-              <article className="place-card" key={local.id}>
-                <div className="place-card-top">
-                  <span className="place-category">{local.categoria}</span>
-                  <span className="place-status">Aberto hoje</span>
-                </div>
-                <h3>{local.nome}</h3>
-                <p className="place-address">{local.endereco}</p>
-                <div
-                  className="resource-tags"
-                  aria-label="Recursos disponíveis"
-                >
-                  {local.recursos.map((recurso) => (
-                    <span key={recurso}>{recurso}</span>
-                  ))}
-                </div>
-              </article>
+              <LocalCard key={local.id} local={local} />
             ))}
           </div>
         ) : (
