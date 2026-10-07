@@ -1,0 +1,114 @@
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-hero {
+  padding: 3.5rem 7.5%;
+  color: var(--hero-ink);
+  background: var(--hero);
+}
+
+.home-rotulo {
+  margin: 0 0 0.75rem;
+  font-weight: bold;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hero-accent);
+}
+
+.home-hero h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.home-intro {
+  max-width: 46rem;
+  margin: 1rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--hero-muted);
+}
+
+.home-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+
+.home-acao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.25rem;
+  border: 0.125rem solid var(--hero-accent);
+  border-radius: 0.4rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.home-acao--principal {
+  color: var(--hero);
+  background: var(--hero-accent);
+}
+
+.home-acao--secundaria {
+  color: var(--hero-ink);
+  background: transparent;
+}
+
+.home-acao:hover {
+  text-decoration: underline;
+}
+
+.home-como-usar {
+  padding: 2.75rem 7.5%;
+}
+
+.home-como-usar h2 {
+  margin: 0 0 1rem;
+}
+
+.home-passos {
+  margin: 0;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+  line-height: 1.6;
+}
+
+.home-saiba-mais {
+  padding: 2.75rem 7.5% 3.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.home-saiba-mais h2 {
+  margin: 0 0 1rem;
+}
+
+.home-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  line-height: 1.6;
+}
+
+.home-links a {
+  color: var(--accent);
+  font-weight: bold;
+  text-underline-offset: 0.2em;
+}
+
+@media (min-width: 48rem) {
+  .home-hero {
+    padding-block: 4.5rem;
+  }
+}
