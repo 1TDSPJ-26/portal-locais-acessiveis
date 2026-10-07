@@ -518,11 +518,9 @@ footer nav a {
 
 .trilha-navegacao li + li::before {
   content: "›";
-  content: "›" / "";
   margin-right: 0.5rem;
   color: var(--muted);
 }
-
 .trilha-navegacao a {
   color: var(--accent);
   text-underline-offset: 0.2em;
