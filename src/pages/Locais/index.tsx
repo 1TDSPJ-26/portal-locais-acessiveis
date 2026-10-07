@@ -37,8 +37,19 @@ export default function LocaisPage() {
   const [painelAberto, setPainelAberto] = useState(false);
   const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
+  const campoBuscaRef = useRef<HTMLInputElement>(null);
+  const [textoBusca, setTextoBusca] = useState(termo);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // A URL é atualizada em transição e chega depois da tecla. Enquanto o campo
+  // está em foco, vale o que foi digitado; fora dele, a URL manda (limpar
+  // filtros, remover o chip da busca, voltar no histórico).
+  useEffect(() => {
+    if (document.activeElement !== campoBuscaRef.current) {
+      setTextoBusca(termo);
+    }
+  }, [termo]);
 
   useEffect(() => {
     const nome = location.state?.localExcluido;
@@ -78,9 +89,14 @@ export default function LocaisPage() {
 
   // Toda alteração de busca ou filtro grava na URL e volta para a primeira página.
   const atualizarParametros = (alterar: (params: URLSearchParams) => void) => {
-    const proximos = new URLSearchParams(searchParams);
-    alterar(proximos);
-    setSearchParams(proximos, { replace: true });
+    setSearchParams(
+      (atuais) => {
+        const proximos = new URLSearchParams(atuais);
+        alterar(proximos);
+        return proximos;
+      },
+      { replace: true }
+    );
     handleFiltroAlterado();
   };
 
@@ -143,8 +159,12 @@ export default function LocaisPage() {
           <input
             id="campo-busca-locais"
             type="search"
-            value={termo}
-            onChange={(evento) => alterarTermo(evento.target.value)}
+            ref={campoBuscaRef}
+            value={textoBusca}
+            onChange={(evento) => {
+              setTextoBusca(evento.target.value);
+              alterarTermo(evento.target.value);
+            }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">

@@ -89,7 +89,6 @@ export default function DetalheLocal() {
         </Link>
       </div>
       <dl>
-        ...
         <dt>Categoria</dt>
         <dd>{local.categoria}</dd>
         <dt>Endereço</dt>
