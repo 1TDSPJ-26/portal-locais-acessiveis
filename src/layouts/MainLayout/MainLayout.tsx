@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Header } from '../../components/Header';
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import Footer from '../../components/Footer';
 
 export function MainLayout({ children }: { children: ReactNode }) {
