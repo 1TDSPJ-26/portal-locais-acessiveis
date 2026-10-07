@@ -1,8 +1,8 @@
 import { useMemo, useRef, useState } from "react";
 
-export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
+export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[], porPaginaInicial = 10) {
     const [pagina, setPagina] = useState<number>(1);
-    const [porPagina, setPorPagina] = useState<number>(10);
+    const [porPagina, setPorPagina] = useState<number>(porPaginaInicial);
 
     const availableOptions = optionsPorPagina ?? [10, 20, 50];
         
@@ -16,7 +16,7 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
         [filtrados, inicio, porPagina]
     );
 
-    const topoListaRef = useRef<HTMLElement | null>(null);
+    const topoListaRef = useRef<HTMLHeadingElement | null>(null);
 
     function handleMudarPagina(novaPagina: number) {
         setPagina(novaPagina);
@@ -25,6 +25,7 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
 
     function handleMudarPorPagina(novoValor: number) {
         setPorPagina(novoValor);
+        setPagina(1);
     }
 
     // Handler que o componente de busca/filters deve chamar ao alterar o termo/filtros
@@ -36,13 +37,12 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
     const totalItems = filtrados.length;
     const intervaloInicio = totalItems === 0 ? 0 : inicio + 1;
     const intervaloFim = Math.min(inicio + visiveis.length, totalItems);
-    const intervaloLabel = `Exibindo ${intervaloInicio} a ${intervaloFim} de ${totalItems} itens`;
+    const intervaloLabel = `Exibindo ${intervaloInicio} a ${intervaloFim} de ${totalItems} locais`;
 
     // Auxiliares para UI: páginas e status de controles
     const pages = Array.from({ length: totalPaginas }, (_, i) => i + 1);
     const canPrev = paginaAtual > 1;
     const canNext = paginaAtual < totalPaginas;
-    const isSinglePage = totalPaginas === 1;
 
     return {
         paginaAtual,
@@ -57,7 +57,6 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[]) {
         pages,
         canPrev,
         canNext,
-        isSinglePage,
         topoListaRef,
         handleMudarPagina,
         handleMudarPorPagina,
