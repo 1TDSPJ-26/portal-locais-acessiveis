@@ -8,6 +8,10 @@ import {
 
 export type DadosCadastroLocal = Omit<Local, "id">;
 
+export function excluirLocal(locais: readonly Local[], id: Local["id"]): Local[] {
+  return locais.filter((local) => local.id !== id);
+}
+
 export class LocalDuplicadoError extends Error {
   constructor() {
     super("Já existe um local cadastrado com este nome e endereço.");
