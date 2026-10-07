@@ -131,7 +131,55 @@ export default function DetalheLocal() {
         </section>
       )}
 
-      <Link to="/locais">Voltar para a listagem de locais</Link>
+      <div className="local-actions">
+        <Link to="/locais">Voltar para a listagem de locais</Link>
+        <button
+          ref={excluirRef}
+          type="button"
+          className="delete-button"
+          onClick={() => {
+            dialogRef.current?.showModal();
+            cancelarRef.current?.focus();
+          }}
+        >
+          Excluir local
+        </button>
+      </div>
+
+      <dialog
+        ref={dialogRef}
+        className="delete-dialog"
+        aria-labelledby="titulo-exclusao"
+        aria-describedby="descricao-exclusao"
+        onClose={() => excluirRef.current?.focus()}
+      >
+        <h2 id="titulo-exclusao">Excluir local?</h2>
+        <p id="descricao-exclusao">
+          O local <strong>{local.nome}</strong> será excluído. Esta ação não pode
+          ser desfeita.
+        </p>
+        <div className="local-actions">
+          <button
+            ref={cancelarRef}
+            type="button"
+            className="filter-toggle"
+            onClick={() => dialogRef.current?.close()}
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            className="delete-button"
+            onClick={() => {
+              dialogRef.current?.close();
+              removerLocal(local.id);
+              void navigate("/locais", { state: { localExcluido: local.nome } });
+            }}
+          >
+            Excluir
+          </button>
+        </div>
+      </dialog>
     </article>
   );
 }

@@ -14,6 +14,37 @@ const base = {
   recursos: ["Entrada sem degraus"],
 };
 
+test("não reutiliza o maior ID excluído quando recebe o histórico da sessão", () => {
+  const locais = [{ id: 2, ...base }, { id: 8, ...base }];
+  const restantes = excluirLocal(locais, 8);
+
+  const novoLocal = criarLocal(restantes, {
+    ...base,
+    nome: "Centro Cultural",
+    endereco: "Rua Nova, 300",
+  }, 8);
+
+  assert.equal(novoLocal.id, 9);
+  assert.equal(restantes.some((local) => local.id === 8), false);
+});
+
+test("mantém a sequência de IDs depois de excluir todos os locais", () => {
+  const restantes = excluirLocal([{ id: 8, ...base }], 8);
+  const novoLocal = criarLocal(restantes, base, 8);
+
+  assert.equal(novoLocal.id, 9);
+});
+
+test("considera IDs da lista maiores que o histórico informado", () => {
+  const novoLocal = criarLocal([{ id: 12, ...base }], {
+    ...base,
+    nome: "Centro Cultural",
+    endereco: "Rua Nova, 300",
+  }, 8);
+
+  assert.equal(novoLocal.id, 13);
+});
+
 test("gera o ID a partir do maior ID, mesmo com lacunas", () => {
   const locais = [
     { id: 2, ...base },

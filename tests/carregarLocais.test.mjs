@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { carregarLocais } from "../src/services/locais.ts";
 import { locais } from "../src/data/locais.ts";
+import { CHAVE_LOCAIS } from "../src/persistenciaLocais.ts";
 
 test("carrega os locais de exemplo somente depois do atraso simulado", async (t) => {
   t.mock.timers.enable({ apis: ["setTimeout"] });
@@ -51,4 +52,30 @@ test("cargas simultâneas devolvem listas e recursos independentes", async (t) =
   assert.notEqual(primeira, segunda);
   assert.notEqual(primeira[0], segunda[0]);
   assert.notEqual(primeira[0].recursos, segunda[0].recursos);
+});
+
+test("usa a lista salva no armazenamento em vez dos dados de exemplo", async (t) => {
+  const salvos = [
+    {
+      id: 42,
+      nome: "Local cadastrado pelo usuário",
+      categoria: "Cultura",
+      endereco: "Rua Exemplo, 10 · Centro",
+      recursos: ["Piso tátil"],
+    },
+  ];
+  globalThis.localStorage = {
+    getItem: (chave) =>
+      chave === CHAVE_LOCAIS ? JSON.stringify(salvos) : null,
+    setItem() {},
+  };
+  t.after(() => {
+    delete globalThis.localStorage;
+  });
+
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const carga = carregarLocais();
+  t.mock.timers.tick(500);
+
+  assert.deepEqual(await carga, salvos);
 });
