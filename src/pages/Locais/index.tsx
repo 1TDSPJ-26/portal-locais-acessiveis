@@ -9,6 +9,7 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import Mensagem from "../../components/Mensagem";
 
 
 
@@ -91,7 +92,7 @@ const limparFiltros = () => {
           Pesquise por nome ou combine recursos de acessibilidade para planejar
           sua próxima saída.
         </p>
-        <label className="search-field" htmlFor="campo-busca-locais">
+        <label className="search-field campo" htmlFor="campo-busca-locais">
           <span className="search-icon" aria-hidden="true">
             ⌕
           </span>
@@ -121,9 +122,9 @@ const limparFiltros = () => {
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
-        <output className="delete-notice" aria-live="polite" aria-atomic="true">
+        <Mensagem tipo="sucesso" className="delete-notice">
           {mensagemExclusao}
-        </output>
+        </Mensagem>
         <div className="results-heading">
           <div>
             <p className="section-kicker">Explorar locais</p>
@@ -134,7 +135,7 @@ const limparFiltros = () => {
             </h2>
           </div>
           <button
-            className="filter-toggle"
+            className="botao botao--secundario filter-toggle"
             type="button"
             aria-expanded={painelAberto}
             aria-controls="filtros-locais"
@@ -157,28 +158,31 @@ const limparFiltros = () => {
           {estado === "carregando" ? "Carregando locais..." : ""}
         </output>
 
-        <div aria-live="polite" aria-atomic="true">
+        <Mensagem
+          tipo="aviso"
+          className={estado === "pronto" && usandoReserva ? "empty-state" : undefined}
+        >
           {estado === "pronto" && usandoReserva && (
-            <div className="empty-state">
+            <>
               <h2>Exibindo dados de reserva</h2>
               <p>
                 Não foi possível carregar os locais salvos. A lista exibida
                 contém os dados de reserva do projeto, e não a lista salva.
               </p>
-              <button className="clear-button prominent" type="button" onClick={tentarNovamente}>
+              <button className="botao botao--secundario" type="button" onClick={tentarNovamente}>
                 Tentar novamente
               </button>
-            </div>
+            </>
           )}
-        </div>
+        </Mensagem>
 
-        <div role="alert" className={estado === "erro" ? "empty-state" : undefined}>
+        <Mensagem tipo="erro" className={estado === "erro" ? "empty-state" : undefined}>
           {estado === "erro" && (
             <>
               <h2>Não foi possível carregar os locais</h2>
               <p>Tente novamente para consultar os locais disponíveis.</p>
               <button
-                className="clear-button prominent"
+                className="botao botao--secundario"
                 type="button"
                 onClick={tentarNovamente}
               >
@@ -186,7 +190,7 @@ const limparFiltros = () => {
               </button>
             </>
           )}
-        </div>
+        </Mensagem>
 
         <aside
           id="filtros-locais"
@@ -199,7 +203,7 @@ const limparFiltros = () => {
               <h2>O que você precisa?</h2>
             </div>
             <button
-              className="clear-button"
+              className="botao botao--secundario"
               type="button"
               onClick={limparFiltros}
               disabled={!temFiltrosAtivos}
@@ -260,7 +264,7 @@ const limparFiltros = () => {
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
-              <button type="button" onClick={() => {
+              <button className="botao botao--secundario" type="button" onClick={() => {
                 const parametros = new URLSearchParams(searchParams);
                 parametros.delete("busca");
                 setSearchParams(parametros);
@@ -270,6 +274,7 @@ const limparFiltros = () => {
             )}
             {filtros.categoria && (
               <button
+                className="botao botao--secundario"
                 type="button"
                 onClick={() => {
                   const parametros = new URLSearchParams(searchParams);
@@ -282,6 +287,7 @@ const limparFiltros = () => {
             )}
             {filtros.recursos.map((recurso) => (
               <button
+                className="botao botao--secundario"
                 type="button"
                 key={recurso}
                 onClick={() => alternarRecurso(recurso)}
@@ -293,15 +299,15 @@ const limparFiltros = () => {
         )}
 
         {estado === "pronto" && (locais.length === 0 ? (
-          <div className="empty-state">
+          <Mensagem tipo="aviso" anunciar={false} className="empty-state">
             <h2>Nenhum local cadastrado</h2>
             <p>
               Cadastre o primeiro local e ajude outras pessoas a encontrar lugares acessíveis.
             </p>
-            <Link className="clear-button prominent" to="/cadastrar">
+            <Link className="botao botao--primario" to="/cadastrar">
               Cadastrar local
             </Link>
-          </div>
+          </Mensagem>
         ) : resultados.length > 0 ? (
           <div className="places-grid">
             {resultados.map((local) => (
@@ -324,7 +330,7 @@ const limparFiltros = () => {
             ))}
           </div>
         ) : (
-          <div className="empty-state">
+          <Mensagem tipo="aviso" anunciar={false} className="empty-state">
             <span className="empty-icon" aria-hidden="true">
               ⌁
             </span>
@@ -335,13 +341,13 @@ const limparFiltros = () => {
                 : "Tente remover algum filtro ou buscar por outro termo."}
             </p>
             <button
-              className="clear-button prominent"
+              className="botao botao--secundario"
               type="button"
               onClick={limparFiltros}
             >
               Limpar filtros
             </button>
-          </div>
+          </Mensagem>
         ))}
       </section>
     </div>

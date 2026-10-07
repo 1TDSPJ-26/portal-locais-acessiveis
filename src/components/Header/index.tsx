@@ -106,7 +106,7 @@ export function Header() {
         <button
           ref={botaoMenuRef}
           type="button"
-          className="menu-toggle"
+          className="botao botao--secundario menu-toggle"
           aria-expanded={menuAberto}
           aria-controls="menu-principal"
           aria-label="Menu de navegação"
@@ -171,6 +171,7 @@ export function Header() {
 
         <button
           type="button"
+          className="botao botao--secundario"
           aria-label="Diminuir fonte"
           disabled={fonte === "normal"}
           onClick={() =>
@@ -182,6 +183,7 @@ export function Header() {
 
         <button
           type="button"
+          className="botao botao--secundario"
           aria-label="Fonte padrão"
           aria-pressed={fonte === "normal"}
           onClick={() => definirFonte("normal")}
@@ -191,6 +193,7 @@ export function Header() {
 
         <button
           type="button"
+          className="botao botao--secundario"
           aria-label="Aumentar fonte"
           disabled={fonte === "maior"}
           onClick={() =>
@@ -202,13 +205,14 @@ export function Header() {
 
         <button
           type="button"
+          className="botao botao--secundario"
           aria-pressed={contraste === "alto"}
           onClick={alternarContraste}
         >
           Alto contraste
         </button>
 
-        <button type="button" onClick={restaurar}>
+        <button type="button" className="botao botao--secundario" onClick={restaurar}>
           Restaurar padrão
         </button>
       </fieldset>

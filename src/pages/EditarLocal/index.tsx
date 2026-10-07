@@ -4,6 +4,7 @@ import TextField from "../../components/TextField/index";
 import SelectField from "../../components/SelectField/index";
 import TextAreaField from "../../components/TextAreaField/index";
 import CheckboxField from "../../components/CheckboxField/index";
+import Mensagem from "../../components/Mensagem";
 import {
     categoriasLocais,
     recursosAcessibilidade,
@@ -124,9 +125,9 @@ export default function EditarLocal() {
         return (
             <div className="app-shell content">
                 <h1>Não foi possível carregar o local</h1>
-                <p role="alert">Tente novamente para consultar as informações do local.</p>
+                <Mensagem tipo="erro">Tente novamente para consultar as informações do local.</Mensagem>
                 <button
-                    className="clear-button prominent"
+                    className="botao botao--secundario"
                     type="button"
                     onClick={tentarNovamente}
                 >
@@ -141,7 +142,7 @@ export default function EditarLocal() {
         return (
             <div className="app-shell content">
                 <h1>Local não encontrado</h1>
-                <p>Não existe um local com o identificador informado.</p>
+                <Mensagem tipo="aviso">Não existe um local com o identificador informado.</Mensagem>
                 <Link to="/locais">Voltar para a listagem de locais</Link>
             </div>
         );
@@ -267,13 +268,12 @@ function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
 
             <form className="flex flex-col gap-6" onSubmit={salvarEdicao} noValidate>
                 {camposComErro.length > 0 && (
-                    <div
+                    <Mensagem
                         ref={resumoErrosRef}
-                        role="alert"
+                        tipo="erro"
                         tabIndex={-1}
-                        className="rounded-md border-2 border-(--alert) bg-(--card) px-4 py-3 text-(--ink) outline-none focus-visible:ring-2 focus-visible:ring-(--alert) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
                     >
-                        <h2 className="text-base font-semibold text-(--alert)">Corrija os campos antes de enviar</h2>
+                        <h2 className="text-base font-semibold">Corrija os campos antes de enviar</h2>
                         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
                             {camposComErro.map((campo) => (
                                 <li key={campo}>
@@ -283,7 +283,7 @@ function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </Mensagem>
                 )}
 
                 <fieldset className="rounded-lg border border-(--control) bg-(--card) px-5 pb-6 pt-4 shadow-(--shadow)">
@@ -388,13 +388,13 @@ function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
                 <div className="flex gap-3">
                     <button
                         type="submit"
-                        className="rounded-md bg-(--accent) px-7 py-3 font-semibold text-black transition hover:brightness-95"
+                        className="botao botao--primario"
                     >
                         Salvar alterações
                     </button>
                     <button
                         type="button"
-                        className="rounded-md border border-(--control) bg-(--card) px-7 py-3 font-semibold text-(--ink)"
+                        className="botao botao--secundario"
                         onClick={() => navigate(`/locais/${local.id}`)}
                     >
                         Cancelar
@@ -402,11 +402,9 @@ function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
                 </div>
             </form>
 
-            {mensagem && (
-                <div aria-live="polite" role="alert" className="mt-4 text-sm font-medium text-(--alert)">
-                    {mensagem}
-                </div>
-            )}
+            <Mensagem tipo="erro" className="mt-4">
+                {mensagem}
+            </Mensagem>
         </div>
     );
 }

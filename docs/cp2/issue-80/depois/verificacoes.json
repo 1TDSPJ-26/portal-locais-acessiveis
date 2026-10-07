@@ -1,0 +1,7538 @@
+[
+  {
+    "contexto": "claro: cadastro inicial",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Cadastrar local",
+        "largura": 143.078125,
+        "altura": 44,
+        "classe": "botao botao--primario self-start"
+      }
+    ]
+  },
+  {
+    "contexto": "claro: cadastro inicial",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Cadastrar local",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          109,
+          40,
+          217
+        ],
+        "razao": 7.104892978519159
+      }
+    ]
+  },
+  {
+    "contexto": "claro: nome",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: categoria",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: descricao",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: logradouro",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: numero",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: bairro",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: cidade",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: estado",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: cep",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: email",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: campo inválido",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "claro: erros e campos",
+    "contraste": [
+      {
+        "nome": "Erro:Corrija os campos antes de enviarNome do local: Este campo é obrigatório.Ca",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "nome-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "categoria-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "descricao-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "logradouro-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "numero-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "bairro-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "cidade-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "estado-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "cep",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "cep-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "email-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          246,
+          244,
+          237
+        ],
+        "razao": 14.9625829084841
+      },
+      {
+        "nome": "",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          246,
+          244,
+          237
+        ],
+        "razao": 14.9625829084841
+      }
+    ]
+  },
+  {
+    "contexto": "claro: sucesso",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Ver o local na listagem",
+        "largura": 200.828125,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Ver detalhes do local",
+        "largura": 188.75,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Cadastrar outro local",
+        "largura": 188.640625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "claro: sucesso",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Ver o local na listagem",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          109,
+          40,
+          217
+        ],
+        "razao": 7.104892978519159
+      },
+      {
+        "nome": "Ver detalhes do local",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Cadastrar outro local",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: mensagem de sucesso",
+    "contraste": [
+      {
+        "nome": "Sucesso:Cadastro concluídoNomeEspaço de teste 80 claroCategoriaCulturaEndereçoRu",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Sucesso:",
+        "texto": "rgb(109, 40, 217)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 6.989040615216423
+      },
+      {
+        "nome": "titulo-cadastro-concluido",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Nome",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Espaço de teste 80 claro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Cultura",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Endereço",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Rua de Teste, 80 · Centro · São Paulo - SP · CEP 01001-000",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Recursos de acessibilidade",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: campo sem erro",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "claro: novo formulário",
+    "contraste": [
+      {
+        "nome": "Teste da issue #70 — cenário da próxima carga:",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Nome do local",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Descrição",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Logradouro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "logradouro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Número",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "numero",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Complemento",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "complemento",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Bairro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "bairro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Cidade",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "cidade",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Estado (UF)",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "estado",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "CEP",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "cep",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Entrada sem degraus",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Banheiro acessível",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Piso tátil",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Sinalização tátil",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Vagas preferenciais",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Libras",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Audiodescrição",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "E-mail",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Telefone",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "telefone",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Site",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "site",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: listagem mobile ainda com reserva",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "claro: listagem mobile ainda com reserva",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 95.75,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Tentar novamente",
+        "largura": 168.578125,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 110.421875,
+        "altura": 66,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "claro: listagem mobile ainda com reserva",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Tentar novamente",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: listagem com reserva",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 100.328125,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Tentar novamente",
+        "largura": 168.578125,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 133.40625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "claro: listagem com reserva",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Tentar novamente",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: aviso reserva e busca",
+    "contraste": [
+      {
+        "nome": "campo-busca-locais",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aviso:Exibindo dados de reservaNão foi possível carregar os locais salvos. A lis",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aviso:",
+        "texto": "rgb(109, 40, 217)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 6.989040615216423
+      },
+      {
+        "nome": "Exibindo dados de reserva",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Não foi possível carregar os locais salvos. A lista exibida contém os dados de r",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: tentar novamente",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "claro: link do menu mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "claro: links do menu mobile",
+    "alvos": [
+      {
+        "nome": "Home",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Locais",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Cadastro",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Sobre",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Acessibilidade",
+        "largura": 357,
+        "altura": 44
+      }
+    ]
+  },
+  {
+    "contexto": "claro: links do menu mobile",
+    "contraste": [
+      {
+        "nome": "Home",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Locais",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Cadastro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Sobre",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Acessibilidade",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: menu mobile aberto",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 100.328125,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 110.421875,
+        "altura": 66,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "claro: menu mobile aberto",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: menu mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "claro: cadastro mobile após navegação",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "claro: edição inicial",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Salvar alterações",
+        "largura": 159.015625,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Cancelar",
+        "largura": 97.21875,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "claro: edição inicial",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Salvar alterações",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          109,
+          40,
+          217
+        ],
+        "razao": 7.104892978519159
+      },
+      {
+        "nome": "Cancelar",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: campos de edição",
+    "contraste": [
+      {
+        "nome": "Nome do local",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Descrição",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Endereço",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "endereco",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Entrada sem degraus",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Banheiro acessível",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Piso tátil",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Sinalização tátil",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Vagas preferenciais",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Libras",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Audiodescrição",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "E-mail",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Telefone",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "telefone",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Site",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "site",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: nome",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: categoria",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: descricao",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: endereco",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: email",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: telefone",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: site",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(179, 69, 31)",
+      "corErro": "rgb(179, 69, 31)"
+    }
+  },
+  {
+    "contexto": "claro: campo inválido",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "claro: erros e campos",
+    "contraste": [
+      {
+        "nome": "Erro:Corrija os campos antes de enviarNome do local: Este campo é obrigatório.Ca",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "nome-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "categoria-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "descricao-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "endereco-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "email-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "telefone-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "site-erro",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(179, 69, 31)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 5.453747967288099
+      },
+      {
+        "nome": "",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          246,
+          244,
+          237
+        ],
+        "razao": 14.9625829084841
+      }
+    ]
+  },
+  {
+    "contexto": "claro: edição mobile",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "claro: edição mobile",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Salvar alterações",
+        "largura": 159.015625,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Cancelar",
+        "largura": 97.21875,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "claro: edição mobile",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Salvar alterações",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          109,
+          40,
+          217
+        ],
+        "razao": 7.104892978519159
+      },
+      {
+        "nome": "Cancelar",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      }
+    ]
+  },
+  {
+    "contexto": "claro: salvar edição mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "claro: detalhe mobile após edição",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "claro: edição confirmada",
+    "contraste": [
+      {
+        "nome": "Sucesso:Local editado 80 claro foi atualizado com sucesso.",
+        "texto": "rgb(33, 29, 43)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 16.198256380237844
+      },
+      {
+        "nome": "Sucesso:",
+        "texto": "rgb(109, 40, 217)",
+        "fundo": [
+          255,
+          253,
+          248
+        ],
+        "razao": 6.989040615216423
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: cadastro inicial",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Cadastrar local",
+        "largura": 143.078125,
+        "altura": 44,
+        "classe": "botao botao--primario self-start"
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: cadastro inicial",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Cadastrar local",
+        "texto": "rgb(22, 23, 29)",
+        "fundo": [
+          192,
+          132,
+          252
+        ],
+        "razao": 6.767161261762329
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: nome",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: categoria",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: descricao",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: logradouro",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: numero",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: bairro",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: cidade",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: estado",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: cep",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: email",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: campo inválido",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "escuro: erros e campos",
+    "contraste": [
+      {
+        "nome": "Erro:Corrija os campos antes de enviarNome do local: Este campo é obrigatório.Ca",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "nome-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "categoria-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "descricao-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "logradouro-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "numero-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "bairro-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "cidade-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "estado-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "cep",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "cep-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "email-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          22,
+          23,
+          29
+        ],
+        "razao": 16.24807124549995
+      },
+      {
+        "nome": "",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          22,
+          23,
+          29
+        ],
+        "razao": 16.24807124549995
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: sucesso",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Ver o local na listagem",
+        "largura": 200.828125,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Ver detalhes do local",
+        "largura": 188.75,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Cadastrar outro local",
+        "largura": 188.640625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: sucesso",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Ver o local na listagem",
+        "texto": "rgb(22, 23, 29)",
+        "fundo": [
+          192,
+          132,
+          252
+        ],
+        "razao": 6.767161261762329
+      },
+      {
+        "nome": "Ver detalhes do local",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Cadastrar outro local",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: mensagem de sucesso",
+    "contraste": [
+      {
+        "nome": "Sucesso:Cadastro concluídoNomeEspaço de teste 80 escuroCategoriaCulturaEndereçoR",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Sucesso:",
+        "texto": "rgb(192, 132, 252)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.13463206908888
+      },
+      {
+        "nome": "titulo-cadastro-concluido",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Nome",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Espaço de teste 80 escuro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Cultura",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Endereço",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Rua de Teste, 80 · Centro · São Paulo - SP · CEP 01001-000",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Recursos de acessibilidade",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: campo sem erro",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "escuro: novo formulário",
+    "contraste": [
+      {
+        "nome": "Teste da issue #70 — cenário da próxima carga:",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Nome do local",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Descrição",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Logradouro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "logradouro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Número",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "numero",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Complemento",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "complemento",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Bairro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "bairro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Cidade",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "cidade",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Estado (UF)",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "estado",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "CEP",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "cep",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Entrada sem degraus",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Banheiro acessível",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Piso tátil",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Sinalização tátil",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Vagas preferenciais",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Libras",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Audiodescrição",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "E-mail",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Telefone",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "telefone",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Site",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "site",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: listagem mobile ainda com reserva",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "escuro: listagem mobile ainda com reserva",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 95.75,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Tentar novamente",
+        "largura": 168.578125,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 110.421875,
+        "altura": 66,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: listagem mobile ainda com reserva",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Tentar novamente",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: listagem com reserva",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 100.328125,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Tentar novamente",
+        "largura": 168.578125,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 133.40625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: listagem com reserva",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Tentar novamente",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: aviso reserva e busca",
+    "contraste": [
+      {
+        "nome": "campo-busca-locais",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aviso:Exibindo dados de reservaNão foi possível carregar os locais salvos. A lis",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aviso:",
+        "texto": "rgb(192, 132, 252)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.13463206908888
+      },
+      {
+        "nome": "Exibindo dados de reserva",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Não foi possível carregar os locais salvos. A lista exibida contém os dados de r",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: tentar novamente",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "escuro: link do menu mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "escuro: links do menu mobile",
+    "alvos": [
+      {
+        "nome": "Home",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Locais",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Cadastro",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Sobre",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Acessibilidade",
+        "largura": 357,
+        "altura": 44
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: links do menu mobile",
+    "contraste": [
+      {
+        "nome": "Home",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Locais",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Cadastro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Sobre",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Acessibilidade",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: menu mobile aberto",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 100.328125,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 110.421875,
+        "altura": 66,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: menu mobile aberto",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: menu mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "escuro: cadastro mobile após navegação",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "escuro: edição inicial",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Salvar alterações",
+        "largura": 159.015625,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Cancelar",
+        "largura": 97.21875,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: edição inicial",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Salvar alterações",
+        "texto": "rgb(22, 23, 29)",
+        "fundo": [
+          192,
+          132,
+          252
+        ],
+        "razao": 6.767161261762329
+      },
+      {
+        "nome": "Cancelar",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: campos de edição",
+    "contraste": [
+      {
+        "nome": "Nome do local",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Descrição",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Endereço",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "endereco",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Entrada sem degraus",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Banheiro acessível",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Piso tátil",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Sinalização tátil",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Vagas preferenciais",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Libras",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Audiodescrição",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "E-mail",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Telefone",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "telefone",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Site",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "site",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: nome",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: categoria",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: descricao",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: endereco",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: email",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: telefone",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: site",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(240, 144, 107)",
+      "corErro": "rgb(240, 144, 107)"
+    }
+  },
+  {
+    "contexto": "escuro: campo inválido",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "escuro: erros e campos",
+    "contraste": [
+      {
+        "nome": "Erro:Corrija os campos antes de enviarNome do local: Este campo é obrigatório.Ca",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "nome-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "categoria-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "descricao-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "endereco-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "email-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "telefone-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "site-erro",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(240, 144, 107)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.875045125989039
+      },
+      {
+        "nome": "",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          22,
+          23,
+          29
+        ],
+        "razao": 16.24807124549995
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: edição mobile",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "escuro: edição mobile",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Salvar alterações",
+        "largura": 159.015625,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Cancelar",
+        "largura": 97.21875,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: edição mobile",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Salvar alterações",
+        "texto": "rgb(22, 23, 29)",
+        "fundo": [
+          192,
+          132,
+          252
+        ],
+        "razao": 6.767161261762329
+      },
+      {
+        "nome": "Cancelar",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      }
+    ]
+  },
+  {
+    "contexto": "escuro: salvar edição mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "escuro: detalhe mobile após edição",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "escuro: edição confirmada",
+    "contraste": [
+      {
+        "nome": "Sucesso:Local editado 80 escuro foi atualizado com sucesso.",
+        "texto": "rgb(243, 244, 246)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 14.729357712620391
+      },
+      {
+        "nome": "Sucesso:",
+        "texto": "rgb(192, 132, 252)",
+        "fundo": [
+          31,
+          32,
+          40
+        ],
+        "razao": 6.13463206908888
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: cadastro inicial",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Cadastrar local",
+        "largura": 143.078125,
+        "altura": 44,
+        "classe": "botao botao--primario self-start"
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: cadastro inicial",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Cadastrar local",
+        "texto": "rgb(0, 0, 0)",
+        "fundo": [
+          255,
+          255,
+          0
+        ],
+        "razao": 19.555999999999997
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: nome",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: categoria",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: descricao",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: logradouro",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: numero",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: bairro",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: cidade",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: estado",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: cep",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: email",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: campo inválido",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "alto-contraste: erros e campos",
+    "contraste": [
+      {
+        "nome": "Erro:Corrija os campos antes de enviarNome do local: Este campo é obrigatório.Ca",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "nome-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "categoria-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "descricao-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "logradouro-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "numero-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "bairro-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "cidade-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "estado-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "cep",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "cep-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "email-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: sucesso",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Ver o local na listagem",
+        "largura": 200.828125,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Ver detalhes do local",
+        "largura": 188.75,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Cadastrar outro local",
+        "largura": 188.640625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: sucesso",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Ver o local na listagem",
+        "texto": "rgb(0, 0, 0)",
+        "fundo": [
+          255,
+          255,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Ver detalhes do local",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Cadastrar outro local",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: mensagem de sucesso",
+    "contraste": [
+      {
+        "nome": "Sucesso:Cadastro concluídoNomeEspaço de teste 80 alto-contrasteCategoriaCulturaE",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Sucesso:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "titulo-cadastro-concluido",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Nome",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Espaço de teste 80 alto-contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Cultura",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Endereço",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Rua de Teste, 80 · Centro · São Paulo - SP · CEP 01001-000",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Recursos de acessibilidade",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: campo sem erro",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "alto-contraste: novo formulário",
+    "contraste": [
+      {
+        "nome": "Teste da issue #70 — cenário da próxima carga:",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Nome do local",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Descrição",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Logradouro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "logradouro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Número",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "numero",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Complemento",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "complemento",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Bairro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "bairro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Cidade",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "cidade",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Estado (UF)",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "estado",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "CEP",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "cep",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Entrada sem degraus",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Banheiro acessível",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Piso tátil",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Sinalização tátil",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Vagas preferenciais",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Libras",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Audiodescrição",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "E-mail",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Telefone",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "telefone",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Site",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "site",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: listagem mobile ainda com reserva",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "alto-contraste: listagem mobile ainda com reserva",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 95.75,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Tentar novamente",
+        "largura": 168.578125,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 110.421875,
+        "altura": 66,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: listagem mobile ainda com reserva",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Tentar novamente",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: listagem com reserva",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 100.328125,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Tentar novamente",
+        "largura": 168.578125,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 133.40625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: listagem com reserva",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Tentar novamente",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: aviso reserva e busca",
+    "contraste": [
+      {
+        "nome": "campo-busca-locais",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aviso:Exibindo dados de reservaNão foi possível carregar os locais salvos. A lis",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aviso:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Exibindo dados de reserva",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Não foi possível carregar os locais salvos. A lista exibida contém os dados de r",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: tentar novamente",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "alto-contraste: link do menu mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "alto-contraste: links do menu mobile",
+    "alvos": [
+      {
+        "nome": "Home",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Locais",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Cadastro",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Sobre",
+        "largura": 357,
+        "altura": 44
+      },
+      {
+        "nome": "Acessibilidade",
+        "largura": 357,
+        "altura": 44
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: links do menu mobile",
+    "contraste": [
+      {
+        "nome": "Home",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Locais",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Cadastro",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Sobre",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Acessibilidade",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: menu mobile aberto",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "☷ Filtros",
+        "largura": 100.328125,
+        "altura": 44,
+        "classe": "botao botao--secundario filter-toggle"
+      },
+      {
+        "nome": "Limpar filtros",
+        "largura": 110.421875,
+        "altura": 66,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: menu mobile aberto",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "☷ Filtros",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Limpar filtros",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: menu mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "alto-contraste: cadastro mobile após navegação",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "alto-contraste: edição inicial",
+    "alvos": [
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Salvar alterações",
+        "largura": 159.015625,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Cancelar",
+        "largura": 97.21875,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: edição inicial",
+    "contraste": [
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Salvar alterações",
+        "texto": "rgb(0, 0, 0)",
+        "fundo": [
+          255,
+          255,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Cancelar",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: campos de edição",
+    "contraste": [
+      {
+        "nome": "Nome do local",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Categoria",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Descrição",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Endereço",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "endereco",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Entrada sem degraus",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Banheiro acessível",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Piso tátil",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Sinalização tátil",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Vagas preferenciais",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Libras",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Audiodescrição",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "E-mail",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Telefone",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "telefone",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Site",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "site",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: nome",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: categoria",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: descricao",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: endereco",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: email",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: telefone",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: site",
+    "borda": {
+      "largura": 2,
+      "cor": "rgb(255, 255, 0)",
+      "corErro": "rgb(255, 255, 0)"
+    }
+  },
+  {
+    "contexto": "alto-contraste: campo inválido",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "alto-contraste: erros e campos",
+    "contraste": [
+      {
+        "nome": "Erro:Corrija os campos antes de enviarNome do local: Este campo é obrigatório.Ca",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "nome",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "nome-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "categoria",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "categoria-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "descricao",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "descricao-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "endereco-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "email",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "email-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "telefone-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "site-erro",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Erro:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: edição mobile",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "alto-contraste: edição mobile",
+    "alvos": [
+      {
+        "nome": "Menu de navegação",
+        "largura": 56,
+        "altura": 44,
+        "classe": "botao botao--secundario menu-toggle"
+      },
+      {
+        "nome": "Diminuir fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Fonte padrão",
+        "largura": 44,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Aumentar fonte",
+        "largura": 51.515625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Alto contraste",
+        "largura": 137.390625,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Restaurar padrão",
+        "largura": 160.25,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      },
+      {
+        "nome": "Salvar alterações",
+        "largura": 159.015625,
+        "altura": 44,
+        "classe": "botao botao--primario"
+      },
+      {
+        "nome": "Cancelar",
+        "largura": 97.21875,
+        "altura": 44,
+        "classe": "botao botao--secundario"
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: edição mobile",
+    "contraste": [
+      {
+        "nome": "Menu de navegação",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Diminuir fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Fonte padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Aumentar fonte",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Alto contraste",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Restaurar padrão",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Salvar alterações",
+        "texto": "rgb(0, 0, 0)",
+        "fundo": [
+          255,
+          255,
+          0
+        ],
+        "razao": 19.555999999999997
+      },
+      {
+        "nome": "Cancelar",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      }
+    ]
+  },
+  {
+    "contexto": "alto-contraste: salvar edição mobile",
+    "foco": {
+      "ativo": true,
+      "visivel": true,
+      "outline": "solid",
+      "largura": "3px",
+      "sombra": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(255, 255, 255) 0px 0px 0px 6px"
+    }
+  },
+  {
+    "contexto": "alto-contraste: detalhe mobile após edição",
+    "geometria": {
+      "viewport": 375,
+      "documento": 375,
+      "corpo": 375
+    }
+  },
+  {
+    "contexto": "alto-contraste: edição confirmada",
+    "contraste": [
+      {
+        "nome": "Sucesso:Local editado 80 alto-contraste foi atualizado com sucesso.",
+        "texto": "rgb(255, 255, 255)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 21
+      },
+      {
+        "nome": "Sucesso:",
+        "texto": "rgb(255, 255, 0)",
+        "fundo": [
+          0,
+          0,
+          0
+        ],
+        "razao": 19.555999999999997
+      }
+    ]
+  }
+]
