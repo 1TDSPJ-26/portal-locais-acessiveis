@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
 import {
   categoriasLocais,
@@ -34,6 +34,25 @@ export default function LocaisPage() {
     recursos,
   };
   const [painelAberto, setPainelAberto] = useState(false);
+  const [mensagemExclusao, setMensagemExclusao] = useState("");
+  const tituloRef = useRef<HTMLHeadingElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const nome = location.state?.localExcluido;
+    if (typeof nome !== "string" || !nome) return;
+
+    tituloRef.current?.focus();
+    // A região viva nasce vazia e recebe o anúncio depois de montar a listagem.
+    const timeout = window.setTimeout(() => {
+      setMensagemExclusao(`Local ${nome} excluído com sucesso.`);
+      // Consome o aviso para não repeti-lo ao voltar pelo histórico.
+      void navigate("/locais", { replace: true, state: null });
+    }, 100);
+
+    return () => window.clearTimeout(timeout);
+  }, [location.state, navigate]);
 
   const resultados = filtrarLocais(locais, termo, filtros);
   const temFiltrosAtivos =
@@ -67,7 +86,7 @@ const limparFiltros = () => {
     <div className="app-shell">
       <header className="hero">
         <p className="eyebrow">Mapa de acesso para todos</p>
-        <h1>Encontre lugares que acolhem você.</h1>
+        <h1 ref={tituloRef} tabIndex={-1}>Encontre lugares que acolhem você.</h1>
         <p className="hero-copy">
           Pesquise por nome ou combine recursos de acessibilidade para planejar
           sua próxima saída.
@@ -102,6 +121,9 @@ const limparFiltros = () => {
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
+        <output className="delete-notice" aria-live="polite" aria-atomic="true">
+          {mensagemExclusao}
+        </output>
         <div className="results-heading">
           <div>
             <p className="section-kicker">Explorar locais</p>
@@ -273,7 +295,7 @@ const limparFiltros = () => {
                   <span className="place-category">{local.categoria}</span>
                   <span className="place-status">Aberto hoje</span>
                 </div>
-                <h3>{local.nome}</h3>
+                <h3><Link to={`/locais/${local.id}`}>{local.nome}</Link></h3>
                 <p className="place-address">{local.endereco}</p>
                 <div
                   className="resource-tags"
