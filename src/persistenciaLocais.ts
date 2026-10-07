@@ -47,15 +47,11 @@ export function validarLocais(valor: unknown): Local[] | null {
 }
 
 export function carregarLocaisSalvos(): Local[] | null {
-  try {
-    const bruto = localStorage.getItem(CHAVE_LOCAIS);
-    if (bruto === null || bruto === "") {
-      return null;
-    }
-    return validarLocais(JSON.parse(bruto));
-  } catch {
-    return null;
-  }
+  const bruto = localStorage.getItem(CHAVE_LOCAIS);
+  if (bruto === null) return null;
+  const locais = validarLocais(JSON.parse(bruto));
+  if (locais === null) throw new Error("A lista salva de locais é inválida.");
+  return locais;
 }
 
 export function salvarLocais(locais: Local[]): void {
