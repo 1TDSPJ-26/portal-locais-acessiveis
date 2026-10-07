@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Link } from "react-router";
 import TextField from "../../components/TextField/index";
@@ -23,6 +23,7 @@ import {
 } from "../../types/local.ts";
 import type {
   DadosFormularioLocal,
+  Local,
   RecursoAcessibilidade,
 } from "../../types/local.ts";
 import { useLocais } from "../../useLocais";
@@ -75,10 +76,18 @@ export default function Cadastro() {
 
   const [status, setStatus] = useState<StatusEnvio>("idle");
   const [mensagem, setMensagem] = useState("");
+  const [localCadastrado, setLocalCadastrado] = useState<Local | null>(null);
 
   const { cadastrarLocal, estado } = useLocais();
 
   const resumoErrosRef = useRef<HTMLDivElement>(null);
+  const confirmacaoRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (status === "success" && localCadastrado) {
+      confirmacaoRef.current?.focus();
+    }
+  }, [status, localCadastrado]);
 
   const camposComErro = CAMPOS_VALIDAVEIS.filter((campo) => erros[campo]);
 
@@ -155,12 +164,11 @@ export default function Cadastro() {
     try {
       const novoLocal = cadastrarLocal(dadosFormularioParaCadastro(form));
 
-      setForm({ ...DADOS_INICIAIS, recursos: [] });
+      setLocalCadastrado(novoLocal);
       setErros({});
       setStatus("success");
-      setMensagem(
-        `${novoLocal.nome} foi cadastrado e já aparece na listagem de locais.`,
-      );
+      setMensagem("");
+      
     } catch (erro) {
       setStatus("error");
       setMensagem(
