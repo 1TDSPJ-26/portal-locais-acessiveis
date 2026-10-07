@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import TextField from "../../components/TextField/index";
 import SelectField from "../../components/SelectField/index";
@@ -90,6 +90,25 @@ export default function EditarLocal() {
     }));
     const [erros, setErros] = useState<Record<string, string>>({});
     const [mensagem, setMensagem] = useState("");
+
+    useEffect(() => {
+        if (!local) {
+            return;
+        }
+
+        setForm({
+            nome: local.nome,
+            categoria: local.categoria,
+            descricao: local.descricao ?? "",
+            endereco: local.endereco,
+            recursos: [...local.recursos],
+            email: local.email ?? "",
+            telefone: local.telefone ?? "",
+            site: local.site ?? "",
+        });
+        setErros({});
+        setMensagem("");
+    }, [local]);
 
     if (estado === "carregando") {
         return (
