@@ -84,6 +84,8 @@ const limparFiltros = () => {
 
   return (
     <div className="app-shell">
+      <title>Locais | Portal de Locais e Serviços Acessíveis</title>
+
       <header className="hero">
         <p className="eyebrow">Mapa de acesso para todos</p>
         <h1 ref={tituloRef} tabIndex={-1}>Encontre lugares que acolhem você.</h1>
