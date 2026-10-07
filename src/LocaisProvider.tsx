@@ -1,6 +1,10 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { LocaisContext, type EstadoLocais } from "./LocaisContext";
-import { criarLocal, type DadosCadastroLocal } from "./services/cadastroLocal";
+import {
+  criarLocal,
+  editarLocal,
+  type DadosCadastroLocal,
+} from "./services/cadastroLocal";
 import { carregarLocais } from "./services/locais";
 import type { Local } from "./types/local";
 
@@ -57,8 +61,24 @@ export function LocaisProvider({
     return novoLocal;
   };
 
+  const atualizarLocal = (id: number, dados: DadosCadastroLocal) => {
+    if (estado !== "pronto") {
+      throw new Error("Aguarde o carregamento dos locais antes de editar.");
+    }
+
+    const locaisAtualizados = editarLocal(locais, id, dados);
+    setLocais(locaisAtualizados);
+
+    const localAtualizado = locaisAtualizados.find((local) => local.id === id);
+    if (!localAtualizado) {
+      throw new Error("Local não encontrado após atualização.");
+    }
+
+    return localAtualizado;
+  };
+
   return (
-    <LocaisContext.Provider value={{ locais, estado, tentarNovamente, cadastrarLocal }}>
+    <LocaisContext.Provider value={{ locais, estado, tentarNovamente, cadastrarLocal, atualizarLocal }}>
       {children}
     </LocaisContext.Provider>
   );

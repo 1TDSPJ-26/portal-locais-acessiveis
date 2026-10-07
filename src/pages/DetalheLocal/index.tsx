@@ -1,9 +1,10 @@
-import { Link, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 
 export default function DetalheLocal() {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const { locais, estado, tentarNovamente } = useLocais();
 
   if (estado === "carregando") {
@@ -52,9 +53,21 @@ export default function DetalheLocal() {
     ? /^https?:\/\//i.test(site) ? site : `https://${site}`
     : undefined;
 
+  const mensagemSucesso = (location.state as { mensagem?: string } | null)?.mensagem;
+
   return (
     <article className="app-shell content">
+      {mensagemSucesso && (
+        <output aria-live="polite" className="mb-4 block rounded-md border border-(--success) bg-(--card) px-4 py-3 text-sm font-medium text-(--ink)">
+          {mensagemSucesso}
+        </output>
+      )}
       <h1>{local.nome}</h1>
+      <div className="mb-4">
+        <Link to={`/locais/${local.id}/editar`} className="text-(--accent) underline underline-offset-2">
+          Editar local
+        </Link>
+      </div>
       <dl>
         <dt>Categoria</dt>
         <dd>{local.categoria}</dd>

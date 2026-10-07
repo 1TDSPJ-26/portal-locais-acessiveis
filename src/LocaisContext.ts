@@ -9,6 +9,7 @@ export interface LocaisContextValue {
   estado: EstadoLocais;
   tentarNovamente: () => void;
   cadastrarLocal: (dados: DadosCadastroLocal) => Local;
+  atualizarLocal: (id: number, dados: DadosCadastroLocal) => Local;
 }
 
 export const LocaisContext = createContext<LocaisContextValue | null>(null);

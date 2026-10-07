@@ -49,3 +49,40 @@ export function criarLocal(
     recursos: [...dadosSanitizados.recursos],
   };
 }
+
+export function editarLocal(
+  locais: readonly Local[],
+  id: number,
+  dados: DadosLocalEntrada,
+): Local[] {
+  const dadosSanitizados = sanitizarLocal(dados);
+  validarLocal(dadosSanitizados);
+
+  const localAtual = locais.find((local) => local.id === id);
+
+  if (!localAtual) {
+    throw new Error("Local não encontrado para edição.");
+  }
+
+  const duplicado = locais.some(
+    (local) =>
+      local.id !== id &&
+      normalizar(local.nome) === normalizar(dadosSanitizados.nome) &&
+      normalizar(local.endereco) === normalizar(dadosSanitizados.endereco),
+  );
+
+  if (duplicado) {
+    throw new LocalDuplicadoError();
+  }
+
+  return locais.map((local) =>
+    local.id === id
+      ? {
+        ...local,
+        ...dadosSanitizados,
+        id,
+        recursos: [...dadosSanitizados.recursos],
+      }
+      : local,
+  );
+}

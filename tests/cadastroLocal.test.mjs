@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   criarLocal,
+  editarLocal,
   LocalDuplicadoError,
 } from "../src/services/cadastroLocal.ts";
 
@@ -165,5 +166,58 @@ test("não cria local inválido após sanitização", () => {
       endereco: "Rua das Flores, 100",
       recursos: [],
     }),
+  );
+});
+
+test("edita local sem mudar o ID e recusa duplicidade com outro local", () => {
+  const locais = [
+    {
+      id: 1,
+      nome: "Biblioteca Central",
+      categoria: "Cultura",
+      endereco: "Rua A, 10",
+      recursos: ["Entrada sem degraus"],
+    },
+    {
+      id: 2,
+      nome: "Museu Municipal",
+      categoria: "Cultura",
+      endereco: "Rua B, 20",
+      recursos: [],
+    },
+  ];
+
+  const atualizados = editarLocal(locais, 1, {
+    nome: "Biblioteca Central",
+    categoria: "Cultura",
+    endereco: "Rua A, 15",
+    recursos: ["Entrada sem degraus", "Banheiro acessível"],
+  });
+
+  assert.equal(atualizados[0].id, 1);
+  assert.equal(atualizados[0].endereco, "Rua A, 15");
+  assert.deepEqual(atualizados[0].recursos, [
+    "Entrada sem degraus",
+    "Banheiro acessível",
+  ]);
+
+  assert.doesNotThrow(() =>
+    editarLocal(locais, 1, {
+      nome: "Biblioteca Central",
+      categoria: "Cultura",
+      endereco: "Rua A, 10",
+      recursos: ["Entrada sem degraus"],
+    }),
+  );
+
+  assert.throws(
+    () =>
+      editarLocal(locais, 2, {
+        nome: "Biblioteca Central",
+        categoria: "Cultura",
+        endereco: "Rua A, 10",
+        recursos: [],
+      }),
+    LocalDuplicadoError,
   );
 });
