@@ -12,17 +12,17 @@ import { filtrarLocais } from "../../utils/filtrar-locais";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 
-
-
 export default function LocaisPage() {
   const { locais, estado, tentarNovamente } = useLocais();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Busca e filtros vivem na URL, então podem ser compartilhados e recarregados.
   const termo = searchParams.get("busca") ?? "";
   const categoriaParam = searchParams.get("categoria");
-  
-  const categoria: FiltrosLocais["categoria"] =
-  categoriasLocais.includes(categoriaParam as CategoriaLocal)
+
+  const categoria: FiltrosLocais["categoria"] = categoriasLocais.includes(
+    categoriaParam as CategoriaLocal
+  )
     ? (categoriaParam as CategoriaLocal)
     : "";
 
@@ -31,10 +31,9 @@ export default function LocaisPage() {
     .filter((recurso): recurso is RecursoAcessibilidade =>
       recursosAcessibilidade.includes(recurso as RecursoAcessibilidade)
     );
-  const filtros: FiltrosLocais = {
-    categoria,
-    recursos,
-  };
+
+  const filtros: FiltrosLocais = { categoria, recursos };
+
   const [painelAberto, setPainelAberto] = useState(false);
   const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
@@ -49,14 +48,19 @@ export default function LocaisPage() {
     // A região viva nasce vazia e recebe o anúncio depois de montar a listagem.
     const timeout = window.setTimeout(() => {
       setMensagemExclusao(`Local ${nome} excluído com sucesso.`);
-      // Consome o aviso para não repeti-lo ao voltar pelo histórico.
-      void navigate("/locais", { replace: true, state: null });
+      // Consome o aviso para não repeti-lo ao voltar pelo histórico,
+      // mantendo os filtros que estavam na URL.
+      void navigate(
+        { pathname: "/locais", search: location.search },
+        { replace: true, state: null }
+      );
     }, 100);
 
     return () => window.clearTimeout(timeout);
-  }, [location.state, navigate]);
+  }, [location.state, location.search, navigate]);
 
   const resultados = filtrarLocais(locais, termo, filtros);
+
   const {
     visiveis,
     paginaAtual,
@@ -72,10 +76,45 @@ export default function LocaisPage() {
     handleFiltroAlterado,
   } = usePaginacao(resultados, [3, 6, 12], 3);
 
-  // Toda alteração de busca ou filtro volta para a primeira página.
-  const aoAlterarFiltros = (acao: () => void) => {
-    acao();
+  // Toda alteração de busca ou filtro grava na URL e volta para a primeira página.
+  const atualizarParametros = (alterar: (params: URLSearchParams) => void) => {
+    const proximos = new URLSearchParams(searchParams);
+    alterar(proximos);
+    setSearchParams(proximos, { replace: true });
     handleFiltroAlterado();
+  };
+
+  const alterarTermo = (valor: string) => {
+    atualizarParametros((params) => {
+      if (valor) params.set("busca", valor);
+      else params.delete("busca");
+    });
+  };
+
+  const alterarCategoria = (valor: FiltrosLocais["categoria"]) => {
+    atualizarParametros((params) => {
+      if (valor) params.set("categoria", valor);
+      else params.delete("categoria");
+    });
+  };
+
+  const alternarRecurso = (recurso: RecursoAcessibilidade) => {
+    atualizarParametros((params) => {
+      const atuais = params.getAll("recurso");
+      params.delete("recurso");
+      const proximos = atuais.includes(recurso)
+        ? atuais.filter((item) => item !== recurso)
+        : [...atuais, recurso];
+      proximos.forEach((item) => params.append("recurso", item));
+    });
+  };
+
+  const limparFiltros = () => {
+    atualizarParametros((params) => {
+      params.delete("busca");
+      params.delete("categoria");
+      params.delete("recurso");
+    });
   };
 
   const temFiltrosAtivos =
@@ -83,29 +122,15 @@ export default function LocaisPage() {
     filtros.categoria !== "" ||
     filtros.recursos.length > 0;
 
-  const alternarRecurso = (recurso: RecursoAcessibilidade) => {
-    aoAlterarFiltros(() =>
-      setFiltros((estadoAtual) => ({
-        ...estadoAtual,
-        recursos: estadoAtual.recursos.includes(recurso)
-          ? estadoAtual.recursos.filter((item) => item !== recurso)
-          : [...estadoAtual.recursos, recurso],
-      }))
-    );
-  };
-
-  const limparFiltros = () => {
-    aoAlterarFiltros(() => {
-      setTermo("");
-      setFiltros(filtrosVazios);
-    });
-  };
+  const totalFiltros = filtros.recursos.length + (filtros.categoria ? 1 : 0);
 
   return (
     <div className="app-shell">
       <header className="hero">
         <p className="eyebrow">Mapa de acesso para todos</p>
-        <h1 ref={tituloRef} tabIndex={-1}>Encontre lugares que acolhem você.</h1>
+        <h1 ref={tituloRef} tabIndex={-1}>
+          Encontre lugares que acolhem você.
+        </h1>
         <p className="hero-copy">
           Pesquise por nome ou combine recursos de acessibilidade para planejar
           sua próxima saída.
@@ -119,14 +144,17 @@ export default function LocaisPage() {
             id="campo-busca-locais"
             type="search"
             value={termo}
-            onChange={(evento) =>
-              aoAlterarFiltros(() => setTermo(evento.target.value))
-            }
+            onChange={(evento) => alterarTermo(evento.target.value)}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
             {estado === "pronto" && (
-              <>{resultados.length} {resultados.length === 1 ? "local encontrado" : "locais encontrados"}</>
+              <>
+                {resultados.length}{" "}
+                {resultados.length === 1
+                  ? "local encontrado"
+                  : "locais encontrados"}
+              </>
             )}
           </output>
         </label>
@@ -154,10 +182,8 @@ export default function LocaisPage() {
             onClick={() => setPainelAberto((aberto) => !aberto)}
           >
             <span aria-hidden="true">☷</span> Filtros
-            {filtros.recursos.length + (filtros.categoria ? 1 : 0) > 0 && (
-              <span className="filter-count">
-                {filtros.recursos.length + (filtros.categoria ? 1 : 0)}
-              </span>
+            {totalFiltros > 0 && (
+              <span className="filter-count">{totalFiltros}</span>
             )}
           </button>
         </div>
@@ -169,7 +195,10 @@ export default function LocaisPage() {
           {estado === "carregando" ? "Carregando locais..." : ""}
         </output>
 
-        <div role="alert" className={estado === "erro" ? "empty-state" : undefined}>
+        <div
+          role="alert"
+          className={estado === "erro" ? "empty-state" : undefined}
+        >
           {estado === "erro" && (
             <>
               <h2>Não foi possível carregar os locais</h2>
@@ -208,26 +237,21 @@ export default function LocaisPage() {
           <fieldset>
             <legend>Categoria</legend>
             <div className="category-options">
-              {categoriasLocais.map((categoria) => (
+              {categoriasLocais.map((opcao) => (
                 <label
-                  className={`category-option ${filtros.categoria === categoria ? "is-selected" : ""}`}
-                  key={categoria}
+                  className={`category-option ${filtros.categoria === opcao ? "is-selected" : ""}`}
+                  key={opcao}
                 >
                   <input
                     type="radio"
                     name="categoria"
-                    value={categoria}
-                    checked={filtros.categoria === categoria}
+                    value={opcao}
+                    checked={filtros.categoria === opcao}
                     onChange={(evento) =>
-                      aoAlterarFiltros(() =>
-                        setFiltros((atual) => ({
-                          ...atual,
-                          categoria: evento.target.value as CategoriaLocal,
-                        }))
-                      )
+                      alterarCategoria(evento.target.value as CategoriaLocal)
                     }
                   />
-                  <span>{categoria}</span>
+                  <span>{opcao}</span>
                 </label>
               ))}
             </div>
@@ -260,22 +284,12 @@ export default function LocaisPage() {
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
-              <button
-                type="button"
-                onClick={() => aoAlterarFiltros(() => setTermo(""))}
-              >
+              <button type="button" onClick={() => alterarTermo("")}>
                 Busca: “{termo}” ×
               </button>
             )}
             {filtros.categoria && (
-              <button
-                type="button"
-                onClick={() =>
-                  aoAlterarFiltros(() =>
-                    setFiltros((atual) => ({ ...atual, categoria: "" }))
-                  )
-                }
-              >
+              <button type="button" onClick={() => alterarCategoria("")}>
                 {filtros.categoria} ×
               </button>
             )}
@@ -291,70 +305,74 @@ export default function LocaisPage() {
           </div>
         )}
 
-        {estado === "pronto" && (locais.length === 0 ? (
-          <div className="empty-state">
-            <h2>Nenhum local cadastrado</h2>
-            <p>
-              Cadastre o primeiro local e ajude outras pessoas a encontrar lugares acessíveis.
-            </p>
-            <Link className="clear-button prominent" to="/cadastrar">
-              Cadastrar local
-            </Link>
-          </div>
-        ) : resultados.length > 0 ? (
-          <>
-            <div className="places-grid">
-              {visiveis.map((local) => (
-                <article className="place-card" key={local.id}>
-                  <div className="place-card-top">
-                    <span className="place-category">{local.categoria}</span>
-                    <span className="place-status">Aberto hoje</span>
-                  </div>
-                  <h3>{local.nome}</h3>
-                  <p className="place-address">{local.endereco}</p>
-                  <div
-                    className="resource-tags"
-                    aria-label="Recursos disponíveis"
-                  >
-                    {local.recursos.map((recurso) => (
-                      <span key={recurso}>{recurso}</span>
-                    ))}
-                  </div>
-                </article>
-              ))}
+        {estado === "pronto" &&
+          (locais.length === 0 ? (
+            <div className="empty-state">
+              <h2>Nenhum local cadastrado</h2>
+              <p>
+                Cadastre o primeiro local e ajude outras pessoas a encontrar
+                lugares acessíveis.
+              </p>
+              <Link className="clear-button prominent" to="/cadastrar">
+                Cadastrar local
+              </Link>
             </div>
-            <Paginacao
-              paginaAtual={paginaAtual}
-              pages={pages}
-              canPrev={canPrev}
-              canNext={canNext}
-              intervaloLabel={intervaloLabel}
-              porPagina={porPagina}
-              availableOptions={availableOptions}
-              onMudarPagina={handleMudarPagina}
-              onMudarPorPagina={handleMudarPorPagina}
-            />
-          </>
-        ) : (
-          <div className="empty-state">
-            <span className="empty-icon" aria-hidden="true">
-              ⌁
-            </span>
-            <h2>Nenhum local encontrado</h2>
-            <p>
-              {termo.trim()
-                ? `Não foi possível encontrar locais para “${termo.trim()}”`
-                : "Tente remover algum filtro ou buscar por outro termo."}
-            </p>
-            <button
-              className="clear-button prominent"
-              type="button"
-              onClick={limparFiltros}
-            >
-              Limpar filtros
-            </button>
-          </div>
-        ))}
+          ) : resultados.length > 0 ? (
+            <>
+              <div className="places-grid">
+                {visiveis.map((local) => (
+                  <article className="place-card" key={local.id}>
+                    <div className="place-card-top">
+                      <span className="place-category">{local.categoria}</span>
+                      <span className="place-status">Aberto hoje</span>
+                    </div>
+                    <h3>
+                      <Link to={`/locais/${local.id}`}>{local.nome}</Link>
+                    </h3>
+                    <p className="place-address">{local.endereco}</p>
+                    <div
+                      className="resource-tags"
+                      aria-label="Recursos disponíveis"
+                    >
+                      {local.recursos.map((recurso) => (
+                        <span key={recurso}>{recurso}</span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <Paginacao
+                paginaAtual={paginaAtual}
+                pages={pages}
+                canPrev={canPrev}
+                canNext={canNext}
+                intervaloLabel={intervaloLabel}
+                porPagina={porPagina}
+                availableOptions={availableOptions}
+                onMudarPagina={handleMudarPagina}
+                onMudarPorPagina={handleMudarPorPagina}
+              />
+            </>
+          ) : (
+            <div className="empty-state">
+              <span className="empty-icon" aria-hidden="true">
+                ⌁
+              </span>
+              <h2>Nenhum local encontrado</h2>
+              <p>
+                {termo.trim()
+                  ? `Não foi possível encontrar locais para “${termo.trim()}”`
+                  : "Tente remover algum filtro ou buscar por outro termo."}
+              </p>
+              <button
+                className="clear-button prominent"
+                type="button"
+                onClick={limparFiltros}
+              >
+                Limpar filtros
+              </button>
+            </div>
+          ))}
       </section>
     </div>
   );
