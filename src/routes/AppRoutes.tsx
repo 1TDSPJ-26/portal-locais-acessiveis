@@ -3,6 +3,7 @@ import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 import Locais from "../pages/Locais";
 import DetalheLocal from "../pages/DetalheLocal";
+import EditarLocal from "../pages/EditarLocal";
 import Cadastro from "../pages/Cadastro";
 import Sobre from "../pages/Sobre";
 import Acessibilidade from "../pages/Acessibilidade";
@@ -12,6 +13,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/locais" element={<Locais />} />
+      <Route path="/locais/:id/editar" element={<EditarLocal />} />
       <Route path="/locais/:id" element={<DetalheLocal />} />
       <Route path="/cadastrar" element={<Cadastro />} />
       <Route path="/sobre" element={<Sobre />} />

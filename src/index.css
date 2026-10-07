@@ -579,3 +579,38 @@ footer nav a {
   opacity: 0.55;
   cursor: not-allowed;
 }
+
+main:focus {
+  outline: 2px solid var(--cor-foco);
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px var(--cor-foco-externa),
+    0 0 0 6px var(--cor-foco-externa);
+}
+
+.trilha-navegacao ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+  overflow-wrap: anywhere;
+}
+
+.trilha-navegacao li + li::before {
+  content: "›";
+  content: "›" / "";
+  margin-right: 0.5rem;
+  color: var(--muted);
+}
+
+.trilha-navegacao a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.trilha-navegacao [aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
