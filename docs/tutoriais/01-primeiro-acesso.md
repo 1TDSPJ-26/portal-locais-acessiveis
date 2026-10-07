@@ -12,7 +12,7 @@ Você precisa de:
 - convite da organização aceito;
 - Git instalado;
 - extensão `git flow` instalada;
-- Node.js na versão indicada pelo professor;
+- Node.js 22.22 ou mais recente (a versão do projeto está no arquivo `.nvmrc`);
 - Visual Studio Code;
 - acesso ao repositório da sua turma.
 
@@ -37,6 +37,11 @@ npm --version
 ```
 
 Os quatro comandos precisam apresentar uma versão. Se algum não for reconhecido, pare e faça a instalação antes de continuar.
+
+O `node --version` precisa mostrar `v22.22.0` ou mais recente. Versões
+anteriores não atendem ao `react-router` usado no projeto. Quem usa o `nvm`
+pode executar `nvm install` e `nvm use` dentro da pasta do projeto: os dois
+leem a versão do arquivo `.nvmrc`.
 
 ## Passo 3 — configurar sua autoria
 

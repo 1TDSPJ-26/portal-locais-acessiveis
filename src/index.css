@@ -547,3 +547,10 @@ footer nav a {
   }
 }
 
+main:focus {
+  outline: 2px solid var(--cor-foco);
+  outline-offset: 2px;
+  box-shadow: 
+  0 0 0 2px var(--cor-foco-externa),
+  0 0 0 6px var(--cor-foco-externa)
+}
