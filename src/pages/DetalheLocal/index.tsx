@@ -54,11 +54,10 @@ export default function DetalheLocal() {
     if (!local) {
     return (
       <div className="app-shell content">
-        
-        <TrilhaNavegacao                                      
+        <title>Local não encontrado | Portal de Locais e Serviços Acessíveis</title>
+        <TrilhaNavegacao
           niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
         />
-        
         <h1>Local não encontrado</h1>
         <p>Não existe um local com o identificador informado.</p>
         <Link to="/locais">Voltar para a listagem de locais</Link>
@@ -78,6 +77,7 @@ export default function DetalheLocal() {
 
   return (
     <article className="app-shell content">
+      <title>{`${local.nome} | Portal de Locais e Serviços Acessíveis`}</title>
       <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
 
       {mensagemSucesso && (
