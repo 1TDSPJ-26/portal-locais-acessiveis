@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import TextField from "../../components/TextField/index";
 import SelectField from "../../components/SelectField/index";
@@ -91,25 +91,6 @@ export default function EditarLocal() {
     const [erros, setErros] = useState<Record<string, string>>({});
     const [mensagem, setMensagem] = useState("");
 
-    useEffect(() => {
-        if (!local) {
-            return;
-        }
-
-        setForm({
-            nome: local.nome,
-            categoria: local.categoria,
-            descricao: local.descricao ?? "",
-            endereco: local.endereco,
-            recursos: [...local.recursos],
-            email: local.email ?? "",
-            telefone: local.telefone ?? "",
-            site: local.site ?? "",
-        });
-        setErros({});
-        setMensagem("");
-    }, [local]);
-
     if (estado === "carregando") {
         return (
             <div className="app-shell content">
@@ -176,7 +157,6 @@ export default function EditarLocal() {
             return;
         }
 
-        const valor = String(form[name as keyof typeof form] ?? "");
         const proximoErro = validarEdicao({
             nome: form.nome,
             categoria: form.categoria,
@@ -241,7 +221,7 @@ export default function EditarLocal() {
     };
 
     return (
-        <div className="mx-auto w-full max-w-3xl px-4 py-8 text-left text-(--ink)">
+        <div key={local.id} className="mx-auto w-full max-w-3xl px-4 py-8 text-left text-(--ink)">
             <h1>Editar local</h1>
 
             <form className="flex flex-col gap-6" onSubmit={salvarEdicao} noValidate>
