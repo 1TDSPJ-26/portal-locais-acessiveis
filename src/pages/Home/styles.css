@@ -54,8 +54,8 @@
 }
 
 .home-acao--principal {
-  color: var(--hero);
-  background: var(--hero-accent);
+  color: var(--hero-ink);
+  background: transparent;
 }
 
 .home-acao--secundaria {
