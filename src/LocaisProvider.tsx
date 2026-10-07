@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { LocaisContext, type EstadoLocais } from "./LocaisContext";
-import { criarLocal, excluirLocal, type DadosCadastroLocal } from "./services/cadastroLocal";
-import { carregarLocais } from "./services/locais";
+import {
+  criarLocal,
+  editarLocal,
+  excluirLocal,
+  type DadosCadastroLocal,
+} from "./services/cadastroLocal";
+import { carregarComReserva, carregarLocais } from "./services/locais";
+import { locais as locaisReserva } from "./data/locais";
 import type { Local } from "./types/local";
+import { salvarLocais } from "./persistenciaLocais";
 
 interface LocaisProviderProps {
   children: ReactNode;
@@ -17,6 +24,8 @@ export function LocaisProvider({
   const [locais, setLocais] = useState<Local[]>([]);
   const [estado, setEstado] = useState<EstadoLocais>("carregando");
   const [tentativa, setTentativa] = useState(0);
+  const [usandoReserva, setUsandoReserva] = useState(false);
+  const [alteradoPeloUsuario, setAlteradoPeloUsuario] = useState(false);
   // Guarda o histórico de IDs desta sessão, mesmo quando a lista fica vazia.
   const maiorIdUtilizado = useRef(0);
 
@@ -25,16 +34,20 @@ export function LocaisProvider({
 
     async function carregarLista() {
       try {
-        const dados = await carregar();
+        const resultado = await carregarComReserva(carregar, locaisReserva);
+        const dados = resultado.locais;
         if (ativo) {
           maiorIdUtilizado.current = dados.reduce(
             (maior, local) => Math.max(maior, local.id),
             maiorIdUtilizado.current,
           );
           setLocais(dados);
+          setUsandoReserva(resultado.usandoReserva);
+          setAlteradoPeloUsuario(false);
           setEstado("pronto");
         }
-      } catch {
+      } catch (erro) {
+        console.error("Não foi possível carregar nem os dados de reserva.", erro);
         if (ativo) setEstado("erro");
       }
     }
@@ -43,6 +56,13 @@ export function LocaisProvider({
     // Descarta respostas de efeitos desmontados, inclusive no StrictMode.
     return () => { ativo = false; };
   }, [carregar, tentativa]);
+
+  // Uma carga de reserva nunca sobrescreve a lista salva sem ação do usuário.
+  useEffect(() => {
+    if (estado === "pronto" && (!usandoReserva || alteradoPeloUsuario)) {
+      salvarLocais(locais);
+    }
+  }, [estado, locais, usandoReserva, alteradoPeloUsuario]);
 
   const tentarNovamente = () => {
     setEstado("carregando");
@@ -59,15 +79,35 @@ export function LocaisProvider({
     const novoLocal = criarLocal(locais, dados, maiorIdUtilizado.current);
     maiorIdUtilizado.current = novoLocal.id;
     setLocais((anteriores) => [...anteriores, novoLocal]);
+    setAlteradoPeloUsuario(true);
     return novoLocal;
   };
 
+  const atualizarLocal = (id: number, dados: DadosCadastroLocal) => {
+    if (estado !== "pronto") {
+      throw new Error("Aguarde o carregamento dos locais antes de editar.");
+    }
+
+    const locaisAtualizados = editarLocal(locais, id, dados);
+    setLocais(locaisAtualizados);
+    setAlteradoPeloUsuario(true);
+
+    const localAtualizado = locaisAtualizados.find((local) => local.id === id);
+    if (!localAtualizado) {
+      throw new Error("Local não encontrado após atualização.");
+    }
+
+    return localAtualizado;
+  };
+
   const removerLocal = (id: Local["id"]) => {
+    if (estado !== "pronto" || !locais.some((local) => local.id === id)) return;
     setLocais((anteriores) => excluirLocal(anteriores, id));
+    setAlteradoPeloUsuario(true);
   };
 
   return (
-    <LocaisContext.Provider value={{ locais, estado, tentarNovamente, cadastrarLocal, removerLocal }}>
+    <LocaisContext.Provider value={{ locais, estado, usandoReserva, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal }}>
       {children}
     </LocaisContext.Provider>
   );

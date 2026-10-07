@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   criarLocal,
+  editarLocal,
   excluirLocal,
   LocalDuplicadoError,
 } from "../src/services/cadastroLocal.ts";
@@ -197,5 +198,127 @@ test("não cria local inválido após sanitização", () => {
       endereco: "Rua das Flores, 100",
       recursos: [],
     }),
+  );
+});
+
+test("edita local sem mudar o ID e recusa duplicidade com outro local", () => {
+  const locais = [
+    {
+      id: 1,
+      nome: "Biblioteca Central",
+      categoria: "Cultura",
+      endereco: "Rua A, 10",
+      recursos: ["Entrada sem degraus"],
+    },
+    {
+      id: 2,
+      nome: "Museu Municipal",
+      categoria: "Cultura",
+      endereco: "Rua B, 20",
+      recursos: [],
+    },
+  ];
+
+  const atualizados = editarLocal(locais, 1, {
+    nome: "Biblioteca Central",
+    categoria: "Cultura",
+    endereco: "Rua A, 15",
+    recursos: ["Entrada sem degraus", "Banheiro acessível"],
+  });
+
+  assert.equal(atualizados[0].id, 1);
+  assert.equal(atualizados[0].endereco, "Rua A, 15");
+  assert.deepEqual(atualizados[0].recursos, [
+    "Entrada sem degraus",
+    "Banheiro acessível",
+  ]);
+
+  assert.doesNotThrow(() =>
+    editarLocal(locais, 1, {
+      nome: "Biblioteca Central",
+      categoria: "Cultura",
+      endereco: "Rua A, 10",
+      recursos: ["Entrada sem degraus"],
+    }),
+  );
+
+  assert.throws(
+    () =>
+      editarLocal(locais, 2, {
+        nome: "Biblioteca Central",
+        categoria: "Cultura",
+        endereco: "Rua A, 10",
+        recursos: [],
+      }),
+    LocalDuplicadoError,
+  );
+});
+
+test("editarLocal sanitiza dados e nao altera a lista original", () => {
+  const locais = [
+    {
+      id: 1,
+      nome: "Biblioteca Central",
+      categoria: "Cultura",
+      endereco: "Rua A, 10",
+      recursos: ["Entrada sem degraus"],
+    },
+    {
+      id: 2,
+      nome: "Museu Municipal",
+      categoria: "Cultura",
+      endereco: "Rua B, 20",
+      recursos: [],
+    },
+  ];
+
+  const atualizados = editarLocal(locais, 1, {
+    nome: "  Biblioteca   Central  ",
+    categoria: "Cultura",
+    endereco: "  Rua   A, 15  ",
+    recursos: [
+      "Entrada sem degraus",
+      "Libras",
+      "Entrada sem degraus",
+    ],
+    email: "  CONTATO@EXEMPLO.COM  ",
+    site: "biblioteca.example",
+  });
+
+  assert.equal(atualizados[0].id, 1);
+  assert.equal(atualizados[0].nome, "Biblioteca Central");
+  assert.equal(atualizados[0].endereco, "Rua A, 15");
+  assert.deepEqual(atualizados[0].recursos, [
+    "Entrada sem degraus",
+    "Libras",
+  ]);
+  assert.equal(atualizados[0].email, "contato@exemplo.com");
+  assert.equal(atualizados[0].site, "https://biblioteca.example");
+  assert.equal(locais[0].endereco, "Rua A, 10");
+  assert.notEqual(atualizados, locais);
+  assert.notEqual(atualizados[0], locais[0]);
+  assert.equal(atualizados[1], locais[1]);
+});
+
+test("editarLocal recusa local inexistente", () => {
+  const locais = [
+    {
+      id: 1,
+      nome: "Biblioteca Central",
+      categoria: "Cultura",
+      endereco: "Rua A, 10",
+      recursos: ["Entrada sem degraus"],
+    },
+  ];
+
+  assert.throws(
+    () =>
+      editarLocal(locais, 99, {
+        nome: "Biblioteca Central",
+        categoria: "Cultura",
+        endereco: "Rua A, 10",
+        recursos: ["Entrada sem degraus"],
+      }),
+    /Local n.o encontrado/,
   );
 });
