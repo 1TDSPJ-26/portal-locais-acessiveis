@@ -13,6 +13,7 @@ import {
   formularioValido as formularioSemErros,
   validarFormulario,
 } from "../src/utils/ValidarCadastro.ts";
+import { sanitizarLocal } from "../src/utils/sanitizar-local.ts";
 import { DADOS_INICIAIS } from "../src/types/local.ts";
 
 const formularioCompleto = {
@@ -161,4 +162,29 @@ test("mantém IDs únicos após cadastros sucessivos", () => {
   assert.equal(primeiroLocal.id, 1);
   assert.equal(segundoLocal.id, 2);
   assert.notEqual(primeiroLocal.id, segundoLocal.id);
+});
+
+test("sanitiza os dados antes de criar e localizar o local", () => {
+  const dadosSanitizados = sanitizarLocal({
+    nome: "  Cafe\u0301\u0000   Central  ",
+    categoria: "Cultura",
+    endereco: "  Rua   das Flores, 100  ",
+    recursos: ["Libras", "Libras", "Recurso inexistente"],
+    email: "  CONTATO@EXEMPLO.COM  ",
+    site: "exemplo.com",
+  });
+  const local = criarLocal([], dadosSanitizados);
+
+  assert.equal(local.nome, "Café Central");
+  assert.equal(local.endereco, "Rua das Flores, 100");
+  assert.deepEqual(local.recursos, ["Libras"]);
+  assert.equal(local.email, "contato@exemplo.com");
+  assert.equal(local.site, "https://exemplo.com");
+  assert.deepEqual(
+    filtrarLocais([local], "cafe central", {
+      categoria: "Cultura",
+      recursos: ["Libras"],
+    }),
+    [local],
+  );
 });
