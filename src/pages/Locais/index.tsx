@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
 import {
   categoriasLocais,
@@ -10,12 +10,29 @@ import {
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
 
-const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
+
 
 export default function LocaisPage() {
   const { locais, estado, tentarNovamente } = useLocais();
-  const [termo, setTermo] = useState("");
-  const [filtros, setFiltros] = useState<FiltrosLocais>(filtrosVazios);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const termo = searchParams.get("busca") ?? "";
+  const categoriaParam = searchParams.get("categoria");
+  
+  const categoria: FiltrosLocais["categoria"] =
+  categoriasLocais.includes(categoriaParam as CategoriaLocal)
+    ? (categoriaParam as CategoriaLocal)
+    : "";
+
+  const recursos = searchParams
+    .getAll("recurso")
+    .filter((recurso): recurso is RecursoAcessibilidade =>
+      recursosAcessibilidade.includes(recurso as RecursoAcessibilidade)
+    );
+  const filtros: FiltrosLocais = {
+    categoria,
+    recursos,
+  };
   const [painelAberto, setPainelAberto] = useState(false);
 
   const resultados = filtrarLocais(locais, termo, filtros);
@@ -25,18 +42,26 @@ export default function LocaisPage() {
     filtros.recursos.length > 0;
 
   const alternarRecurso = (recurso: RecursoAcessibilidade) => {
-    setFiltros((estadoAtual) => ({
-      ...estadoAtual,
-      recursos: estadoAtual.recursos.includes(recurso)
-        ? estadoAtual.recursos.filter((item) => item !== recurso)
-        : [...estadoAtual.recursos, recurso],
-    }));
-  };
+  const parametros = new URLSearchParams(searchParams);
 
-  const limparFiltros = () => {
-    setTermo("");
-    setFiltros(filtrosVazios);
-  };
+  const recursosAtuais = parametros.getAll("recurso");
+
+  if (recursosAtuais.includes(recurso)) {
+    parametros.delete("recurso");
+
+    recursosAtuais
+      .filter((item) => item !== recurso)
+      .forEach((item) => parametros.append("recurso", item));
+  } else {
+    parametros.append("recurso", recurso);
+  }
+
+  setSearchParams(parametros);
+};
+
+const limparFiltros = () => {
+  setSearchParams({});
+};
 
   return (
     <div className="app-shell">
@@ -56,7 +81,16 @@ export default function LocaisPage() {
             id="campo-busca-locais"
             type="search"
             value={termo}
-            onChange={(evento) => setTermo(evento.target.value)}
+            onChange={(evento) => {
+            const parametros = new URLSearchParams(searchParams);
+            const valor = evento.target.value;
+            if (valor.trim() === "") {
+              parametros.delete("busca");
+            } else {
+              parametros.set("busca", valor);
+            }
+          setSearchParams(parametros, { replace: true });
+        }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
@@ -150,12 +184,11 @@ export default function LocaisPage() {
                     name="categoria"
                     value={categoria}
                     checked={filtros.categoria === categoria}
-                    onChange={(evento) =>
-                      setFiltros((atual) => ({
-                        ...atual,
-                        categoria: evento.target.value as CategoriaLocal,
-                      }))
-                    }
+                    onChange={(evento) => {
+                      const parametros = new URLSearchParams(searchParams);
+                      parametros.set("categoria", evento.target.value);
+                      setSearchParams(parametros);
+                    }}
                   />
                   <span>{categoria}</span>
                 </label>
@@ -190,16 +223,22 @@ export default function LocaisPage() {
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
-              <button type="button" onClick={() => setTermo("")}>
+              <button type="button" onClick={() => {
+                const parametros = new URLSearchParams(searchParams);
+                parametros.delete("busca");
+                setSearchParams(parametros);
+              }}>
                 Busca: “{termo}” ×
               </button>
             )}
             {filtros.categoria && (
               <button
                 type="button"
-                onClick={() =>
-                  setFiltros((atual) => ({ ...atual, categoria: "" }))
-                }
+                onClick={() => {
+                  const parametros = new URLSearchParams(searchParams);
+                  parametros.delete("categoria");
+                  setSearchParams(parametros);
+                }}  
               >
                 {filtros.categoria} ×
               </button>
