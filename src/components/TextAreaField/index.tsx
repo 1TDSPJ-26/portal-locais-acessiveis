@@ -1,4 +1,5 @@
 import type { ChangeEvent } from 'react';
+import Mensagem from '../Mensagem';
 
 interface TextAreaFieldProps {
   id: string;
@@ -29,7 +30,7 @@ export default function TextAreaField({
 
   return (
     <div className={fullWidth ? 'flex flex-col gap-1.5 md:col-span-2' : 'flex flex-col gap-1.5'}>
-      <label htmlFor={id} className="text-sm font-medium text-(--ink)">
+      <label htmlFor={id} className="campo-rotulo">
         {label}
       </label>
       <textarea
@@ -44,12 +45,12 @@ export default function TextAreaField({
           onChange(event.target.name, event.target.value)
         }
         onBlur={(event) => onBlur?.(event.target.name)}
-        className="w-full resize-none rounded-md border border-(--control) bg-(--card) px-3 py-2 text-(--ink) placeholder:text-(--muted) outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper) aria-invalid:border-(--alert)"
+        className="campo"
       />
       {error && (
-        <span id={errorId} className="text-sm font-medium text-(--alert)">
+        <Mensagem tipo="erro" variante="campo" anunciar={false} id={errorId}>
           {error}
-        </span>
+        </Mensagem>
       )}
     </div>
   );
