@@ -36,8 +36,19 @@ export default function LocaisPage() {
   const [painelAberto, setPainelAberto] = useState(false);
   const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
+  const campoBuscaRef = useRef<HTMLInputElement>(null);
+  const [textoBusca, setTextoBusca] = useState(termo);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // A URL é atualizada em transição e chega depois da tecla. Enquanto o campo
+  // está em foco, vale o que foi digitado; fora dele, a URL manda (limpar
+  // filtros, remover o chip da busca, voltar no histórico).
+  useEffect(() => {
+    if (document.activeElement !== campoBuscaRef.current) {
+      setTextoBusca(termo);
+    }
+  }, [termo]);
 
   useEffect(() => {
     const nome = location.state?.localExcluido;
@@ -99,17 +110,24 @@ const limparFiltros = () => {
           <input
             id="campo-busca-locais"
             type="search"
-            value={termo}
+            ref={campoBuscaRef}
+            value={textoBusca}
             onChange={(evento) => {
-            const parametros = new URLSearchParams(searchParams);
-            const valor = evento.target.value;
-            if (valor.trim() === "") {
-              parametros.delete("busca");
-            } else {
-              parametros.set("busca", valor);
-            }
-          setSearchParams(parametros, { replace: true });
-        }}
+              const valor = evento.target.value;
+              setTextoBusca(valor);
+              setSearchParams(
+                (atuais) => {
+                  const parametros = new URLSearchParams(atuais);
+                  if (valor.trim() === "") {
+                    parametros.delete("busca");
+                  } else {
+                    parametros.set("busca", valor);
+                  }
+                  return parametros;
+                },
+                { replace: true }
+              );
+            }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
