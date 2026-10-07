@@ -121,6 +121,10 @@ Pull Requests ainda abertos em 07/10:
 | #111 | #84 | @sabrinafraga | aprovado por @tiagostnz |
 | #112 | #76 | @Tadeul | aprovado por @tiagostnz |
 
+Conferido em 07/10, às 16h40: depois das 16h só foram integrados os PRs
+#107 e #106, já incluídos na tabela acima. Os PRs #101, #111 e #112 seguiam
+abertos, e a contagem da seção 6 não mudou.
+
 Pontos de atenção:
 
 - nos PRs #102 e #106, o Tech Lead que resolveu o conflito foi também o único
@@ -165,18 +169,35 @@ Commit verificado: `c360bf8` (`develop` em 07/10/2026), Node 22.23.2.
 
 ### Percurso no navegador
 
+Executado em 07/10/2026, às 16h30, sobre o mesmo commit `c360bf8`, com
+`npm ci`, `npm run build` e `npx vite preview`, no Chrome. A navegação entre
+rotas e as confirmações foram feitas pelo teclado (Tab e Enter), sem mover o
+foco por script. Os prints estão em [`docs/cp2/issue-59/`](issue-59/).
+
+Os PRs #101, #111 e #112 ainda estavam abertos; o percurso não cobre as
+Issues #75, #84 e #76.
+
 | Etapa | Resultado | Evidência |
 |---|---|---|
-| Home | pendente | |
-| Listagem | pendente | |
-| Busca | pendente | |
-| Filtros | pendente | |
-| Detalhe | pendente | |
-| Cadastro | pendente | |
-| Persistência após recarregar a página | pendente | |
-| Edição | pendente | |
-| Exclusão | pendente | |
-| Foco na troca de rota | pendente | |
+| Home | ok | [01](issue-59/01-home.jpg) |
+| Listagem | ok: 6 locais carregados | [02](issue-59/02-listagem.jpg) |
+| Busca | **falha**: com digitação rápida o campo perde letras ("parque" vira "e"); tecla por tecla funciona ("cine" retorna 1 local). Registrado na #116 | [03](issue-59/03-busca-bug-1.jpg), [04](issue-59/04-busca-cine.jpg), [05](issue-59/05-busca-bug-2.jpg) |
+| Filtros | ok: Cultura retorna 2 locais; Cultura + Libras retorna 1; filtros mantidos na URL | [06](issue-59/06-filtros.jpg) |
+| Detalhe | ok, com uma falha visual: o texto "..." aparece antes de "Categoria" em todo local. Registrado na #117 | [07](issue-59/07-detalhe.jpg) |
+| Cadastro | ok: campos obrigatórios listados no resumo de erros; depois de corrigidos, confirmação exibida | [09](issue-59/09-cadastro-validacao.jpg), [10](issue-59/10-cadastro-concluido.jpg) |
+| Persistência após recarregar a página | ok: o local cadastrado continua em `/locais/7` depois do F5 | [11](issue-59/11-persistencia-f5.jpg) |
+| Edição | ok: nome alterado, mensagem de sucesso exibida | [12](issue-59/12-edicao.jpg) |
+| Exclusão | ok: `<dialog>` confirmado pelo teclado; o local some da listagem e continua excluído depois do F5 | [13](issue-59/13-exclusao-dialogo.jpg), [14](issue-59/14-exclusao-concluida.jpg) |
+| Foco na troca de rota | ok: Tab até o link e Enter em `/locais` e `/cadastrar`; o foco vai para `main#conteudo-principal` e o Tab seguinte chega ao primeiro campo da página | [15](issue-59/15-foco-locais.jpg), [16](issue-59/16-foco-cadastro.jpg) |
 
-O percurso no navegador será executado após a integração dos últimos Pull
-Requests do ciclo, com `npm run build && npm run preview`.
+Nenhum erro no console durante o percurso. O título da aba continua
+`portal-acessivel-template` em todas as rotas, o que é esperado enquanto o
+PR #111 (#84) não for integrado.
+
+Causas identificadas:
+
+- busca: o campo usa `value={termo}`, e `termo` é lido de `searchParams`.
+  A URL é atualizada depois da tecla; quando a tecla seguinte chega antes, o
+  campo volta ao valor anterior. Veio de `8cd78a0` (#77, PR #103);
+- reticências: um `...` literal ficou dentro do `<dl>` em
+  `src/pages/DetalheLocal/index.tsx`. Veio de `b3e7987` (#78, PR #107).
