@@ -8,6 +8,7 @@ import {
     categoriasLocais,
     recursosAcessibilidade,
     type CategoriaLocal,
+    type Local,
 } from "../../types/local";
 import type { RecursoAcessibilidade } from "../../types/local";
 import { LocalDuplicadoError } from "../../services/cadastroLocal";
@@ -43,6 +44,30 @@ const ROTULOS_EDICAO: Record<string, string> = {
     telefone: "Telefone",
     site: "Site",
 };
+
+type FormEdicaoLocal = {
+    nome: string;
+    categoria: string;
+    descricao: string;
+    endereco: string;
+    recursos: RecursoAcessibilidade[];
+    email: string;
+    telefone: string;
+    site: string;
+};
+
+function localParaFormulario(local: Local): FormEdicaoLocal {
+    return {
+        nome: local.nome,
+        categoria: local.categoria,
+        descricao: local.descricao ?? "",
+        endereco: local.endereco,
+        recursos: [...local.recursos],
+        email: local.email ?? "",
+        telefone: local.telefone ?? "",
+        site: local.site ?? "",
+    };
+}
 
 function validarEdicao(dados: {
     nome: string;
@@ -82,24 +107,9 @@ function validarEdicao(dados: {
 
 export default function EditarLocal() {
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const { locais, estado, atualizarLocal, tentarNovamente } = useLocais();
-    const resumoErrosRef = useRef<HTMLDivElement>(null);
 
     const local = useMemo(() => buscarLocalPorId(locais, id), [locais, id]);
-
-    const [form, setForm] = useState(() => ({
-        nome: local?.nome ?? "",
-        categoria: local?.categoria ?? "",
-        descricao: local?.descricao ?? "",
-        endereco: local?.endereco ?? "",
-        recursos: [...(local?.recursos ?? [])],
-        email: local?.email ?? "",
-        telefone: local?.telefone ?? "",
-        site: local?.site ?? "",
-    }));
-    const [erros, setErros] = useState<Record<string, string>>({});
-    const [mensagem, setMensagem] = useState("");
 
     if (estado === "carregando") {
         return (
@@ -136,6 +146,27 @@ export default function EditarLocal() {
             </div>
         );
     }
+
+    return (
+        <FormularioEdicao
+            key={local.id}
+            local={local}
+            atualizarLocal={atualizarLocal}
+        />
+    );
+}
+
+interface FormularioEdicaoProps {
+    local: Local;
+    atualizarLocal: (id: number, dados: Omit<Local, "id">) => Local;
+}
+
+function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
+    const navigate = useNavigate();
+    const resumoErrosRef = useRef<HTMLDivElement>(null);
+    const [form, setForm] = useState<FormEdicaoLocal>(() => localParaFormulario(local));
+    const [erros, setErros] = useState<Record<string, string>>({});
+    const [mensagem, setMensagem] = useState("");
 
     const camposComErro = Object.entries(erros)
         .filter(([, valor]) => Boolean(valor))
@@ -231,7 +262,7 @@ export default function EditarLocal() {
     };
 
     return (
-        <div key={local.id} className="mx-auto w-full max-w-3xl px-4 py-8 text-left text-(--ink)">
+        <div className="mx-auto w-full max-w-3xl px-4 py-8 text-left text-(--ink)">
             <h1>Editar local</h1>
 
             <form className="flex flex-col gap-6" onSubmit={salvarEdicao} noValidate>
