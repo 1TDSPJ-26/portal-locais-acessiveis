@@ -1,11 +1,17 @@
-import { Link, useLocation, useParams } from "react-router";
+import { Link, useLocation, useParams, useNavigate } from "react-router";
+import { useRef } from "react";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 
 export default function DetalheLocal() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
-  const { locais, estado, tentarNovamente } = useLocais();
+  const navigate = useNavigate();
+  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+
+  const excluirRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const cancelarRef = useRef<HTMLButtonElement>(null);
 
   if (estado === "carregando") {
     return (

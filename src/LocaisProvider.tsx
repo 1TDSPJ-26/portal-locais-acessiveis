@@ -92,8 +92,12 @@ export function LocaisProvider({
     return localAtualizado;
   };
 
+  const removerLocal = (id: number) => {
+    setLocais((anteriores) => anteriores.filter((local) => local.id !== id));
+  };
+
   return (
-    <LocaisContext.Provider value={{ locais, estado, tentarNovamente, cadastrarLocal, atualizarLocal }}>
+    <LocaisContext.Provider value={{ locais, estado, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal }}>
       {children}
     </LocaisContext.Provider>
   );
