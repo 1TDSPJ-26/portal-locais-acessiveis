@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
 import {
   categoriasLocais,
@@ -11,13 +11,49 @@ import {
 import { filtrarLocais } from "../../utils/filtrar-locais";
 import { LocalCard } from "../../components/LocalCard";
 
-const filtrosVazios: FiltrosLocais = { categoria: "", recursos: [] };
+
 
 export default function LocaisPage() {
-  const { locais, estado, tentarNovamente } = useLocais();
-  const [termo, setTermo] = useState("");
-  const [filtros, setFiltros] = useState<FiltrosLocais>(filtrosVazios);
+  const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const termo = searchParams.get("busca") ?? "";
+  const categoriaParam = searchParams.get("categoria");
+  
+  const categoria: FiltrosLocais["categoria"] =
+  categoriasLocais.includes(categoriaParam as CategoriaLocal)
+    ? (categoriaParam as CategoriaLocal)
+    : "";
+
+  const recursos = searchParams
+    .getAll("recurso")
+    .filter((recurso): recurso is RecursoAcessibilidade =>
+      recursosAcessibilidade.includes(recurso as RecursoAcessibilidade)
+    );
+  const filtros: FiltrosLocais = {
+    categoria,
+    recursos,
+  };
   const [painelAberto, setPainelAberto] = useState(false);
+  const [mensagemExclusao, setMensagemExclusao] = useState("");
+  const tituloRef = useRef<HTMLHeadingElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const nome = location.state?.localExcluido;
+    if (typeof nome !== "string" || !nome) return;
+
+    tituloRef.current?.focus();
+    // A região viva nasce vazia e recebe o anúncio depois de montar a listagem.
+    const timeout = window.setTimeout(() => {
+      setMensagemExclusao(`Local ${nome} excluído com sucesso.`);
+      // Consome o aviso para não repeti-lo ao voltar pelo histórico.
+      void navigate("/locais", { replace: true, state: null });
+    }, 100);
+
+    return () => window.clearTimeout(timeout);
+  }, [location.state, navigate]);
 
   const resultados = filtrarLocais(locais, termo, filtros);
   const temFiltrosAtivos =
@@ -26,24 +62,32 @@ export default function LocaisPage() {
     filtros.recursos.length > 0;
 
   const alternarRecurso = (recurso: RecursoAcessibilidade) => {
-    setFiltros((estadoAtual) => ({
-      ...estadoAtual,
-      recursos: estadoAtual.recursos.includes(recurso)
-        ? estadoAtual.recursos.filter((item) => item !== recurso)
-        : [...estadoAtual.recursos, recurso],
-    }));
-  };
+  const parametros = new URLSearchParams(searchParams);
 
-  const limparFiltros = () => {
-    setTermo("");
-    setFiltros(filtrosVazios);
-  };
+  const recursosAtuais = parametros.getAll("recurso");
+
+  if (recursosAtuais.includes(recurso)) {
+    parametros.delete("recurso");
+
+    recursosAtuais
+      .filter((item) => item !== recurso)
+      .forEach((item) => parametros.append("recurso", item));
+  } else {
+    parametros.append("recurso", recurso);
+  }
+
+  setSearchParams(parametros);
+};
+
+const limparFiltros = () => {
+  setSearchParams({});
+};
 
   return (
     <div className="app-shell">
       <header className="hero">
         <p className="eyebrow">Mapa de acesso para todos</p>
-        <h1>Encontre lugares que acolhem você.</h1>
+        <h1 ref={tituloRef} tabIndex={-1}>Encontre lugares que acolhem você.</h1>
         <p className="hero-copy">
           Pesquise por nome ou combine recursos de acessibilidade para planejar
           sua próxima saída.
@@ -57,7 +101,16 @@ export default function LocaisPage() {
             id="campo-busca-locais"
             type="search"
             value={termo}
-            onChange={(evento) => setTermo(evento.target.value)}
+            onChange={(evento) => {
+            const parametros = new URLSearchParams(searchParams);
+            const valor = evento.target.value;
+            if (valor.trim() === "") {
+              parametros.delete("busca");
+            } else {
+              parametros.set("busca", valor);
+            }
+          setSearchParams(parametros, { replace: true });
+        }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
@@ -69,6 +122,9 @@ export default function LocaisPage() {
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
+        <output className="delete-notice" aria-live="polite" aria-atomic="true">
+          {mensagemExclusao}
+        </output>
         <div className="results-heading">
           <div>
             <p className="section-kicker">Explorar locais</p>
@@ -101,6 +157,21 @@ export default function LocaisPage() {
         >
           {estado === "carregando" ? "Carregando locais..." : ""}
         </output>
+
+        <div aria-live="polite" aria-atomic="true">
+          {estado === "pronto" && usandoReserva && (
+            <div className="empty-state">
+              <h2>Exibindo dados de reserva</h2>
+              <p>
+                Não foi possível carregar os locais salvos. A lista exibida
+                contém os dados de reserva do projeto, e não a lista salva.
+              </p>
+              <button className="clear-button prominent" type="button" onClick={tentarNovamente}>
+                Tentar novamente
+              </button>
+            </div>
+          )}
+        </div>
 
         <div role="alert" className={estado === "erro" ? "empty-state" : undefined}>
           {estado === "erro" && (
@@ -151,12 +222,11 @@ export default function LocaisPage() {
                     name="categoria"
                     value={categoria}
                     checked={filtros.categoria === categoria}
-                    onChange={(evento) =>
-                      setFiltros((atual) => ({
-                        ...atual,
-                        categoria: evento.target.value as CategoriaLocal,
-                      }))
-                    }
+                    onChange={(evento) => {
+                      const parametros = new URLSearchParams(searchParams);
+                      parametros.set("categoria", evento.target.value);
+                      setSearchParams(parametros);
+                    }}
                   />
                   <span>{categoria}</span>
                 </label>
@@ -191,16 +261,22 @@ export default function LocaisPage() {
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
-              <button type="button" onClick={() => setTermo("")}>
+              <button type="button" onClick={() => {
+                const parametros = new URLSearchParams(searchParams);
+                parametros.delete("busca");
+                setSearchParams(parametros);
+              }}>
                 Busca: “{termo}” ×
               </button>
             )}
             {filtros.categoria && (
               <button
                 type="button"
-                onClick={() =>
-                  setFiltros((atual) => ({ ...atual, categoria: "" }))
-                }
+                onClick={() => {
+                  const parametros = new URLSearchParams(searchParams);
+                  parametros.delete("categoria");
+                  setSearchParams(parametros);
+                }}  
               >
                 {filtros.categoria} ×
               </button>

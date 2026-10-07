@@ -8,6 +8,10 @@ import {
 
 export type DadosCadastroLocal = Omit<Local, "id">;
 
+export function excluirLocal(locais: readonly Local[], id: Local["id"]): Local[] {
+  return locais.filter((local) => local.id !== id);
+}
+
 export class LocalDuplicadoError extends Error {
   constructor() {
     super("Já existe um local cadastrado com este nome e endereço.");
@@ -26,6 +30,7 @@ const normalizar = (valor: string) =>
 export function criarLocal(
   locais: readonly Local[],
   dados: DadosLocalEntrada,
+  maiorIdUtilizado = 0,
 ): Local {
   const dadosSanitizados = sanitizarLocal(dados);
 
@@ -41,11 +46,51 @@ export function criarLocal(
     throw new LocalDuplicadoError();
   }
 
-  const id = locais.reduce((maior, local) => Math.max(maior, local.id), 0) + 1;
+  const id = locais.reduce(
+    (maior, local) => Math.max(maior, local.id),
+    maiorIdUtilizado,
+  ) + 1;
 
   return {
     ...dadosSanitizados,
     id,
     recursos: [...dadosSanitizados.recursos],
   };
+}
+
+export function editarLocal(
+  locais: readonly Local[],
+  id: number,
+  dados: DadosLocalEntrada,
+): Local[] {
+  const dadosSanitizados = sanitizarLocal(dados);
+  validarLocal(dadosSanitizados);
+
+  const localAtual = locais.find((local) => local.id === id);
+
+  if (!localAtual) {
+    throw new Error("Local não encontrado para edição.");
+  }
+
+  const duplicado = locais.some(
+    (local) =>
+      local.id !== id &&
+      normalizar(local.nome) === normalizar(dadosSanitizados.nome) &&
+      normalizar(local.endereco) === normalizar(dadosSanitizados.endereco),
+  );
+
+  if (duplicado) {
+    throw new LocalDuplicadoError();
+  }
+
+  return locais.map((local) =>
+    local.id === id
+      ? {
+        ...local,
+        ...dadosSanitizados,
+        id,
+        recursos: [...dadosSanitizados.recursos],
+      }
+      : local,
+  );
 }

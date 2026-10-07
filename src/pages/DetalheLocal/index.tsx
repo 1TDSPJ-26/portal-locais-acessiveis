@@ -1,10 +1,23 @@
-import { Link, useParams } from "react-router";
+import { Link, useLocation, useParams, useNavigate } from "react-router";
+import { useRef } from "react";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
+import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
 
-export default function DetalheLocal() {
+const niveisBase = [                                                // <- NOVO
+  { rotulo: "Início", destino: "/" },
+  { rotulo: "Locais", destino: "/locais" },
+];
+
+export default function DetalheLocal() { 
   const { id } = useParams<{ id: string }>();
-  const { locais, estado, tentarNovamente } = useLocais();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+
+  const excluirRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const cancelarRef = useRef<HTMLButtonElement>(null);
 
   if (estado === "carregando") {
     return (
@@ -34,9 +47,12 @@ export default function DetalheLocal() {
 
   const local = buscarLocalPorId(locais, id);
 
-  if (!local) {
+    if (!local) {
     return (
       <div className="app-shell content">
+        <TrilhaNavegacao                                          // <- NOVO
+          niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
+        />
         <h1>Local não encontrado</h1>
         <p>Não existe um local com o identificador informado.</p>
         <Link to="/locais">Voltar para a listagem de locais</Link>
@@ -52,10 +68,28 @@ export default function DetalheLocal() {
     ? /^https?:\/\//i.test(site) ? site : `https://${site}`
     : undefined;
 
+  const mensagemSucesso = (location.state as { mensagem?: string } | null)?.mensagem;
+
   return (
     <article className="app-shell content">
+      <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
+
+      {mensagemSucesso && (
+        <output
+          aria-live="polite"
+          className="mb-4 block rounded-md border border-(--accent) bg-(--card) px-4 py-3 text-sm font-medium text-(--ink)"
+        >
+          {mensagemSucesso}
+        </output>
+      )}
       <h1>{local.nome}</h1>
+      <div className="mb-4">
+        <Link to={`/locais/${local.id}/editar`} className="text-(--accent) underline underline-offset-2">
+          Editar local
+        </Link>
+      </div>
       <dl>
+        ...
         <dt>Categoria</dt>
         <dd>{local.categoria}</dd>
         <dt>Endereço</dt>
@@ -115,7 +149,56 @@ export default function DetalheLocal() {
         </section>
       )}
 
-      <Link to="/locais">Voltar para a listagem de locais</Link>
+      <div className="local-actions">
+        <Link to="/locais">Voltar para a listagem de locais</Link>
+        <button
+          ref={excluirRef}
+          type="button"
+          className="delete-button"
+          onClick={() => {
+            dialogRef.current?.showModal();
+            cancelarRef.current?.focus();
+          }}
+        >
+          Excluir local
+        </button>
+      </div>
+
+      <dialog
+        ref={dialogRef}
+        className="delete-dialog"
+        aria-labelledby="titulo-exclusao"
+        aria-describedby="descricao-exclusao"
+        onClose={() => excluirRef.current?.focus()}
+      >
+        <h2 id="titulo-exclusao">Excluir local?</h2>
+        <p id="descricao-exclusao">
+          O local <strong>{local.nome}</strong> será excluído. Esta ação não pode
+          ser desfeita.
+        </p>
+        <div className="local-actions">
+          <button
+            ref={cancelarRef}
+            type="button"
+            className="filter-toggle"
+            onClick={() => dialogRef.current?.close()}
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            className="delete-button"
+            onClick={() => {
+              dialogRef.current?.close();
+              removerLocal(local.id);
+              void navigate("/locais", { state: { localExcluido: local.nome } });
+            }}
+          >
+            Excluir
+          </button>
+        </div>
+      </dialog>
     </article>
   );
 }
+
