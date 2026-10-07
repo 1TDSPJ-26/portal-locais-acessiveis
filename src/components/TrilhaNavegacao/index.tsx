@@ -1,25 +1,25 @@
 import { Link } from "react-router";
 
-export type NivelTrilha = {
+export interface NivelTrilha {
   rotulo: string;
   destino?: string;
-};
+}
 
-type TrilhaNavegacaoProps = {
+interface TrilhaNavegacaoProps {
   niveis: NivelTrilha[];
-};
+}
 
-export function TrilhaNavegacao({ niveis }: TrilhaNavegacaoProps) {
+export default function TrilhaNavegacao({ niveis }: TrilhaNavegacaoProps) {
   return (
     <nav aria-label="Trilha de navegação" className="trilha-navegacao">
       <ol>
         {niveis.map((nivel, indice) => {
-          const ultimo = indice === niveis.length - 1;
+          const ehUltimo = indice === niveis.length - 1;
 
           return (
             <li key={`${indice}-${nivel.rotulo}`}>
-              {ultimo || !nivel.destino ? (
-                <span aria-current={ultimo ? "page" : undefined}>
+              {ehUltimo || !nivel.destino ? (
+                <span aria-current={ehUltimo ? "page" : undefined}>
                   {nivel.rotulo}
                 </span>
               ) : (
