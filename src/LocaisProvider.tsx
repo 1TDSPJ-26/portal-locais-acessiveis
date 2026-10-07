@@ -1,34 +1,52 @@
-import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { locais as locaisIniciais } from "./data/locais";
-import { LocaisContext } from "./LocaisContext";
-import { criarLocal, type DadosCadastroLocal } from "./services/cadastroLocal";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { LocaisContext, type EstadoLocais } from "./LocaisContext";
+import { criarLocal, excluirLocal, type DadosCadastroLocal } from "./services/cadastroLocal";
 import { carregarLocais } from "./services/locais";
 import type { Local } from "./types/local";
 import { salvarLocais } from "./persistenciaLocais";
 
-type EstadoLocais = "carregando" | "pronto" | "erro";
+interface LocaisProviderProps {
+  children: ReactNode;
+  // Permite reproduzir falhas e lista vazia em testes sem alterar o serviço.
+  carregar?: () => Promise<Local[]>;
+}
 
-export function LocaisProvider({ children }: { children: ReactNode }) {
+export function LocaisProvider({
+  children,
+  carregar = carregarLocais,
+}: LocaisProviderProps) {
+  const [locais, setLocais] = useState<Local[]>([]);
   const [estado, setEstado] = useState<EstadoLocais>("carregando");
-  const [locais, setLocais] = useState<Local[]>([...locaisIniciais]);
-
-  const carregar = useCallback(() => {
-    // Sem setState síncrono aqui: os únicos setEstado ocorrem dentro
-    // do then/catch, depois da carga, e o efeito não causa cascata.
-    carregarLocais()
-      .then((carregados) => {
-        setLocais(carregados);
-        setEstado("pronto");
-      })
-      .catch(() => setEstado("erro"));
-  }, []);
+  const [tentativa, setTentativa] = useState(0);
+  // Guarda o histórico de IDs desta sessão, mesmo quando a lista fica vazia.
+  const maiorIdUtilizado = useRef(0);
 
   useEffect(() => {
-    carregar();
-  }, [carregar]);
+    let ativo = true;
+
+    async function carregarLista() {
+      try {
+        const dados = await carregar();
+        if (ativo) {
+          maiorIdUtilizado.current = dados.reduce(
+            (maior, local) => Math.max(maior, local.id),
+            maiorIdUtilizado.current,
+          );
+          setLocais(dados);
+          setEstado("pronto");
+        }
+      } catch {
+        if (ativo) setEstado("erro");
+      }
+    }
+
+    void carregarLista();
+    // Descarta respostas de efeitos desmontados, inclusive no StrictMode.
+    return () => { ativo = false; };
+  }, [carregar, tentativa]);
 
   /* Risco apontado pela Issue #71: gravar antes de o carregamento terminar
-     substituiria a lista salva pelos dados de exemplo. Só grava quando o
+     substituiria a lista salva pela lista vazia inicial. Só grava quando o
      estado for "pronto". */
   useEffect(() => {
     if (estado === "pronto") {
@@ -37,29 +55,29 @@ export function LocaisProvider({ children }: { children: ReactNode }) {
   }, [estado, locais]);
 
   const tentarNovamente = () => {
-    // Evento de clique, não efeito: pode setar estado síncrono sem problema.
     setEstado("carregando");
-    carregar();
+    setTentativa((atual) => atual + 1);
   };
 
-  /* Fonte unica: o estado. `criarLocal` le a lista do render corrente para
-     conferir duplicidade e gerar o identificador, e o acrescimo usa a forma
-     funcional do atualizador. Guardar a lista tambem num `useRef` deixaria
-     duas fontes que podem divergir, que e o risco apontado pela Issue #17. */
+  /* A lista fica apenas no estado. O ref guarda somente o maior ID utilizado
+     para que a exclusão não permita reutilizar links antigos nesta sessão. */
   const cadastrarLocal = (dados: DadosCadastroLocal) => {
     // A carga precisa terminar antes de conferir duplicidade e gerar o ID.
     if (estado !== "pronto") {
       throw new Error("Aguarde o carregamento dos locais antes de cadastrar.");
     }
-    const novoLocal = criarLocal(locais, dados);
+    const novoLocal = criarLocal(locais, dados, maiorIdUtilizado.current);
+    maiorIdUtilizado.current = novoLocal.id;
     setLocais((anteriores) => [...anteriores, novoLocal]);
     return novoLocal;
   };
 
+  const removerLocal = (id: Local["id"]) => {
+    setLocais((anteriores) => excluirLocal(anteriores, id));
+  };
+
   return (
-    <LocaisContext.Provider
-      value={{ locais, estado, tentarNovamente, cadastrarLocal }}
-    >
+    <LocaisContext.Provider value={{ locais, estado, tentarNovamente, cadastrarLocal, removerLocal }}>
       {children}
     </LocaisContext.Provider>
   );

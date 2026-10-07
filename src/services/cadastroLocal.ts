@@ -8,6 +8,10 @@ import {
 
 export type DadosCadastroLocal = Omit<Local, "id">;
 
+export function excluirLocal(locais: readonly Local[], id: Local["id"]): Local[] {
+  return locais.filter((local) => local.id !== id);
+}
+
 export class LocalDuplicadoError extends Error {
   constructor() {
     super("Já existe um local cadastrado com este nome e endereço.");
@@ -26,6 +30,7 @@ const normalizar = (valor: string) =>
 export function criarLocal(
   locais: readonly Local[],
   dados: DadosLocalEntrada,
+  maiorIdUtilizado = 0,
 ): Local {
   const dadosSanitizados = sanitizarLocal(dados);
 
@@ -41,7 +46,10 @@ export function criarLocal(
     throw new LocalDuplicadoError();
   }
 
-  const id = locais.reduce((maior, local) => Math.max(maior, local.id), 0) + 1;
+  const id = locais.reduce(
+    (maior, local) => Math.max(maior, local.id),
+    maiorIdUtilizado,
+  ) + 1;
 
   return {
     ...dadosSanitizados,
