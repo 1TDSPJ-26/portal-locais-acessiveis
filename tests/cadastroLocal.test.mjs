@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   criarLocal,
   editarLocal,
+  excluirLocal,
   LocalDuplicadoError,
 } from "../src/services/cadastroLocal.ts";
 
