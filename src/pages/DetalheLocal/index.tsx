@@ -60,7 +60,6 @@ export default function DetalheLocal() {
       {mensagemSucesso && (
         <output
           aria-live="polite"
-          role="status"
           className="mb-4 block rounded-md border border-(--success) bg-(--card) px-4 py-3 text-sm font-medium text-(--ink)"
         >
           {mensagemSucesso}
