@@ -34,6 +34,16 @@ const idDoRecurso = (recurso: RecursoAcessibilidade) =>
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")}`;
 
+const ROTULOS_EDICAO: Record<string, string> = {
+    nome: "Nome do local",
+    categoria: "Categoria",
+    descricao: "Descrição",
+    endereco: "Endereço",
+    email: "E-mail",
+    telefone: "Telefone",
+    site: "Site",
+};
+
 function validarEdicao(dados: {
     nome: string;
     categoria: string;
@@ -235,7 +245,11 @@ export default function EditarLocal() {
                         <h2 className="text-base font-semibold text-(--alert)">Corrija os campos antes de enviar</h2>
                         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
                             {camposComErro.map((campo) => (
-                                <li key={campo}>{campo}: {erros[campo]}</li>
+                                <li key={campo}>
+                                    <a href={`#${campo}`} className="underline underline-offset-2">
+                                        {ROTULOS_EDICAO[campo] ?? campo}: {erros[campo]}
+                                    </a>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -358,7 +372,7 @@ export default function EditarLocal() {
             </form>
 
             {mensagem && (
-                <div role="alert" className="mt-4 text-sm font-medium text-(--alert)">
+                <div aria-live="polite" role="alert" className="mt-4 text-sm font-medium text-(--alert)">
                     {mensagem}
                 </div>
             )}
