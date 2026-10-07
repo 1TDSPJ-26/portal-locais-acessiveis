@@ -3,7 +3,6 @@ type PaginacaoProps = {
     pages: number[];
     canPrev: boolean;
     canNext: boolean;
-    isSinglePage: boolean;
     intervaloLabel: string;
     porPagina: number;
     availableOptions: number[];
@@ -16,18 +15,12 @@ export function Paginacao({
     pages,
     canPrev,
     canNext,
-    isSinglePage,
     intervaloLabel,
     porPagina,
     availableOptions,
     onMudarPagina,
     onMudarPorPagina,
 }: PaginacaoProps) {
-    // Se existir apenas uma página,
-    // não precisamos mostrar a paginação.
-    if (isSinglePage) {
-        return null;
-    }
 
     return (
         <>

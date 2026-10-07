@@ -27,7 +27,6 @@ export default function LocaisPage() {
     pages,
     canPrev,
     canNext,
-    isSinglePage,
     intervaloLabel,
     porPagina,
     availableOptions,
@@ -290,7 +289,6 @@ export default function LocaisPage() {
               pages={pages}
               canPrev={canPrev}
               canNext={canNext}
-              isSinglePage={isSinglePage}
               intervaloLabel={intervaloLabel}
               porPagina={porPagina}
               availableOptions={availableOptions}

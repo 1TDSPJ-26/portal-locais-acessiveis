@@ -25,6 +25,7 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[], por
 
     function handleMudarPorPagina(novoValor: number) {
         setPorPagina(novoValor);
+        setPagina(1);
     }
 
     // Handler que o componente de busca/filters deve chamar ao alterar o termo/filtros
@@ -42,7 +43,6 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[], por
     const pages = Array.from({ length: totalPaginas }, (_, i) => i + 1);
     const canPrev = paginaAtual > 1;
     const canNext = paginaAtual < totalPaginas;
-    const isSinglePage = totalPaginas === 1;
 
     return {
         paginaAtual,
@@ -57,7 +57,6 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[], por
         pages,
         canPrev,
         canNext,
-        isSinglePage,
         topoListaRef,
         handleMudarPagina,
         handleMudarPorPagina,
