@@ -13,7 +13,7 @@ import { filtrarLocais } from "../../utils/filtrar-locais";
 
 
 export default function LocaisPage() {
-  const { locais, estado, tentarNovamente } = useLocais();
+  const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const termo = searchParams.get("busca") ?? "";
@@ -156,6 +156,21 @@ const limparFiltros = () => {
         >
           {estado === "carregando" ? "Carregando locais..." : ""}
         </output>
+
+        <div aria-live="polite" aria-atomic="true">
+          {estado === "pronto" && usandoReserva && (
+            <div className="empty-state">
+              <h2>Exibindo dados de reserva</h2>
+              <p>
+                Não foi possível carregar os locais salvos. A lista exibida
+                contém os dados de reserva do projeto, e não a lista salva.
+              </p>
+              <button className="clear-button prominent" type="button" onClick={tentarNovamente}>
+                Tentar novamente
+              </button>
+            </div>
+          )}
+        </div>
 
         <div role="alert" className={estado === "erro" ? "empty-state" : undefined}>
           {estado === "erro" && (

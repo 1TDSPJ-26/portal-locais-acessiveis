@@ -7,6 +7,7 @@ export type EstadoLocais = "carregando" | "pronto" | "erro";
 export interface LocaisContextValue {
   locais: Local[];
   estado: EstadoLocais;
+  usandoReserva: boolean;
   tentarNovamente: () => void;
   cadastrarLocal: (dados: DadosCadastroLocal) => Local;
   removerLocal: (id: Local["id"]) => void;

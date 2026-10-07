@@ -1,8 +1,13 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
+import { beforeEach, test } from "node:test";
 import { carregarLocais } from "../src/services/locais.ts";
 import { locais } from "../src/data/locais.ts";
 import { CHAVE_LOCAIS } from "../src/persistenciaLocais.ts";
+
+beforeEach((t) => {
+  globalThis.localStorage = { getItem: () => null };
+  t.after(() => { delete globalThis.localStorage; });
+});
 
 test("carrega os locais de exemplo somente depois do atraso simulado", async (t) => {
   t.mock.timers.enable({ apis: ["setTimeout"] });
