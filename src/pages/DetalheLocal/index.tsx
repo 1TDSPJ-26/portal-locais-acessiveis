@@ -2,14 +2,14 @@ import { useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
-import { TrilhaNavegacao } from "../../components/TrilhaNavegacao"; // <- NOVO
+import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
 
 const niveisBase = [                                                // <- NOVO
   { rotulo: "Início", destino: "/" },
   { rotulo: "Locais", destino: "/locais" },
 ];
 
-export default function DetalheLocal() { {
+export default function DetalheLocal() { 
   const { id } = useParams<{ id: string }>();
   const { locais, estado, tentarNovamente, removerLocal } = useLocais();
   const navigate = useNavigate();
