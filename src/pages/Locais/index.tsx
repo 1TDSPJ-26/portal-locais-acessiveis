@@ -9,6 +9,7 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
 
 
 
@@ -18,11 +19,11 @@ export default function LocaisPage() {
 
   const termo = searchParams.get("busca") ?? "";
   const categoriaParam = searchParams.get("categoria");
-  
+
   const categoria: FiltrosLocais["categoria"] =
-  categoriasLocais.includes(categoriaParam as CategoriaLocal)
-    ? (categoriaParam as CategoriaLocal)
-    : "";
+    categoriasLocais.includes(categoriaParam as CategoriaLocal)
+      ? (categoriaParam as CategoriaLocal)
+      : "";
 
   const recursos = searchParams
     .getAll("recurso")
@@ -34,6 +35,7 @@ export default function LocaisPage() {
     recursos,
   };
   const [painelAberto, setPainelAberto] = useState(false);
+  const [criterio, setCriterio] = useState<CriterioOrdenacao>("nome");
   const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
   const location = useLocation();
@@ -54,33 +56,33 @@ export default function LocaisPage() {
     return () => window.clearTimeout(timeout);
   }, [location.state, navigate]);
 
-  const resultados = filtrarLocais(locais, termo, filtros);
+  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros), criterio);
   const temFiltrosAtivos =
     termo.trim() !== "" ||
     filtros.categoria !== "" ||
     filtros.recursos.length > 0;
 
   const alternarRecurso = (recurso: RecursoAcessibilidade) => {
-  const parametros = new URLSearchParams(searchParams);
+    const parametros = new URLSearchParams(searchParams);
 
-  const recursosAtuais = parametros.getAll("recurso");
+    const recursosAtuais = parametros.getAll("recurso");
 
-  if (recursosAtuais.includes(recurso)) {
-    parametros.delete("recurso");
+    if (recursosAtuais.includes(recurso)) {
+      parametros.delete("recurso");
 
-    recursosAtuais
-      .filter((item) => item !== recurso)
-      .forEach((item) => parametros.append("recurso", item));
-  } else {
-    parametros.append("recurso", recurso);
-  }
+      recursosAtuais
+        .filter((item) => item !== recurso)
+        .forEach((item) => parametros.append("recurso", item));
+    } else {
+      parametros.append("recurso", recurso);
+    }
 
-  setSearchParams(parametros);
-};
+    setSearchParams(parametros);
+  };
 
-const limparFiltros = () => {
-  setSearchParams({});
-};
+  const limparFiltros = () => {
+    setSearchParams({});
+  };
 
   return (
     <div className="app-shell">
@@ -101,15 +103,15 @@ const limparFiltros = () => {
             type="search"
             value={termo}
             onChange={(evento) => {
-            const parametros = new URLSearchParams(searchParams);
-            const valor = evento.target.value;
-            if (valor.trim() === "") {
-              parametros.delete("busca");
-            } else {
-              parametros.set("busca", valor);
-            }
-          setSearchParams(parametros, { replace: true });
-        }}
+              const parametros = new URLSearchParams(searchParams);
+              const valor = evento.target.value;
+              if (valor.trim() === "") {
+                parametros.delete("busca");
+              } else {
+                parametros.set("busca", valor);
+              }
+              setSearchParams(parametros, { replace: true });
+            }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
@@ -149,6 +151,20 @@ const limparFiltros = () => {
             )}
           </button>
         </div>
+
+        {estado === "pronto" && locais.length > 0 && (
+          <div className="sort-field">
+            <label htmlFor="ordenar-locais">Ordenar por</label>
+            <select
+              id="ordenar-locais"
+              value={criterio}
+              onChange={(evento) => setCriterio(evento.target.value as CriterioOrdenacao)}
+            >
+              <option value="nome">Nome</option>
+              <option value="categoria">Categoria</option>
+            </select>
+          </div>
+        )}
 
         <output
           aria-live="polite"
@@ -260,7 +276,7 @@ const limparFiltros = () => {
                   const parametros = new URLSearchParams(searchParams);
                   parametros.delete("categoria");
                   setSearchParams(parametros);
-                }}  
+                }}
               >
                 {filtros.categoria} ×
               </button>

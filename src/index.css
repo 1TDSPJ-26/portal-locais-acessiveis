@@ -45,35 +45,43 @@
     color-scheme: dark;
   }
 }
+
 #root {
   min-height: 100svh;
 }
+
 body {
   margin: 0;
 }
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 button,
 input {
   font: inherit;
 }
+
 button {
   cursor: pointer;
 }
+
 .app-shell {
   max-width: 1160px;
   margin: 0 auto;
   overflow: hidden;
 }
+
 .hero {
   padding: 58px 7.5% 64px;
   color: var(--hero-ink);
   background: var(--hero);
   position: relative;
 }
+
 .hero::after {
   content: "";
   position: absolute;
@@ -84,6 +92,7 @@ button {
   right: -70px;
   top: -100px;
 }
+
 /* Os dois textos de apoio estavam na mesma regra, mas vivem sobre fundos
    diferentes: um no hero escuro, outro no conteúdo claro. Com uma cor só, um
    dos dois fica sempre com contraste insuficiente. */
@@ -96,9 +105,11 @@ button {
   font-weight: bold;
   color: var(--hero-accent);
 }
+
 .section-kicker {
   color: var(--accent);
 }
+
 h1 {
   max-width: 720px;
   margin: 0;
@@ -108,11 +119,13 @@ h1 {
   line-height: 0.98;
   letter-spacing: -2px;
 }
+
 .hero-copy {
   max-width: 520px;
   margin: 22px 0 32px;
   color: var(--hero-muted);
 }
+
 .search-field {
   display: flex;
   align-items: center;
@@ -123,9 +136,11 @@ h1 {
   border: 2px solid transparent;
   color: var(--ink);
 }
+
 .search-field:focus-within {
   border-color: var(--accent);
 }
+
 .search-field input {
   min-width: 0;
   flex: 1;
@@ -134,13 +149,16 @@ h1 {
   background: transparent;
   color: var(--ink);
 }
+
 .search-icon {
   font-size: 28px;
   line-height: 1;
 }
+
 .content {
   padding: 42px 7.5% 70px;
 }
+
 .results-heading,
 .filters-topline,
 .place-card-top {
@@ -149,19 +167,23 @@ h1 {
   align-items: flex-start;
   gap: 16px;
 }
+
 h2,
 h3 {
   margin: 0;
   color: var(--ink);
 }
+
 h2 {
   font-family: Georgia, serif;
   font-weight: 400;
   font-size: 28px;
 }
+
 h3 {
   font-size: 21px;
 }
+
 .filter-toggle,
 .clear-button {
   border: 1px solid var(--control);
@@ -170,6 +192,7 @@ h3 {
   padding: 10px 15px;
   font-weight: bold;
 }
+
 .filter-toggle span:first-child {
   margin-right: 6px;
   color: var(--accent);
@@ -216,6 +239,7 @@ h3 {
 .delete-notice:not(:empty) {
   margin-bottom: 1.5rem;
 }
+
 .filter-count {
   display: inline-grid;
   place-items: center;
@@ -227,23 +251,27 @@ h3 {
   color: white;
   font-size: 12px;
 }
+
 .filters-panel {
   margin: 28px 0;
   padding: 25px 28px;
   border: 1px solid var(--line);
   background: var(--card);
 }
+
 .clear-button {
   color: var(--accent);
   text-decoration: underline;
   border-color: transparent;
   padding-inline: 0;
 }
+
 .clear-button:disabled {
   color: var(--muted);
   text-decoration: none;
   cursor: not-allowed;
 }
+
 .empty-state {
   display: block;
   margin-top: 28px;
@@ -253,50 +281,60 @@ h3 {
   color: var(--ink);
   text-align: center;
 }
+
 .empty-state p {
   margin: 16px 0;
 }
+
 .empty-state .prominent {
   display: inline-block;
   min-height: 44px;
   padding: 10px 15px;
 }
+
 fieldset {
   margin: 25px 0 0;
   padding: 0;
   border: 0;
 }
+
 legend {
   padding: 0;
   margin-bottom: 12px;
   font-weight: bold;
 }
+
 legend span {
   color: var(--muted);
   font-size: 13px;
   font-weight: normal;
 }
+
 .category-options,
 .resource-options {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
 }
+
 .category-option {
   border: 1px solid var(--control);
   padding: 9px 14px;
   background: var(--card);
 }
+
 .category-option input,
 .check-option input {
   position: absolute;
   opacity: 0;
 }
+
 .category-option.is-selected {
   border-color: var(--accent);
   background: var(--accent-soft);
   color: var(--accent);
 }
+
 .check-option {
   display: flex;
   align-items: center;
@@ -304,6 +342,7 @@ legend span {
   margin-right: 12px;
   color: var(--muted);
 }
+
 .custom-check {
   width: 19px;
   height: 19px;
@@ -313,15 +352,24 @@ legend span {
   color: transparent;
   font-size: 13px;
 }
-.check-option input:checked + .custom-check {
+
+.check-option input:checked+.custom-check {
   border-color: var(--accent);
   background: var(--accent);
   color: white;
 }
 
-:root { font-size: 100%; }
-:root[data-fonte="grande"] { font-size: 112.5%; }
-:root[data-fonte="maior"] { font-size: 125%; }
+:root {
+  font-size: 100%;
+}
+
+:root[data-fonte="grande"] {
+  font-size: 112.5%;
+}
+
+:root[data-fonte="maior"] {
+  font-size: 125%;
+}
 
 :root[data-contraste="alto"] {
   --ink: #ffffff;
@@ -346,7 +394,10 @@ legend span {
   background-color: #000000;
 }
 
-:root[data-contraste="alto"] a { color: #ffff00; }
+:root[data-contraste="alto"] a {
+  color: #ffff00;
+}
+
 :root[data-contraste="alto"] button {
   color: #ffffff;
   background-color: #000000;
@@ -394,8 +445,18 @@ legend span {
 }
 
 
-header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
-header, main, footer { min-width: 0; }
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+header,
+main,
+footer {
+  min-width: 0;
+}
 
 /* Linha que agrupa o título e o botão do menu mobile. Em telas largas o
    botão fica escondido e essa linha se comporta como antes. */
@@ -413,6 +474,7 @@ header, main, footer { min-width: 0; }
 }
 
 @media (max-width: 48rem) {
+
   /* position: relative aqui (e não no elemento inteiro) é suficiente para
      ancorar o painel como um overlay, sem afetar o layout em telas largas. */
   header {
@@ -478,12 +540,26 @@ h1 {
   font-size: clamp(1.75rem, 5vw, 3.5rem);
   overflow-wrap: anywhere;
 }
-h2 { font-size: 1.5rem; }
-code, .counter { font-size: 0.9375rem; }
-@media (max-width: 64rem) {
-  h1 { font-size: clamp(1.75rem, 5vw, 2.25rem); }
-  h2 { font-size: 1.25rem; }
+
+h2 {
+  font-size: 1.5rem;
 }
+
+code,
+.counter {
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 64rem) {
+  h1 {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
 .controles-exibicao button:disabled {
   cursor: not-allowed;
   border-style: dashed;
@@ -529,7 +605,7 @@ footer nav a {
    Nos filtros transparentes, o foco aparece no controle visual. */
 :focus-visible,
 .controles-exibicao button:focus-visible,
-.check-option input:focus-visible + .custom-check,
+.check-option input:focus-visible+.custom-check,
 .category-option:has(input:focus-visible) {
   outline: 3px solid var(--cor-foco);
   outline-offset: 2px;
@@ -539,9 +615,10 @@ footer nav a {
 }
 
 @media (forced-colors: active) {
+
   :focus-visible,
   .controles-exibicao button:focus-visible,
-  .check-option input:focus-visible + .custom-check,
+  .check-option input:focus-visible+.custom-check,
   .category-option:has(input:focus-visible) {
     outline-color: Highlight;
   }
@@ -550,7 +627,26 @@ footer nav a {
 main:focus {
   outline: 2px solid var(--cor-foco);
   outline-offset: 2px;
-  box-shadow: 
-  0 0 0 2px var(--cor-foco-externa),
-  0 0 0 6px var(--cor-foco-externa)
+  box-shadow:
+    0 0 0 2px var(--cor-foco-externa),
+    0 0 0 6px var(--cor-foco-externa)
+}
+
+.sort-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.sort-field label {
+  font-weight: bold;
+  color: var(--ink);
+}
+
+.sort-field select {
+  border: 1px solid var(--control);
+  background: var(--card);
+  color: var(--ink);
+  padding: 8px 12px;
 }
