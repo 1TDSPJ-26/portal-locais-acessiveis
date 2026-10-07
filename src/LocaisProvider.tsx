@@ -3,6 +3,7 @@ import { LocaisContext, type EstadoLocais } from "./LocaisContext";
 import { criarLocal, excluirLocal, type DadosCadastroLocal } from "./services/cadastroLocal";
 import { carregarLocais } from "./services/locais";
 import type { Local } from "./types/local";
+import { salvarLocais } from "./persistenciaLocais";
 
 interface LocaisProviderProps {
   children: ReactNode;
@@ -43,6 +44,15 @@ export function LocaisProvider({
     // Descarta respostas de efeitos desmontados, inclusive no StrictMode.
     return () => { ativo = false; };
   }, [carregar, tentativa]);
+
+  /* Risco apontado pela Issue #71: gravar antes de o carregamento terminar
+     substituiria a lista salva pela lista vazia inicial. Só grava quando o
+     estado for "pronto". */
+  useEffect(() => {
+    if (estado === "pronto") {
+      salvarLocais(locais);
+    }
+  }, [estado, locais]);
 
   const tentarNovamente = () => {
     setEstado("carregando");
