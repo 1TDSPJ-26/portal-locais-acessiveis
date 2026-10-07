@@ -65,19 +65,19 @@ test("carregarLocaisSalvos retorna a lista gravada quando é válida", () => {
   assert.deepEqual(carregarLocaisSalvos(), lista);
 });
 
-test("carregarLocaisSalvos retorna null com JSON corrompido", () => {
+test("carregarLocaisSalvos propaga erro com JSON corrompido", () => {
   armazenamento.setItem(CHAVE_LOCAIS, "{isso não é json");
-  assert.equal(carregarLocaisSalvos(), null);
+  assert.throws(() => carregarLocaisSalvos(), SyntaxError);
 });
 
-test("carregarLocaisSalvos retorna null com estrutura inválida gravada à mão", () => {
+test("carregarLocaisSalvos rejeita estrutura inválida gravada à mão", () => {
   armazenamento.setItem(CHAVE_LOCAIS, JSON.stringify({ nao: "sou lista" }));
-  assert.equal(carregarLocaisSalvos(), null);
+  assert.throws(() => carregarLocaisSalvos(), /lista salva de locais é inválida/);
 });
 
-test("carregarLocaisSalvos retorna null com o armazenamento bloqueado", () => {
+test("carregarLocaisSalvos propaga erro com o armazenamento bloqueado", () => {
   globalThis.localStorage = montarArmazenamento(true);
-  assert.equal(carregarLocaisSalvos(), null);
+  assert.throws(() => carregarLocaisSalvos(), /armazenamento bloqueado/);
 });
 
 test("salvarLocais grava a lista no armazenamento", () => {
