@@ -10,7 +10,8 @@ export interface LocaisContextValue {
   usandoReserva: boolean;
   tentarNovamente: () => void;
   cadastrarLocal: (dados: DadosCadastroLocal) => Local;
-  removerLocal: (id: Local["id"]) => void;
+  atualizarLocal: (id: number, dados: DadosCadastroLocal) => Local;
+  removerLocal: (id: number) => void;
 }
 
 export const LocaisContext = createContext<LocaisContextValue | null>(null);

@@ -1,5 +1,5 @@
+import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useRef } from "react";
-import { Link, useNavigate, useParams } from "react-router";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
@@ -11,10 +11,12 @@ const niveisBase = [                                                // <- NOVO
 
 export default function DetalheLocal() { 
   const { id } = useParams<{ id: string }>();
-  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+  const location = useLocation();
   const navigate = useNavigate();
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+
   const excluirRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const cancelarRef = useRef<HTMLButtonElement>(null);
 
   if (estado === "carregando") {
@@ -66,10 +68,26 @@ export default function DetalheLocal() {
     ? /^https?:\/\//i.test(site) ? site : `https://${site}`
     : undefined;
 
+  const mensagemSucesso = (location.state as { mensagem?: string } | null)?.mensagem;
+
   return (
     <article className="app-shell content">
-      <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />  
+      <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
+
+      {mensagemSucesso && (
+        <output
+          aria-live="polite"
+          className="mb-4 block rounded-md border border-(--accent) bg-(--card) px-4 py-3 text-sm font-medium text-(--ink)"
+        >
+          {mensagemSucesso}
+        </output>
+      )}
       <h1>{local.nome}</h1>
+      <div className="mb-4">
+        <Link to={`/locais/${local.id}/editar`} className="text-(--accent) underline underline-offset-2">
+          Editar local
+        </Link>
+      </div>
       <dl>
         ...
         <dt>Categoria</dt>
