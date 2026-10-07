@@ -2,6 +2,11 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  criarLocal,
+  LocalDuplicadoError,
+} from "../src/services/cadastroLocal.ts";
+import { filtrarLocais } from "../src/utils/filtrar-locais.ts";
+import {
   dadosFormularioParaCadastro,
 } from "../src/utils/converter-formulario.ts";
 import {
@@ -68,4 +73,92 @@ test("não converte o formulário para cadastro quando a validação falha", () 
   assert.equal(formularioSemErros(erros), false);
   assert.equal(conversaoExecutada, false);
   assert.equal(dadosCadastro, undefined);
+});
+
+test("cria com dados válidos e encontra o local por nome, categoria e cada recurso", () => {
+  const erros = validarFormulario(formularioCompleto);
+  assert.equal(formularioSemErros(erros), true);
+
+  const dadosCadastro = dadosFormularioParaCadastro(formularioCompleto);
+  const novoLocal = criarLocal([], dadosCadastro);
+  const locais = [novoLocal];
+
+  assert.deepEqual(
+    filtrarLocais(locais, "biblioteca parque", {
+      categoria: "",
+      recursos: [],
+    }),
+    [novoLocal],
+  );
+  assert.deepEqual(
+    filtrarLocais(locais, "", {
+      categoria: "Cultura",
+      recursos: [],
+    }),
+    [novoLocal],
+  );
+
+  for (const recurso of formularioCompleto.recursos) {
+    assert.deepEqual(
+      filtrarLocais(locais, "", {
+        categoria: "",
+        recursos: [recurso],
+      }),
+      [novoLocal],
+      `O local deve ser encontrado pelo recurso "${recurso}"`,
+    );
+  }
+});
+
+test("o local recém-criado não aparece se não corresponder aos filtros", () => {
+  const novoLocal = criarLocal([], {
+    nome: "Centro Cultural",
+    categoria: "Cultura",
+    endereco: "Rua das Flores, 10",
+    recursos: ["Libras"],
+  });
+
+  assert.deepEqual(
+    filtrarLocais([novoLocal], "Centro", {
+      categoria: "Lazer",
+      recursos: [],
+    }),
+    [],
+  );
+  assert.deepEqual(
+    filtrarLocais([novoLocal], "Centro", {
+      categoria: "Cultura",
+      recursos: ["Audiodescrição"],
+    }),
+    [],
+  );
+});
+
+test("recusa criar um local duplicado", () => {
+  const dadosCadastro = dadosFormularioParaCadastro(formularioCompleto);
+  const localExistente = criarLocal([], dadosCadastro);
+
+  assert.throws(
+    () => criarLocal([localExistente], dadosCadastro),
+    LocalDuplicadoError,
+  );
+});
+
+test("mantém IDs únicos após cadastros sucessivos", () => {
+  const primeiroLocal = criarLocal([], {
+    nome: "Biblioteca Central",
+    categoria: "Cultura",
+    endereco: "Rua Principal, 100",
+    recursos: [],
+  });
+  const segundoLocal = criarLocal([primeiroLocal], {
+    nome: "Museu Municipal",
+    categoria: "Cultura",
+    endereco: "Rua Secundária, 200",
+    recursos: [],
+  });
+
+  assert.equal(primeiroLocal.id, 1);
+  assert.equal(segundoLocal.id, 2);
+  assert.notEqual(primeiroLocal.id, segundoLocal.id);
 });
