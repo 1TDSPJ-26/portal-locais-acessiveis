@@ -13,6 +13,7 @@ import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locai
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
+import Mensagem from "../../components/Mensagem";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
@@ -156,7 +157,7 @@ export default function LocaisPage() {
           Pesquise por nome ou combine recursos de acessibilidade para planejar
           sua próxima saída.
         </p>
-        <label className="search-field" htmlFor="campo-busca-locais">
+        <label className="search-field campo" htmlFor="campo-busca-locais">
           <span className="search-icon" aria-hidden="true">
             ⌕
           </span>
@@ -186,9 +187,9 @@ export default function LocaisPage() {
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
-        <output className="delete-notice" aria-live="polite" aria-atomic="true">
+        <Mensagem tipo="sucesso" className="delete-notice">
           {mensagemExclusao}
-        </output>
+        </Mensagem>
         <div className="results-heading">
           <div>
             <p className="section-kicker">Explorar locais</p>
@@ -199,7 +200,7 @@ export default function LocaisPage() {
             </h2>
           </div>
           <button
-            className="filter-toggle"
+            className="botao botao--secundario filter-toggle"
             type="button"
             aria-expanded={painelAberto}
             aria-controls="filtros-locais"
@@ -234,28 +235,31 @@ export default function LocaisPage() {
           {estado === "carregando" ? "Carregando locais..." : ""}
         </output>
 
-        <div aria-live="polite" aria-atomic="true">
+        <Mensagem
+          tipo="aviso"
+          className={estado === "pronto" && usandoReserva ? "empty-state" : undefined}
+        >
           {estado === "pronto" && usandoReserva && (
-            <div className="empty-state">
+            <>
               <h2>Exibindo dados de reserva</h2>
               <p>
                 Não foi possível carregar os locais salvos. A lista exibida
                 contém os dados de reserva do projeto, e não a lista salva.
               </p>
-              <button className="clear-button prominent" type="button" onClick={tentarNovamente}>
+              <button className="botao botao--secundario" type="button" onClick={tentarNovamente}>
                 Tentar novamente
               </button>
-            </div>
+            </>
           )}
-        </div>
+        </Mensagem>
 
-        <div role="alert" className={estado === "erro" ? "empty-state" : undefined}>
+        <Mensagem tipo="erro" className={estado === "erro" ? "empty-state" : undefined}>
           {estado === "erro" && (
             <>
               <h2>Não foi possível carregar os locais</h2>
               <p>Tente novamente para consultar os locais disponíveis.</p>
               <button
-                className="clear-button prominent"
+                className="botao botao--secundario"
                 type="button"
                 onClick={tentarNovamente}
               >
@@ -263,7 +267,7 @@ export default function LocaisPage() {
               </button>
             </>
           )}
-        </div>
+        </Mensagem>
 
         <aside
           id="filtros-locais"
@@ -276,7 +280,7 @@ export default function LocaisPage() {
               <h2>O que você precisa?</h2>
             </div>
             <button
-              className="clear-button"
+              className="botao botao--secundario"
               type="button"
               onClick={limparFiltros}
               disabled={!temFiltrosAtivos}
@@ -335,17 +339,33 @@ export default function LocaisPage() {
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
             {termo.trim() && (
-              <button type="button" onClick={() => alterarTermo("")}>
+              <button className="botao botao--secundario" type="button" onClick={() => {
+                const parametros = new URLSearchParams(searchParams);
+                parametros.delete("busca");
+                setSearchParams(parametros);
+              }}>
+
                 Busca: “{termo}” ×
               </button>
             )}
             {filtros.categoria && (
-              <button type="button" onClick={() => alterarCategoria("")}>
+
+              <button
+                className="botao botao--secundario"
+                type="button"
+                onClick={() => {
+                  const parametros = new URLSearchParams(searchParams);
+                  parametros.delete("categoria");
+                  setSearchParams(parametros);
+                }}  
+              >
+
                 {filtros.categoria} ×
               </button>
             )}
             {filtros.recursos.map((recurso) => (
               <button
+                className="botao botao--secundario"
                 type="button"
                 key={recurso}
                 onClick={() => alternarRecurso(recurso)}

@@ -8,6 +8,7 @@
   --line: #ded8e3;
   --control: #7d7589;
   --accent: #6d28d9;
+  --on-accent: #ffffff;
   --accent-soft: #ece4fa;
   --hero: #2e1d3d;
   --hero-ink: #f5f3e9;
@@ -35,6 +36,7 @@
     --line: #2e303a;
     --control: #7a7e92;
     --accent: #c084fc;
+    --on-accent: #16171d;
     --accent-soft: #2a2140;
     --hero: #241a33;
     --hero-ink: #f5f3e9;
@@ -57,12 +59,123 @@ body {
   box-sizing: border-box;
 }
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 button {
   cursor: pointer;
 }
+
+/* Padrão da Issue #80: as mesmas classes servem para button e Link.
+   As cores acompanham o tema; classes de layout permanecem nas páginas. */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-width: max(44px, 2.75rem);
+  min-height: max(44px, 2.75rem);
+  padding: 0.5rem 0.9375rem;
+  border: 1px solid var(--control);
+  border-radius: 0.375rem;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+}
+
+.botao--primario {
+  color: var(--on-accent);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.botao--secundario {
+  color: var(--ink);
+  background: var(--card);
+}
+
+.botao:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.botao:disabled {
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.botao[aria-pressed="true"],
+.botao[aria-current="page"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.campo {
+  width: 100%;
+  min-width: 0;
+  min-height: max(44px, 2.75rem);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--control);
+  border-radius: 0.375rem;
+  color: var(--ink);
+  background: var(--card);
+  font: inherit;
+  line-height: 1.5;
+}
+
+.campo::placeholder { color: var(--muted); opacity: 1; }
+.campo[aria-invalid="true"] { border-color: var(--alert); border-width: 2px; }
+textarea.campo { resize: vertical; }
+.campo-rotulo { color: var(--ink); font-size: 0.875rem; font-weight: 500; }
+
+.campo-checkbox-grupo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: max(44px, 2.75rem);
+}
+.campo-checkbox { width: 1rem; height: 1rem; flex-shrink: 0; accent-color: var(--accent); }
+.campo-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: max(44px, 2.75rem);
+  color: var(--ink);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* Uma região vazia não desenha painel nem rótulo, mas continua disponível
+   para anunciar o conteúdo que chega após a montagem. */
+.mensagem { color: var(--ink); overflow-wrap: anywhere; }
+.mensagem:empty {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.mensagem--painel:not(:empty) {
+  padding: 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.375rem;
+  background: var(--card);
+}
+.mensagem--erro:not(:empty) { border-color: var(--alert); }
+.mensagem-tipo { display: block; color: var(--accent); }
+.mensagem--erro .mensagem-tipo { color: var(--alert); }
+.mensagem--campo { font-size: 0.875rem; }
+.mensagem--campo .mensagem-tipo { display: inline; margin-right: 0.25rem; }
+.mensagem--campo .mensagem-conteudo { display: inline; }
+.mensagem--painel .mensagem-conteudo > * + * { margin-top: 0.75rem; }
+
 .app-shell {
   max-width: 1160px;
   margin: 0 auto;
@@ -119,12 +232,6 @@ h1 {
   gap: 12px;
   max-width: 650px;
   padding: 0 18px;
-  background: var(--card);
-  border: 2px solid transparent;
-  color: var(--ink);
-}
-.search-field:focus-within {
-  border-color: var(--accent);
 }
 .search-field input {
   min-width: 0;
@@ -162,16 +269,7 @@ h2 {
 h3 {
   font-size: 21px;
 }
-.filter-toggle,
-.clear-button {
-  border: 1px solid var(--control);
-  background: transparent;
-  color: var(--ink);
-  padding: 10px 15px;
-  font-weight: bold;
-}
 .filter-toggle span:first-child {
-  margin-right: 6px;
   color: var(--accent);
 }
 
@@ -181,15 +279,6 @@ h3 {
   align-items: center;
   gap: 1rem;
   margin-top: 1.5rem;
-}
-
-.delete-button {
-  min-height: 44px;
-  padding: 10px 15px;
-  border: 1px solid currentColor;
-  background: var(--card);
-  color: var(--alert);
-  font-weight: bold;
 }
 
 .delete-dialog {
@@ -224,7 +313,7 @@ h3 {
   margin-left: 7px;
   border-radius: 50%;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   font-size: 12px;
 }
 .filters-panel {
@@ -232,17 +321,6 @@ h3 {
   padding: 25px 28px;
   border: 1px solid var(--line);
   background: var(--card);
-}
-.clear-button {
-  color: var(--accent);
-  text-decoration: underline;
-  border-color: transparent;
-  padding-inline: 0;
-}
-.clear-button:disabled {
-  color: var(--muted);
-  text-decoration: none;
-  cursor: not-allowed;
 }
 .empty-state {
   display: block;
@@ -255,11 +333,6 @@ h3 {
 }
 .empty-state p {
   margin: 16px 0;
-}
-.empty-state .prominent {
-  display: inline-block;
-  min-height: 44px;
-  padding: 10px 15px;
 }
 fieldset {
   margin: 25px 0 0;
@@ -283,6 +356,10 @@ legend span {
   gap: 9px;
 }
 .category-option {
+  display: inline-flex;
+  align-items: center;
+  min-width: max(44px, 2.75rem);
+  min-height: max(44px, 2.75rem);
   border: 1px solid var(--control);
   padding: 9px 14px;
   background: var(--card);
@@ -303,6 +380,7 @@ legend span {
   gap: 8px;
   margin-right: 12px;
   color: var(--muted);
+  min-height: max(44px, 2.75rem);
 }
 .custom-check {
   width: 19px;
@@ -316,7 +394,7 @@ legend span {
 .check-option input:checked + .custom-check {
   border-color: var(--accent);
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
 }
 
 :root { font-size: 100%; }
@@ -331,6 +409,7 @@ legend span {
   --line: #ffffff;
   --control: #ffffff;
   --accent: #ffff00;
+  --on-accent: #000000;
   --accent-soft: #000000;
   --hero: #000000;
   --hero-ink: #ffffff;
@@ -346,11 +425,11 @@ legend span {
   background-color: #000000;
 }
 
-:root[data-contraste="alto"] a { color: #ffff00; }
-:root[data-contraste="alto"] button {
-  color: #ffffff;
-  background-color: #000000;
-  border: 0.125rem solid #ffffff;
+:root[data-contraste="alto"] a:not(.botao) { color: var(--accent); }
+:root[data-contraste="alto"] button:not(.botao) {
+  color: var(--ink);
+  background-color: var(--card);
+  border: 0.125rem solid var(--control);
 }
 
 .controles-exibicao {
@@ -374,23 +453,6 @@ legend span {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-.controles-exibicao button {
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  padding: 0.4rem 0.75rem;
-  border: 0.125rem solid var(--control);
-  border-radius: 0.4rem;
-  color: var(--ink);
-  background: var(--card);
-  font: inherit;
-  cursor: pointer;
-}
-
-.controles-exibicao button[aria-pressed="true"] {
-  border-color: var(--accent);
-  box-shadow: inset 0 0 0 0.125rem var(--accent);
 }
 
 
@@ -421,17 +483,6 @@ header, main, footer { min-width: 0; }
 
   .menu-toggle {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    /* Alvo de toque de 44x44px (WCAG 2.5.5): a área cresce com padding,
-       não com margin, para não empurrar o título ao lado. */
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    padding: 0.5rem;
-    border: 0.125rem solid var(--control);
-    border-radius: 0.4rem;
-    color: var(--ink);
-    background: var(--card);
     flex-shrink: 0;
   }
 
@@ -484,11 +535,6 @@ code, .counter { font-size: 0.9375rem; }
   h1 { font-size: clamp(1.75rem, 5vw, 2.25rem); }
   h2 { font-size: 1.25rem; }
 }
-.controles-exibicao button:disabled {
-  cursor: not-allowed;
-  border-style: dashed;
-}
-
 footer nav {
   display: flex;
   flex-wrap: wrap;
@@ -528,6 +574,8 @@ footer nav a {
 /* Contorno preto com faixa branca para fundos claros e escuros.
    Nos filtros transparentes, o foco aparece no controle visual. */
 :focus-visible,
+.botao:focus-visible,
+.search-field:has(input:focus-visible),
 .controles-exibicao button:focus-visible,
 .check-option input:focus-visible + .custom-check,
 .category-option:has(input:focus-visible) {
@@ -540,6 +588,8 @@ footer nav a {
 
 @media (forced-colors: active) {
   :focus-visible,
+  .botao:focus-visible,
+  .search-field:has(input:focus-visible),
   .controles-exibicao button:focus-visible,
   .check-option input:focus-visible + .custom-check,
   .category-option:has(input:focus-visible) {

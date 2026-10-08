@@ -5,6 +5,7 @@ import TextField from "../../components/TextField/index";
 import SelectField from "../../components/SelectField/index";
 import TextAreaField from "../../components/TextAreaField/index";
 import CheckboxField from "../../components/CheckboxField/index";
+import Mensagem from "../../components/Mensagem";
 import {
   ROTULOS_CAMPOS,
   formularioValido,
@@ -196,10 +197,8 @@ export default function Cadastro() {
 
       <h1>Cadastro</h1>
       {localCadastrado ? (
-        <section
-          aria-labelledby="titulo-cadastro-concluido"
-          className="rounded-lg border border-(--control) bg-(--card) p-6 shadow-(--shadow)"
-        >
+        <section aria-labelledby="titulo-cadastro-concluido">
+          <Mensagem tipo="sucesso" anunciar={false} className="shadow-(--shadow)">
           <h2
             id="titulo-cadastro-concluido"
             ref={confirmacaoRef}
@@ -243,35 +242,35 @@ export default function Cadastro() {
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               to="/locais"
-              className="rounded-md bg-(--accent) px-5 py-3 font-semibold text-black transition hover:brightness-95"
+              className="botao botao--primario"
             >
               Ver o local na listagem
             </Link>
 
             <Link
               to={`/locais/${localCadastrado.id}`}
-              className="rounded-md border border-(--control) px-5 py-3 font-semibold text-(--ink) transition hover:bg-(--accent-soft)"
+              className="botao botao--secundario"
             >
               Ver detalhes do local
             </Link>
             <button
               type="button"
               onClick={cadastrarOutroLocal}
-              className="rounded-md border border-(--control) px-5 py-3 font-semibold text-(--ink) transition hover:bg-(--accent-soft)"
+              className="botao botao--secundario"
             >
               Cadastrar outro local
             </button>
 
           </div>
+          </Mensagem>
         </section>
       ) : (
         <form className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
           {camposComErro.length > 0 && (
-            <div
+            <Mensagem
+              tipo="erro"
               ref={resumoErrosRef}
-              role="alert"
               tabIndex={-1}
-              className="rounded-md border-2 border-(--alert) bg-(--card) px-4 py-3 text-(--ink) outline-none focus-visible:ring-2 focus-visible:ring-(--alert) focus-visible:ring-offset-2 focus-visible:ring-offset-(--paper)"
             >
               <h2 className="text-base font-semibold text-(--alert)">
                 Corrija os campos antes de enviar
@@ -285,7 +284,7 @@ export default function Cadastro() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Mensagem>
           )}
 
           <fieldset className="rounded-lg border border-(--control) bg-(--card) px-5 pb-6 pt-4 shadow-(--shadow)">
@@ -464,28 +463,28 @@ export default function Cadastro() {
               Carregando locais. Aguarde para enviar o cadastro.
             </output>
           )}
-          {estado === "erro" && (
-            <div role="alert">
+          <Mensagem tipo="erro">
+            {estado === "erro" && <>
               <p>Não foi possível carregar os locais para conferir o cadastro.</p>
               <Link to="/locais" className="underline underline-offset-2">
                 Ir à listagem para tentar novamente
               </Link>
-            </div>
-          )}
+            </>}
+          </Mensagem>
 
           <button
             type="submit"
             disabled={status === "loading" || estado !== "pronto"}
-            className="self-start rounded-md bg-(--accent) px-7 py-3 font-semibold text-black transition hover:brightness-95"
+            className="botao botao--primario self-start"
           >
             {status === "loading" ? "Enviando..." : "Cadastrar local"}
           </button>
         </form>)}
 
       <div className="mt-6 flex flex-col gap-2">
-        <div role="alert" className="text-sm font-medium text-(--alert)">
+        <Mensagem tipo="erro">
           {status === "error" ? mensagem : ""}
-        </div>
+        </Mensagem>
       </div>
     </div>
   );

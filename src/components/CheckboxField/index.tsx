@@ -16,7 +16,7 @@ export default function CheckboxField({
   onChange,
 }: CheckboxFieldProps) {
   return (
-    <div className="flex items-center gap-2.5 py-1 md:col-span-2">
+    <div className="campo-checkbox-grupo md:col-span-2">
       <input
         id={id}
         name={name}
@@ -25,11 +25,11 @@ export default function CheckboxField({
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
           onChange(event.target.name, event.target.checked)
         }
-        className="h-4 w-4 shrink-0 accent-(--accent)"
+        className="campo-checkbox"
       />
-      <label htmlFor={id} className="text-sm text-(--ink)">
+      <label htmlFor={id} className="campo-checkbox-label">
         {label}
       </label>
     </div>
   );
-} 
+}

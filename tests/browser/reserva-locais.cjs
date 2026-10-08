@@ -20,7 +20,7 @@ const fs = require('node:fs');
       await aviso.waitFor();
       assert.equal(await page.locator('.place-card').count(), total);
       assert.equal(await page.evaluate(() => localStorage.getItem('locais-cadastrados')), bruto);
-      assert.equal(await aviso.locator('xpath=../..').getAttribute('aria-live'), 'polite');
+      assert.equal(await aviso.locator('xpath=ancestor::*[@aria-live][1]').getAttribute('aria-live'), 'polite');
       await tentar.click();
       await aviso.waitFor();
       assert.equal(await page.evaluate(() => localStorage.getItem('locais-cadastrados')), bruto);

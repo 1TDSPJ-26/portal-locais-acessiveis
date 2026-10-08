@@ -1,5 +1,6 @@
 import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useRef } from "react";
+import Mensagem from "../../components/Mensagem";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
@@ -36,9 +37,9 @@ export default function DetalheLocal() {
         <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
 
         <h1>Não foi possível carregar o local</h1>
-        <p role="alert">Tente novamente para consultar as informações do local.</p>
+        <Mensagem tipo="erro">Tente novamente para consultar as informações do local.</Mensagem>
         <button
-          className="clear-button prominent"
+          className="botao botao--secundario"
           type="button"
           onClick={tentarNovamente}
         >
@@ -59,7 +60,7 @@ export default function DetalheLocal() {
           niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
         />
         <h1>Local não encontrado</h1>
-        <p>Não existe um local com o identificador informado.</p>
+        <Mensagem tipo="aviso">Não existe um local com o identificador informado.</Mensagem>
         <Link to="/locais">Voltar para a listagem de locais</Link>
       </div>
     );
@@ -80,14 +81,9 @@ export default function DetalheLocal() {
       <title>{`${local.nome} | Portal de Locais e Serviços Acessíveis`}</title>
       <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
 
-      {mensagemSucesso && (
-        <output
-          aria-live="polite"
-          className="mb-4 block rounded-md border border-(--accent) bg-(--card) px-4 py-3 text-sm font-medium text-(--ink)"
-        >
-          {mensagemSucesso}
-        </output>
-      )}
+      <Mensagem tipo="sucesso" className={mensagemSucesso ? "mb-4" : undefined}>
+        {mensagemSucesso}
+      </Mensagem>
       <h1>{local.nome}</h1>
       <div className="mb-4">
         <Link to={`/locais/${local.id}/editar`} className="text-(--accent) underline underline-offset-2">
@@ -159,7 +155,7 @@ export default function DetalheLocal() {
         <button
           ref={excluirRef}
           type="button"
-          className="delete-button"
+          className="botao botao--secundario"
           onClick={() => {
             dialogRef.current?.showModal();
             cancelarRef.current?.focus();
@@ -185,14 +181,14 @@ export default function DetalheLocal() {
           <button
             ref={cancelarRef}
             type="button"
-            className="filter-toggle"
+            className="botao botao--secundario"
             onClick={() => dialogRef.current?.close()}
           >
             Cancelar
           </button>
           <button
             type="button"
-            className="delete-button"
+            className="botao botao--secundario"
             onClick={() => {
               dialogRef.current?.close();
               removerLocal(local.id);
