@@ -13,6 +13,7 @@ import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locai
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
+import { Mensagem } from "../../components/Mensagem";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
