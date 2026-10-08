@@ -23,6 +23,8 @@ export default function DetalheLocal() {
   if (estado === "carregando") {
     return (
       <div className="app-shell content">
+        <title>Carregando local | Portal de Locais e Serviços Acessíveis</title>
+
         <h1>Detalhes do local</h1>
         <output aria-live="polite">Carregando local...</output>
       </div>
@@ -32,6 +34,8 @@ export default function DetalheLocal() {
   if (estado === "erro") {
     return (
       <div className="app-shell content">
+        <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
+
         <h1>Não foi possível carregar o local</h1>
         <Mensagem tipo="erro">Tente novamente para consultar as informações do local.</Mensagem>
         <button
@@ -51,7 +55,8 @@ export default function DetalheLocal() {
     if (!local) {
     return (
       <div className="app-shell content">
-        <TrilhaNavegacao                                          // <- NOVO
+        <title>Local não encontrado | Portal de Locais e Serviços Acessíveis</title>
+        <TrilhaNavegacao
           niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
         />
         <h1>Local não encontrado</h1>
@@ -73,6 +78,7 @@ export default function DetalheLocal() {
 
   return (
     <article className="app-shell content">
+      <title>{`${local.nome} | Portal de Locais e Serviços Acessíveis`}</title>
       <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
 
       <Mensagem tipo="sucesso" className={mensagemSucesso ? "mb-4" : undefined}>
@@ -85,7 +91,6 @@ export default function DetalheLocal() {
         </Link>
       </div>
       <dl>
-        ...
         <dt>Categoria</dt>
         <dd>{local.categoria}</dd>
         <dt>Endereço</dt>

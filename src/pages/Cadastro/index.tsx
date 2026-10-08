@@ -193,6 +193,8 @@ export default function Cadastro() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 text-left text-(--ink)">
+      <title>Cadastro | Portal de Locais e Serviços Acessíveis</title>
+
       <h1>Cadastro</h1>
       {localCadastrado ? (
         <section aria-labelledby="titulo-cadastro-concluido">
