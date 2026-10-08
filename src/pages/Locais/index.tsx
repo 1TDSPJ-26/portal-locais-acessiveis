@@ -9,6 +9,7 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
@@ -35,6 +36,7 @@ export default function LocaisPage() {
 
   const filtros: FiltrosLocais = { categoria, recursos };
 
+  const [criterio, setCriterio] = useState<CriterioOrdenacao>("nome");
   const [painelAberto, setPainelAberto] = useState(false);
   const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
@@ -71,7 +73,7 @@ export default function LocaisPage() {
     return () => window.clearTimeout(timeout);
   }, [location.state, location.search, navigate]);
 
-  const resultados = filtrarLocais(locais, termo, filtros);
+  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros), criterio);
 
   const {
     visiveis,
@@ -210,6 +212,20 @@ export default function LocaisPage() {
             )}
           </button>
         </div>
+
+        {estado === "pronto" && locais.length > 0 && (
+          <div className="sort-field">
+            <label htmlFor="ordenar-locais">Ordenar por</label>
+            <select
+              id="ordenar-locais"
+              value={criterio}
+              onChange={(evento) => setCriterio(evento.target.value as CriterioOrdenacao)}
+            >
+              <option value="nome">Nome</option>
+              <option value="categoria">Categoria</option>
+            </select>
+          </div>
+        )}
 
         <output
           aria-live="polite"
