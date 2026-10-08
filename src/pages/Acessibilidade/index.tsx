@@ -6,6 +6,8 @@ const URL_FORMULARIO_BUG =
 export default function Acessibilidade() {
   return (
     <div className="accessibility-page">
+      <title>Acessibilidade | Portal de Locais e Serviços Acessíveis</title>
+
       <header className="accessibility-header">
         <p className="accessibility-eyebrow">
           Compromisso com a inclusão

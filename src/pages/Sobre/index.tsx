@@ -28,6 +28,8 @@ function InfoSection({
 export default function Sobre() {
   return (
     <article className="about-page">
+      <title>Sobre | Portal de Locais e Serviços Acessíveis</title>
+
       <header className="about-hero">
         <p className="about-eyebrow">Conheça o projeto</p>
         <h1>Sobre o Portal</h1>
