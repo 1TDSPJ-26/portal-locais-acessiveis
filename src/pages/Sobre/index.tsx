@@ -1,4 +1,13 @@
 import type { ReactNode } from "react";
+import {
+  curso,
+  integrantes,
+  professorOrientador,
+  tecnologias,
+  turma,
+  urlPerfilGithub,
+  urlRepositorio,
+} from "../../data/creditos";
 import "./styles.css";
 
 type InfoSectionProps = {
@@ -6,6 +15,7 @@ type InfoSectionProps = {
   title: string;
   children: ReactNode;
   highlighted?: boolean;
+  wide?: boolean;
 };
 
 function InfoSection({
@@ -13,15 +23,26 @@ function InfoSection({
   title,
   children,
   highlighted = false,
+  wide = false,
 }: InfoSectionProps) {
+  const classes = ["about-section"];
+  if (highlighted) classes.push("about-section--notice");
+  if (wide) classes.push("about-section--wide");
+
   return (
-    <section
-      className={highlighted ? "about-section about-section--notice" : "about-section"}
-      aria-labelledby={id}
-    >
+    <section className={classes.join(" ")} aria-labelledby={id}>
       <h2 id={id}>{title}</h2>
       {children}
     </section>
+  );
+}
+
+function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+      <span className="about-new-tab"> (abre em nova aba)</span>
+    </a>
   );
 }
 
@@ -64,6 +85,86 @@ export default function Sobre() {
           </ul>
         </InfoSection>
 
+<InfoSection id="about-purpose" title="Nosso propósito">
+          <p>
+            O portal existe para que pessoas com deficiência, pessoas com
+            mobilidade reduzida, pessoas idosas e seus acompanhantes consigam
+            saber, antes de sair de casa, se um local oferece os recursos de que
+            precisam.
+          </p>
+          <p>
+            Esse propósito se relaciona ao direito de acesso à informação. A{" "}
+            <strong>Lei nº 13.146/2015</strong> (Lei Brasileira de Inclusão da
+            Pessoa com Deficiência) assegura à pessoa com deficiência o
+            exercício de seus direitos à acessibilidade, à informação e à
+            comunicação em igualdade de condições com as demais pessoas. Reunir
+            dados claros sobre acessibilidade é uma forma de contribuir para
+            esse direito.
+          </p>
+        </InfoSection>
+
+        <InfoSection id="about-sample-data" title="Locais de exemplo são fictícios">
+          <p>
+            Os seis locais que acompanham o portal, como a Biblioteca Parque e o
+            Café Aurora, foram criados apenas para demonstrar o funcionamento do
+            sistema. Nomes, endereços e recursos de acessibilidade{" "}
+            <strong>não correspondem a estabelecimentos reais</strong> e não
+            devem ser usados para planejar uma visita.
+          </p>
+        </InfoSection>
+
+        <InfoSection id="about-credits" title="Créditos" wide>
+          <div className="about-credits">
+            <div>
+              <h3>Projeto acadêmico</h3>
+              <p>
+                Desenvolvido pela {turma}, do curso de {curso}, como projeto
+                continuado da disciplina.
+              </p>
+            </div>
+
+            <div>
+              <h3>Professor orientador</h3>
+              <p>
+                <ExternalLink href={urlPerfilGithub(professorOrientador.github)}>
+                  {professorOrientador.nome}
+                </ExternalLink>
+              </p>
+            </div>
+
+            <div>
+              <h3>Integrantes</h3>
+              <ul>
+                {integrantes.map((pessoa) => (
+                  <li key={pessoa.github}>
+                    <ExternalLink href={urlPerfilGithub(pessoa.github)}>
+                      {pessoa.nome}
+                    </ExternalLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3>Tecnologias utilizadas</h3>
+              <ul>
+                {tecnologias.map((tecnologia) => (
+                  <li key={tecnologia}>{tecnologia}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3>Código-fonte</h3>
+              <p>
+                <ExternalLink href={urlRepositorio}>
+                  Repositório do projeto no GitHub
+                </ExternalLink>
+              </p>
+            </div>
+          </div>
+        </InfoSection>
+        
         <InfoSection
           id="about-notice"
           title="Aviso de não certificação"
