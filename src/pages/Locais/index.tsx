@@ -11,6 +11,7 @@ import {
 import { filtrarLocais } from "../../utils/filtrar-locais";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
+import { LocalCard } from "../../components/LocalCard";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
@@ -353,24 +354,7 @@ export default function LocaisPage() {
             <>
               <div className="places-grid">
                 {visiveis.map((local) => (
-                  <article className="place-card" key={local.id}>
-                    <div className="place-card-top">
-                      <span className="place-category">{local.categoria}</span>
-                      <span className="place-status">Aberto hoje</span>
-                    </div>
-                    <h3>
-                      <Link to={`/locais/${local.id}`}>{local.nome}</Link>
-                    </h3>
-                    <p className="place-address">{local.endereco}</p>
-                    <div
-                      className="resource-tags"
-                      aria-label="Recursos disponíveis"
-                    >
-                      {local.recursos.map((recurso) => (
-                        <span key={recurso}>{recurso}</span>
-                      ))}
-                    </div>
-                  </article>
+                  <LocalCard key={local.id} local={local} />
                 ))}
               </div>
               <Paginacao
