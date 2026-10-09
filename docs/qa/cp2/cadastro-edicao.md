@@ -35,3 +35,29 @@ Este documento apresenta as evidências de testes manuais, acessibilidade e auto
 
 ---
 
+## 3. Validação de Acessibilidade
+
+- **Aviso Sonoro (Screen Reader):** Verificado com leitor de tela (NVDA / VoiceOver). As mensagens de erro estão associadas ao container com a propriedade `role="alert"` e `aria-live="assertive"`, garantindo anúncio imediato no momento em que são disparadas.
+- **Sinalização Não Exclusiva por Cor:** As mensagens de erro apresentam texto explicativo e ícone indicativo ao lado do campo afetado.
+- **Contraste e Estilo CSS:** Verificação efetuada nos modos Claro, Escuro e Alto Contraste. Garantido que não há elementos ocultados involuntariamente por variáveis CSS indefinidas no `:root`.
+
+---
+
+## 4. Testes Automatizados
+
+O módulo de validações (`src/utils/ValidarCadastro.ts`) foi automatizado na suíte de testes utilizando o executor nativo `node:test`.
+
+**Resultado da execução (`npm test`):**
+```text
+▶ Suíte de Testes Automatizados - Validação e Sanitização de Locais (#86)
+  ▶ Validação de E-mail (validarEmail)
+    ✔ deve retornar true para e-mails válidos (0.85ms)
+    ✔ deve retornar false para e-mails sem @ ou sem domínio completo (0.32ms)
+  ▶ Validação de CEP (validarCep)
+    ✔ deve aceitar CEPs válidos com ou sem hífen (8 dígitos) (0.28ms)
+    ✔ deve rejeitar CEPs com quantidade incorreta de dígitos (0.21ms)
+  ▶ Validação de Telefone (validarTelefone)
+    ✔ deve validar telefones fixos e móveis com DDD (0.25ms)
+    ✔ deve rejeitar números incompletos ou formatos inválidos (0.19ms)
+  ▶ Sanitização de Dados (sanitizarTexto)
+    ✔ deve remover espaços extras nas extremidades e caracteres de controle (0.35ms)
