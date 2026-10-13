@@ -39,12 +39,13 @@ for (const [nome, abertura] of modos) {
   });
 }
 
-test("o título da Home usa o token --hero-ink, sem cor escrita no valor", () => {
+test("o título da Home (h2 do home-hero) usa o token --hero-ink, sem cor escrita no valor", () => {
   const estilos = readFileSync(
     new URL("../src/pages/Home/styles.css", import.meta.url),
     "utf8",
   );
-  const regra = estilos.match(/[^{}]*\bh1\b[^{}]*\{([^}]*)\}/);
-  assert.ok(regra, "regra do h1 não encontrada em Home/styles.css");
+  const regra = estilos.match(/\.home-hero\s+h2\s*\{([^}]*)\}/);
+  assert.ok(regra, "regra .home-hero h2 não encontrada em Home/styles.css");
   assert.match(regra[1], /color:\s*var\(--hero-ink\)/);
 });
+
