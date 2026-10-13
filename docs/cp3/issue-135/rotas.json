@@ -1,0 +1,32 @@
+[
+  {
+    "rota": "/",
+    "resultado": "abriu sem falha",
+    "titulo": "Portal de Locais e Serviços Acessíveis"
+  },
+  {
+    "rota": "/cadastrar",
+    "resultado": "abriu sem falha",
+    "titulo": "Cadastro | Portal de Locais e Serviços Acessíveis"
+  },
+  {
+    "rota": "/locais/42",
+    "resultado": "abriu sem falha",
+    "titulo": "Local de teste 42 | Portal de Locais e Serviços Acessíveis"
+  },
+  {
+    "rota": "/sobre",
+    "resultado": "abriu sem falha",
+    "titulo": "Sobre | Portal de Locais e Serviços Acessíveis"
+  },
+  {
+    "rota": "/acessibilidade",
+    "resultado": "abriu sem falha",
+    "titulo": "Acessibilidade | Portal de Locais e Serviços Acessíveis"
+  },
+  {
+    "rota": "/rota-inexistente",
+    "resultado": "abriu sem falha",
+    "titulo": "Página não encontrada | Portal de Locais e Serviços Acessíveis"
+  }
+]
