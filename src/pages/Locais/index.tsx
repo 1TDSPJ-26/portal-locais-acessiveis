@@ -37,7 +37,11 @@ export default function LocaisPage() {
       recursosAcessibilidade.includes(recurso as RecursoAcessibilidade)
     );
 
-  const filtros: FiltrosLocais = { categoria, recursos, somenteFavoritos: false };
+  const filtros: FiltrosLocais = {
+    categoria,
+    recursos,
+    somenteFavoritos: searchParams.get("favoritos") === "1",
+  };
 
   const [criterio, setCriterio] = useState<CriterioOrdenacao>("nome");
   const [painelAberto, setPainelAberto] = useState(false);
@@ -131,20 +135,29 @@ export default function LocaisPage() {
     });
   };
 
+  const alterarSomenteFavoritos = (ativo: boolean) => {
+    atualizarParametros((params) => {
+      if (ativo) params.set("favoritos", "1");
+      else params.delete("favoritos");
+    });
+  };
+
   const limparFiltros = () => {
     atualizarParametros((params) => {
       params.delete("busca");
       params.delete("categoria");
       params.delete("recurso");
+      params.delete("favoritos");
     });
   };
 
   const temFiltrosAtivos =
     termo.trim() !== "" ||
     filtros.categoria !== "" ||
-    filtros.recursos.length > 0;
+    filtros.recursos.length > 0 ||
+    filtros.somenteFavoritos;
 
-  const totalFiltros = filtros.recursos.length + (filtros.categoria ? 1 : 0);
+  const totalFiltros = filtros.recursos.length + (filtros.categoria ? 1 : 0) + (filtros.somenteFavoritos ? 1 : 0);
 
   return (
     <div className="app-shell">
@@ -292,6 +305,21 @@ export default function LocaisPage() {
           </div>
 
           <fieldset>
+            <legend>Favoritos</legend>
+            <label className="check-option">
+              <input
+                type="checkbox"
+                checked={filtros.somenteFavoritos}
+                onChange={(evento) => alterarSomenteFavoritos(evento.target.checked)}
+              />
+              <span className="custom-check" aria-hidden="true">
+                ✓
+              </span>
+              <span>Somente favoritos</span>
+            </label>
+          </fieldset>
+
+          <fieldset>
             <legend>Categoria</legend>
             <div className="category-options">
               {categoriasLocais.map((opcao) => (
@@ -340,6 +368,7 @@ export default function LocaisPage() {
         {estado === "pronto" && temFiltrosAtivos && (
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
+            {filtros.somenteFavoritos && <span>Somente favoritos</span>}
             {termo.trim() && (
               <button className="botao botao--secundario" type="button" onClick={() => {
                 const parametros = new URLSearchParams(searchParams);
