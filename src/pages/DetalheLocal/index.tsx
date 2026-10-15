@@ -1,6 +1,7 @@
 import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useRef } from "react";
 import Mensagem from "../../components/Mensagem";
+import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
@@ -85,6 +86,9 @@ export default function DetalheLocal() {
         {mensagemSucesso}
       </Mensagem>
       <h1>{local.nome}</h1>
+      <div className="mb-4">
+        <BotaoFavorito local={local} />
+      </div>
       <div className="mb-4">
         <Link to={`/locais/${local.id}/editar`} className="text-(--accent) underline underline-offset-2">
           Editar local
