@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import type { Local } from "../../types/local";
+import { BotaoFavorito } from "../BotaoFavorito";
 
 type LocalCardProps = {
   local: Local;
@@ -16,6 +17,7 @@ export function LocalCard({ local }: LocalCardProps) {
       <h3>
         <Link to={`/locais/${local.id}`}>{local.nome}</Link>
       </h3>
+      <BotaoFavorito local={local} />
       <p className="place-address">{local.endereco}</p>
       {local.recursos.length > 0 && (
         <>
