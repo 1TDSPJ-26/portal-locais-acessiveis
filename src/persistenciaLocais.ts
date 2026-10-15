@@ -1,5 +1,6 @@
 import { categoriasLocais, recursosAcessibilidade } from "./types/local.ts";
 import type { CategoriaLocal, Local, RecursoAcessibilidade } from "./types/local";
+import { ErroCarregamentoLocais } from "./services/erros.ts";
 
 export const CHAVE_LOCAIS = "locais-cadastrados";
 
@@ -47,10 +48,36 @@ export function validarLocais(valor: unknown): Local[] | null {
 }
 
 export function carregarLocaisSalvos(): Local[] | null {
-  const bruto = localStorage.getItem(CHAVE_LOCAIS);
+  let bruto: string | null;
+  try {
+    bruto = localStorage.getItem(CHAVE_LOCAIS);
+  } catch (erro) {
+    throw new ErroCarregamentoLocais(
+      "armazenamento-indisponivel",
+      "O armazenamento do navegador não está disponível.",
+    );
+  }
+
   if (bruto === null) return null;
-  const locais = validarLocais(JSON.parse(bruto));
-  if (locais === null) throw new Error("A lista salva de locais é inválida.");
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(bruto);
+  } catch {
+    throw new ErroCarregamentoLocais(
+      "desconhecido",
+      "Os dados salvos estão corrompidos e não puderam ser lidos.",
+    );
+  }
+
+  const locais = validarLocais(parsed);
+  if (locais === null) {
+    throw new ErroCarregamentoLocais(
+      "dados-invalidos",
+      "A lista salva de locais é inválida.",
+    );
+  }
+
   return locais;
 }
 
