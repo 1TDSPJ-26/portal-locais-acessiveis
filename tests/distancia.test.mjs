@@ -1,17 +1,26 @@
-import test from "node:test";
 import assert from "node:assert/strict";
+import test from "node:test";
 import { calcularDistanciaKm } from "../src/utils/distancia.ts";
 
-test("calcula aproximadamente 111,2 km entre pontos separados por um grau de latitude", () => {
-    const origem = { latitude: 0, longitude: 0 };
-    const destino = { latitude: 1, longitude: 0 };
-    const distancia = calcularDistanciaKm(origem, destino);
-    assert.ok(Math.abs(distancia - 111.2) < 0.2);
+const pracaDaSe = { latitude: -23.5505, longitude: -46.6333 };
+const centroRio = { latitude: -22.9068, longitude: -43.1729 };
+
+test("calcula a distância entre São Paulo e Rio (~361 km)", () => {
+    const km = calcularDistanciaKm(pracaDaSe, centroRio);
+
+    assert.ok(
+        Math.abs(km - 360.75) < 1,
+        `Esperado ~360,75 km, veio ${km}`,
+    );
 });
 
-test("calcula a distância entre dois locais com coordenadas diferentes", () => {
-    const origem = { latitude: -23.5505, longitude: -46.6333 };
-    const destino = { latitude: -23.5680, longitude: -46.6750 };
-    const distancia = calcularDistanciaKm(origem, destino);
-    assert.ok(distancia > 0);
+test("retorna 0 para o mesmo ponto", () => {
+    assert.equal(calcularDistanciaKm(pracaDaSe, pracaDaSe), 0);
+});
+
+test("a ida e a volta dão a mesma distância", () => {
+    assert.equal(
+        calcularDistanciaKm(pracaDaSe, centroRio),
+        calcularDistanciaKm(centroRio, pracaDaSe),
+    );
 });
