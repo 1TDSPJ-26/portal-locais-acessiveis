@@ -4,9 +4,10 @@ import Mensagem from "../../components/Mensagem";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
-import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
+import TrilhaNavegacao from "../../components/TrilhaNavegacao";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 
-const niveisBase = [                                                // <- NOVO
+const niveisBase = [
   { rotulo: "Início", destino: "/" },
   { rotulo: "Locais", destino: "/locais" },
 ];
@@ -15,7 +16,7 @@ export default function DetalheLocal() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+  const { locais, estado, motivoErro, tentarNovamente, removerLocal } = useLocais();
 
   const excluirRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -33,12 +34,13 @@ export default function DetalheLocal() {
   }
 
   if (estado === "erro") {
+    const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
     return (
       <div className="app-shell content">
         <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
 
-        <h1>Não foi possível carregar o local</h1>
-        <Mensagem tipo="erro">Tente novamente para consultar as informações do local.</Mensagem>
+        <h1>{titulo}</h1>
+        <Mensagem tipo="erro">{texto}</Mensagem>
         <button
           className="botao botao--secundario"
           type="button"
