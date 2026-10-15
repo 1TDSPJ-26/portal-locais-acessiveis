@@ -32,6 +32,7 @@ export interface Local {
 export interface FiltrosLocais {
   categoria: CategoriaLocal | ''
   recursos: RecursoAcessibilidade[]
+  somenteFavoritos: boolean
 }
 
 /* ── Formulário de cadastro ────────────────────────────────────────────────

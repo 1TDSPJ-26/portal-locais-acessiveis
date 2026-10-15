@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
+import { useFavoritos } from "../../useFavoritos";
 import {
   categoriasLocais,
   recursosAcessibilidade,
@@ -17,6 +18,7 @@ import Mensagem from "../../components/Mensagem";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
+  const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Busca e filtros vivem na URL, então podem ser compartilhados e recarregados.
@@ -35,7 +37,7 @@ export default function LocaisPage() {
       recursosAcessibilidade.includes(recurso as RecursoAcessibilidade)
     );
 
-  const filtros: FiltrosLocais = { categoria, recursos };
+  const filtros: FiltrosLocais = { categoria, recursos, somenteFavoritos: false };
 
   const [criterio, setCriterio] = useState<CriterioOrdenacao>("nome");
   const [painelAberto, setPainelAberto] = useState(false);
@@ -74,7 +76,7 @@ export default function LocaisPage() {
     return () => window.clearTimeout(timeout);
   }, [location.state, location.search, navigate]);
 
-  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros), criterio);
+  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
 
   const {
     visiveis,
