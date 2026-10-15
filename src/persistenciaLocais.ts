@@ -23,7 +23,16 @@ function ehLocal(valor: unknown): valor is Local {
     typeof candidato.nome === "string" && candidato.nome.length > 0 &&
     ehCategoria(candidato.categoria) &&
     typeof candidato.endereco === "string" && candidato.endereco.length > 0 &&
-    Array.isArray(candidato.recursos) && candidato.recursos.every(ehRecurso);
+    Array.isArray(candidato.recursos) && candidato.recursos.every(ehRecurso) &&
+
+    (candidato.latitude === undefined || (typeof candidato.latitude === "number" &&
+        Number.isFinite(candidato.latitude) && 
+        candidato.latitude >= -90 &&
+        candidato.latitude <= 90)) &&
+    (candidato.longitude === undefined || (typeof candidato.longitude === "number" &&
+        Number.isFinite(candidato.longitude) &&
+        candidato.longitude >= -180 &&
+        candidato.longitude <= 180));
 
   if (!camposObrigatoriosValidos) {
     return false;
