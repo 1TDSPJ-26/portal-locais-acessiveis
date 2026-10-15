@@ -1,0 +1,122 @@
+{
+  "verificacoes": [
+    {
+      "cenario": "Favoritar local 42",
+      "resultado": "passou",
+      "favoritos": "[42]",
+      "total": "1",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[42]"
+    },
+    {
+      "cenario": "Recarregar mantém o favorito",
+      "resultado": "passou",
+      "favoritos": "[42]",
+      "total": "1",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[42]"
+    },
+    {
+      "cenario": "Duas alternâncias no mesmo evento",
+      "resultado": "passou",
+      "favoritos": "[42,1,2]",
+      "total": "3",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[42,1,2]"
+    },
+    {
+      "cenario": "Alternar duas vezes mantém os mesmos IDs e total",
+      "resultado": "passou",
+      "favoritos": "[42,2,1]",
+      "total": "3",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[42,2,1]"
+    },
+    {
+      "cenario": "Excluir local favorito limpa o ID",
+      "resultado": "passou",
+      "favoritos": "[42,2]",
+      "total": "2",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[42,2]"
+    },
+    {
+      "cenario": "Carga lenta preserva favoritos antes dos locais",
+      "resultado": "passou",
+      "favoritos": "[42,1]",
+      "total": "2",
+      "estado": "carregando",
+      "reserva": "false",
+      "armazenamento": "[42,1]"
+    },
+    {
+      "cenario": "Reserva preserva ID 42 ausente da reserva",
+      "resultado": "passou",
+      "favoritos": "[42,1]",
+      "total": "2",
+      "estado": "pronto",
+      "reserva": "true",
+      "armazenamento": "[42,1]"
+    },
+    {
+      "cenario": "Recuperação confiável retira somente o ID ausente",
+      "resultado": "passou",
+      "favoritos": "[1]",
+      "total": "1",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[1]"
+    },
+    {
+      "cenario": "Lista vazia confiável remove todos os IDs",
+      "resultado": "passou",
+      "favoritos": "[]",
+      "total": "0",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[]"
+    },
+    {
+      "cenario": "JSON corrompido começa vazio",
+      "resultado": "passou",
+      "favoritos": "[]",
+      "total": "0",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[]"
+    },
+    {
+      "cenario": "IDs repetidos começam vazios",
+      "resultado": "passou",
+      "favoritos": "[]",
+      "total": "0",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[]"
+    },
+    {
+      "cenario": "Armazenamento bloqueado mantém favoritos na sessão",
+      "resultado": "passou",
+      "favoritos": "[1,42]",
+      "total": "2",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "indisponível"
+    },
+    {
+      "cenario": "Falha de gravação preserva mudança na sessão",
+      "resultado": "passou",
+      "favoritos": "[42,1]",
+      "total": "2",
+      "estado": "pronto",
+      "reserva": "false",
+      "armazenamento": "[42]"
+    }
+  ],
+  "observacao": "Execução pela entrada de teste, em StrictMode. Capturas do painel de inspeção próprio; não são capturas do DevTools."
+}
