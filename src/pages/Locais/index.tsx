@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
+import { useFavoritos } from "../../useFavoritos";
 import {
   categoriasLocais,
   recursosAcessibilidade,
@@ -17,6 +18,7 @@ import Mensagem from "../../components/Mensagem";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
+  const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Busca e filtros vivem na URL, então podem ser compartilhados e recarregados.
@@ -35,7 +37,11 @@ export default function LocaisPage() {
       recursosAcessibilidade.includes(recurso as RecursoAcessibilidade)
     );
 
-  const filtros: FiltrosLocais = { categoria, recursos };
+  const filtros: FiltrosLocais = {
+    categoria,
+    recursos,
+    somenteFavoritos: searchParams.get("favoritos") === "1",
+  };
 
   const [criterio, setCriterio] = useState<CriterioOrdenacao>("nome");
   const [painelAberto, setPainelAberto] = useState(false);
@@ -74,7 +80,7 @@ export default function LocaisPage() {
     return () => window.clearTimeout(timeout);
   }, [location.state, location.search, navigate]);
 
-  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros), criterio);
+  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
 
   const {
     visiveis,
@@ -129,20 +135,29 @@ export default function LocaisPage() {
     });
   };
 
+  const alterarSomenteFavoritos = (ativo: boolean) => {
+    atualizarParametros((params) => {
+      if (ativo) params.set("favoritos", "1");
+      else params.delete("favoritos");
+    });
+  };
+
   const limparFiltros = () => {
     atualizarParametros((params) => {
       params.delete("busca");
       params.delete("categoria");
       params.delete("recurso");
+      params.delete("favoritos");
     });
   };
 
   const temFiltrosAtivos =
     termo.trim() !== "" ||
     filtros.categoria !== "" ||
-    filtros.recursos.length > 0;
+    filtros.recursos.length > 0 ||
+    filtros.somenteFavoritos;
 
-  const totalFiltros = filtros.recursos.length + (filtros.categoria ? 1 : 0);
+  const totalFiltros = filtros.recursos.length + (filtros.categoria ? 1 : 0) + (filtros.somenteFavoritos ? 1 : 0);
 
   return (
     <div className="app-shell">
@@ -290,6 +305,21 @@ export default function LocaisPage() {
           </div>
 
           <fieldset>
+            <legend>Favoritos</legend>
+            <label className="check-option">
+              <input
+                type="checkbox"
+                checked={filtros.somenteFavoritos}
+                onChange={(evento) => alterarSomenteFavoritos(evento.target.checked)}
+              />
+              <span className="custom-check" aria-hidden="true">
+                ✓
+              </span>
+              <span>Somente favoritos</span>
+            </label>
+          </fieldset>
+
+          <fieldset>
             <legend>Categoria</legend>
             <div className="category-options">
               {categoriasLocais.map((opcao) => (
@@ -338,6 +368,7 @@ export default function LocaisPage() {
         {estado === "pronto" && temFiltrosAtivos && (
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
+            {filtros.somenteFavoritos && <span>Somente favoritos</span>}
             {termo.trim() && (
               <button className="botao botao--secundario" type="button" onClick={() => {
                 const parametros = new URLSearchParams(searchParams);
@@ -381,8 +412,9 @@ export default function LocaisPage() {
             <div className="empty-state">
               <h2>Nenhum local cadastrado</h2>
               <p>
-                Cadastre o primeiro local e ajude outras pessoas a encontrar
-                lugares acessíveis.
+                {filtros.somenteFavoritos && favoritos.length === 0
+                  ? "Você ainda não favoritou nenhum local. Cadastre o primeiro local para poder favoritá-lo."
+                  : "Cadastre o primeiro local e ajude outras pessoas a encontrar lugares acessíveis."}
               </p>
               <Link className="clear-button prominent" to="/cadastrar">
                 Cadastrar local
@@ -414,7 +446,9 @@ export default function LocaisPage() {
               </span>
               <h2>Nenhum local encontrado</h2>
               <p>
-                {termo.trim()
+                {filtros.somenteFavoritos && favoritos.length === 0
+                  ? "Você ainda não favoritou nenhum local. Favorite locais para encontrá-los com este filtro."
+                  : termo.trim()
                   ? `Não foi possível encontrar locais para “${termo.trim()}”`
                   : "Tente remover algum filtro ou buscar por outro termo."}
               </p>
