@@ -412,8 +412,9 @@ export default function LocaisPage() {
             <div className="empty-state">
               <h2>Nenhum local cadastrado</h2>
               <p>
-                Cadastre o primeiro local e ajude outras pessoas a encontrar
-                lugares acessíveis.
+                {filtros.somenteFavoritos && favoritos.length === 0
+                  ? "Você ainda não favoritou nenhum local. Cadastre o primeiro local para poder favoritá-lo."
+                  : "Cadastre o primeiro local e ajude outras pessoas a encontrar lugares acessíveis."}
               </p>
               <Link className="clear-button prominent" to="/cadastrar">
                 Cadastrar local
@@ -445,7 +446,9 @@ export default function LocaisPage() {
               </span>
               <h2>Nenhum local encontrado</h2>
               <p>
-                {termo.trim()
+                {filtros.somenteFavoritos && favoritos.length === 0
+                  ? "Você ainda não favoritou nenhum local. Favorite locais para encontrá-los com este filtro."
+                  : termo.trim()
                   ? `Não foi possível encontrar locais para “${termo.trim()}”`
                   : "Tente remover algum filtro ou buscar por outro termo."}
               </p>
