@@ -1,9 +1,13 @@
 import { Link, useLocation, useParams, useNavigate } from "react-router";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
+import {
+  compartilharLink,
+  type ResultadoCompartilhamento,
+} from "../../utils/compartilhar-link";
 
 const niveisBase = [                                                // <- NOVO
   { rotulo: "Início", destino: "/" },
@@ -19,6 +23,17 @@ export default function DetalheLocal() {
   const excluirRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const cancelarRef = useRef<HTMLButtonElement>(null);
+  const campoLinkRef = useRef<HTMLInputElement>(null);
+
+  const [resultadoCompartilhamento, setResultadoCompartilhamento] =
+    useState<ResultadoCompartilhamento | null>(null);
+
+  useEffect(() => {
+    if (resultadoCompartilhamento === "falhou") {
+      campoLinkRef.current?.focus();
+      campoLinkRef.current?.select();
+    }
+  }, [resultadoCompartilhamento]);
 
   if (estado === "carregando") {
     return (
@@ -75,6 +90,33 @@ export default function DetalheLocal() {
     : undefined;
 
   const mensagemSucesso = (location.state as { mensagem?: string } | null)?.mensagem;
+
+  const nomeLocal = local.nome;
+
+  const urlCompartilhamento =
+    `${window.location.origin}/locais/${local.id}`;
+
+  async function handleCompartilharLocal() {
+    const share = navigator.share;
+    const clipboard = navigator.clipboard;
+
+    const resultado = await compartilharLink(
+    nomeLocal,
+    urlCompartilhamento,
+      {
+        share:
+          typeof share === "function"
+            ? share.bind(navigator)
+            : undefined,
+        writeText:
+          typeof clipboard?.writeText === "function"
+            ? clipboard.writeText.bind(clipboard)
+            : undefined,
+      },
+    );
+
+    setResultadoCompartilhamento(resultado);
+  }
 
   return (
     <article className="app-shell content">
@@ -152,6 +194,17 @@ export default function DetalheLocal() {
 
       <div className="local-actions">
         <Link to="/locais">Voltar para a listagem de locais</Link>
+
+        <button
+          type="button"
+          className="botao botao--secundario"
+          onClick={() => {
+            void handleCompartilharLocal();
+          }}
+        >
+          Compartilhar local
+        </button>
+
         <button
           ref={excluirRef}
           type="button"
@@ -164,6 +217,25 @@ export default function DetalheLocal() {
           Excluir local
         </button>
       </div>
+
+      {resultadoCompartilhamento === "falhou" && (
+        <div className="mb-4">
+          <label htmlFor="link-compartilhamento">
+            Copie o link do local:
+          </label>
+
+          <input
+            ref={campoLinkRef}
+            id="link-compartilhamento"
+            type="text"
+            value={urlCompartilhamento}
+            readOnly
+            onFocus={(evento) => {
+              evento.currentTarget.select();
+            }}
+          />
+        </div>
+      )}
 
       <dialog
         ref={dialogRef}
@@ -202,4 +274,3 @@ export default function DetalheLocal() {
     </article>
   );
 }
-
