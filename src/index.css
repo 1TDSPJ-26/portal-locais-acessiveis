@@ -720,3 +720,33 @@ main:focus {
   color: var(--ink);
   padding: 8px 12px;
 }
+
+.paginacao-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.paginacao-controles {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Remove a margin duplicada já que .paginacao-barra cuida do espaçamento */
+.paginacao-barra .paginacao,
+.paginacao-barra .paginacao-por-pagina {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .paginacao-barra {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
