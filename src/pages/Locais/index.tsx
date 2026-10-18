@@ -68,7 +68,7 @@ export default function LocaisPage() {
     const nome = location.state?.localExcluido;
     if (typeof nome !== "string" || !nome) return;
 
-    topoListaRef.current?.focus();
+    tituloRef.current?.focus();
     // A região viva nasce vazia e recebe o anúncio depois de montar a listagem.
     const timeout = window.setTimeout(() => {
       setMensagemExclusao(`Local ${nome} excluído com sucesso.`);
@@ -81,7 +81,7 @@ export default function LocaisPage() {
     }, 100);
 
     return () => window.clearTimeout(timeout);
-  }, [location.state, location.search, navigate, topoListaRef]);
+  }, [location.state, location.search, navigate]);
 
   const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
 
