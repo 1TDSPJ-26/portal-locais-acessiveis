@@ -4,21 +4,22 @@ import Mensagem from "../../components/Mensagem";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
-import TrilhaNavegacao from "../../components/TrilhaNavegacao"; // <- NOVO
+import TrilhaNavegacao from "../../components/TrilhaNavegacao";
 import {
   compartilharLink,
   type ResultadoCompartilhamento,
 } from "../../utils/compartilhar-link";
-
-const niveisBase = [                                                // <- NOVO
-  { rotulo: "Início", destino: "/" },
-  { rotulo: "Locais", destino: "/locais" },
-];
+import { obterOrigemListagem } from "../../utils/origem-listagem";
 
 export default function DetalheLocal() { 
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
+  const origemListagem = obterOrigemListagem(location.state);
+  const niveisBase = [
+    { rotulo: "Início", destino: "/" },
+    { rotulo: "Locais", destino: origemListagem, state: { retornoDaListagem: true } },
+  ];
   const { locais, estado, tentarNovamente, removerLocal } = useLocais();
 
   const excluirRef = useRef<HTMLButtonElement>(null);
@@ -61,7 +62,7 @@ export default function DetalheLocal() {
         >
           Tentar novamente
         </button>
-        <p><Link to="/locais">Voltar para a listagem de locais</Link></p>
+        <p><Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link></p>
       </div>
     );
   }
@@ -77,7 +78,7 @@ export default function DetalheLocal() {
         />
         <h1>Local não encontrado</h1>
         <Mensagem tipo="aviso">Não existe um local com o identificador informado.</Mensagem>
-        <Link to="/locais">Voltar para a listagem de locais</Link>
+        <Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link>
       </div>
     );
   }
@@ -132,7 +133,7 @@ export default function DetalheLocal() {
         <BotaoFavorito local={local} />
       </div>
       <div className="mb-4">
-        <Link to={`/locais/${local.id}/editar`} className="text-(--accent) underline underline-offset-2">
+        <Link to={`/locais/${local.id}/editar`} state={{ origemListagem }} className="text-(--accent) underline underline-offset-2">
           Editar local
         </Link>
       </div>
@@ -197,7 +198,7 @@ export default function DetalheLocal() {
       )}
 
       <div className="local-actions">
-        <Link to="/locais">Voltar para a listagem de locais</Link>
+        <Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link>
 
         <button
           type="button"
@@ -268,7 +269,7 @@ export default function DetalheLocal() {
             onClick={() => {
               dialogRef.current?.close();
               removerLocal(local.id);
-              void navigate("/locais", { state: { localExcluido: local.nome } });
+              void navigate(origemListagem, { state: { localExcluido: local.nome } });
             }}
           >
             Excluir

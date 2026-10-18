@@ -43,7 +43,10 @@ export default function LocaisPage() {
     somenteFavoritos: searchParams.get("favoritos") === "1",
   };
 
-  const [criterio, setCriterio] = useState<CriterioOrdenacao>("nome");
+  const criterioParam = searchParams.get("ordem");
+  const criterio: CriterioOrdenacao = criterioParam === "categoria" ? "categoria" : "nome";
+  const paginaParam = Number(searchParams.get("pagina"));
+  const paginaSolicitada = Number.isInteger(paginaParam) && paginaParam > 0 ? paginaParam : 1;
   const [painelAberto, setPainelAberto] = useState(false);
   const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
@@ -82,6 +85,15 @@ export default function LocaisPage() {
 
   const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
 
+  const atualizarPagina = (novaPagina: number) => {
+    setSearchParams((atuais) => {
+      const proximos = new URLSearchParams(atuais);
+      if (novaPagina <= 1) proximos.delete("pagina");
+      else proximos.set("pagina", String(novaPagina));
+      return proximos;
+    });
+  };
+
   const {
     visiveis,
     paginaAtual,
@@ -94,8 +106,24 @@ export default function LocaisPage() {
     topoListaRef,
     handleMudarPagina,
     handleMudarPorPagina,
-    handleFiltroAlterado,
-  } = usePaginacao(resultados, [3, 6, 12], 3);
+  } = usePaginacao(resultados, [3, 6, 12], 3, paginaSolicitada, atualizarPagina);
+
+  useEffect(() => {
+    if (paginaSolicitada === paginaAtual) return;
+    setSearchParams((atuais) => {
+      const proximos = new URLSearchParams(atuais);
+      if (paginaAtual === 1) proximos.delete("pagina");
+      else proximos.set("pagina", String(paginaAtual));
+      return proximos;
+    }, { replace: true });
+  }, [paginaAtual, paginaSolicitada, setSearchParams]);
+
+  useEffect(() => {
+    const estadoRetorno = location.state as { retornoDaListagem?: unknown } | null;
+    if (!estadoRetorno?.retornoDaListagem) return;
+    topoListaRef.current?.focus();
+    void navigate({ pathname: "/locais", search: location.search }, { replace: true, state: null });
+  }, [location.state, location.search, navigate, topoListaRef]);
 
   // Toda alteração de busca ou filtro grava na URL e volta para a primeira página.
   const atualizarParametros = (alterar: (params: URLSearchParams) => void) => {
@@ -103,11 +131,11 @@ export default function LocaisPage() {
       (atuais) => {
         const proximos = new URLSearchParams(atuais);
         alterar(proximos);
+        proximos.delete("pagina");
         return proximos;
       },
       { replace: true }
     );
-    handleFiltroAlterado();
   };
 
   const alterarTermo = (valor: string) => {
@@ -148,6 +176,7 @@ export default function LocaisPage() {
       params.delete("categoria");
       params.delete("recurso");
       params.delete("favoritos");
+      params.delete("ordem");
     });
   };
 
@@ -155,7 +184,8 @@ export default function LocaisPage() {
     termo.trim() !== "" ||
     filtros.categoria !== "" ||
     filtros.recursos.length > 0 ||
-    filtros.somenteFavoritos;
+    filtros.somenteFavoritos ||
+    criterio !== "nome";
 
   const totalFiltros = filtros.recursos.length + (filtros.categoria ? 1 : 0) + (filtros.somenteFavoritos ? 1 : 0);
 
@@ -235,7 +265,15 @@ export default function LocaisPage() {
             <select
               id="ordenar-locais"
               value={criterio}
-              onChange={(evento) => setCriterio(evento.target.value as CriterioOrdenacao)}
+              onChange={(evento) => {
+                const proximoCriterio = evento.target.value as CriterioOrdenacao;
+                setSearchParams((atuais) => {
+                  const proximos = new URLSearchParams(atuais);
+                  if (proximoCriterio === "nome") proximos.delete("ordem");
+                  else proximos.set("ordem", proximoCriterio);
+                  return proximos;
+                });
+              }}
             >
               <option value="nome">Nome</option>
               <option value="categoria">Categoria</option>
