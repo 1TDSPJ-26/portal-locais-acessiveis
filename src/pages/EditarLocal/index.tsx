@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import TextField from "../../components/TextField/index";
 import SelectField from "../../components/SelectField/index";
 import TextAreaField from "../../components/TextAreaField/index";
@@ -23,6 +23,7 @@ import {
     validarSite,
     validarTelefone,
 } from "../../utils/ValidarCadastro";
+import { obterOrigemListagem, type OrigemListagem } from "../../utils/origem-listagem";
 
 const OPCOES_CATEGORIA = categoriasLocais.map((categoria) => ({
     valor: categoria,
@@ -109,6 +110,8 @@ function validarEdicao(dados: {
 export default function EditarLocal() {
     const { id } = useParams<{ id: string }>();
     const { locais, estado, atualizarLocal, tentarNovamente } = useLocais();
+    const location = useLocation();
+    const origemListagem = obterOrigemListagem(location.state);
 
     const local = useMemo(() => buscarLocalPorId(locais, id), [locais, id]);
 
@@ -133,7 +136,7 @@ export default function EditarLocal() {
                 >
                     Tentar novamente
                 </button>
-                <p><Link to="/locais">Voltar para a listagem de locais</Link></p>
+                <p><Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link></p>
             </div>
         );
     }
@@ -143,7 +146,7 @@ export default function EditarLocal() {
             <div className="app-shell content">
                 <h1>Local não encontrado</h1>
                 <Mensagem tipo="aviso">Não existe um local com o identificador informado.</Mensagem>
-                <Link to="/locais">Voltar para a listagem de locais</Link>
+                <Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link>
             </div>
         );
     }
@@ -153,6 +156,7 @@ export default function EditarLocal() {
             key={local.id}
             local={local}
             atualizarLocal={atualizarLocal}
+            origemListagem={origemListagem}
         />
     );
 }
@@ -160,9 +164,10 @@ export default function EditarLocal() {
 interface FormularioEdicaoProps {
     local: Local;
     atualizarLocal: (id: number, dados: Omit<Local, "id">) => Local;
+    origemListagem: OrigemListagem;
 }
 
-function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
+function FormularioEdicao({ local, atualizarLocal, origemListagem }: FormularioEdicaoProps) {
     const navigate = useNavigate();
     const resumoErrosRef = useRef<HTMLDivElement>(null);
     const [form, setForm] = useState<FormEdicaoLocal>(() => localParaFormulario(local));
@@ -251,7 +256,7 @@ function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
             });
 
             navigate(`/locais/${local.id}`, {
-                state: { mensagem: `${form.nome.trim()} foi atualizado com sucesso.` },
+                state: { mensagem: `${form.nome.trim()} foi atualizado com sucesso.`, origemListagem },
             });
         } catch (erro) {
             setMensagem(
@@ -395,7 +400,7 @@ function FormularioEdicao({ local, atualizarLocal }: FormularioEdicaoProps) {
                     <button
                         type="button"
                         className="botao botao--secundario"
-                        onClick={() => navigate(`/locais/${local.id}`)}
+                        onClick={() => navigate(`/locais/${local.id}`, { state: { origemListagem } })}
                     >
                         Cancelar
                     </button>
