@@ -4,9 +4,10 @@ import { BotaoFavorito } from "../BotaoFavorito";
 
 type LocalCardProps = {
   local: Local;
+  onDesfavoritar?: (local: Local) => void;
 };
 
-export function LocalCard({ local }: LocalCardProps) {
+export function LocalCard({ local, onDesfavoritar }: LocalCardProps) {
   const idTituloRecursos = `recursos-local-${local.id}`;
   const location = useLocation();
   const origemListagem = { pathname: "/locais" as const, search: location.search };
@@ -19,7 +20,7 @@ export function LocalCard({ local }: LocalCardProps) {
       <h3>
         <Link to={`/locais/${local.id}`} state={{ origemListagem }}>{local.nome}</Link>
       </h3>
-      <BotaoFavorito local={local} />
+      <BotaoFavorito local={local} onDesfavoritar={onDesfavoritar} />
       <p className="place-address">{local.endereco}</p>
       {local.recursos.length > 0 && (
         <>

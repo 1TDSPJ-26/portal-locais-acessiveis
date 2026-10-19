@@ -78,6 +78,12 @@ test("sem favoritos mostra somente uma mensagem simples e a quantidade zero", ()
   assert.doesNotMatch(html, /class="place-card"/);
 });
 
+test("mantém o título focável e a região de anúncio mesmo sem cartões", () => {
+  const html = renderizar({ ids: [] });
+  assert.match(html, /<h2 id="titulo-lista-favoritos" tabindex="-1">0 locais favoritos<\/h2>/);
+  assert.match(html, /class="mensagem mensagem--sucesso mensagem--painel delete-notice" role="status" aria-live="polite" aria-atomic="true"><\/div>/);
+});
+
 test("durante a carga não mostra cartões, quantidade provisória nem estado vazio", () => {
   const html = renderizar({ estado: "carregando" });
   assert.match(html, /aria-live="polite"[^>]*>Carregando locais\.\.\.<\/output>/);
