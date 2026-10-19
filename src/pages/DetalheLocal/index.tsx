@@ -246,6 +246,17 @@ export default function DetalheLocal() {
         </button>
       </div>
 
+      <Mensagem
+        tipo={resultadoCompartilhamento === "falhou" ? "erro" : "sucesso"}
+        className="mb-4"
+      >
+        {resultadoCompartilhamento === "copiado" &&
+          "Link copiado. Agora é só colar onde quiser."}
+
+        {resultadoCompartilhamento === "falhou" &&
+          "Não foi possível copiar o link. Ele está no campo abaixo; selecione e copie o endereço manualmente."}
+      </Mensagem>
+
       {resultadoCompartilhamento === "falhou" && (
         <div className="mb-4">
           <label htmlFor="link-compartilhamento">Copie o link do local:</label>
