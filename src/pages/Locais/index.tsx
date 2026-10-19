@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
+import { useLocalizacao } from "../../useLocalizacao";
 import { useFavoritos } from "../../useFavoritos";
 import {
   categoriasLocais,
@@ -10,6 +11,7 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { listarFiltrosAtivos, type FiltroAtivo } from "../../utils/filtros-ativos";
 import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
@@ -18,6 +20,7 @@ import Mensagem from "../../components/Mensagem";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
+const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -51,6 +54,8 @@ export default function LocaisPage() {
   const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
   const campoBuscaRef = useRef<HTMLInputElement>(null);
+  const botoesFiltrosRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const focoFiltroPendenteRef = useRef<number | null>(null);
   const [textoBusca, setTextoBusca] = useState(termo);
   const location = useLocation();
   const navigate = useNavigate();
@@ -83,7 +88,11 @@ export default function LocaisPage() {
     return () => window.clearTimeout(timeout);
   }, [location.state, location.search, navigate]);
 
-  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
+  const resultados = ordenarLocais(
+    filtrarLocais(locais, termo, filtros, favoritos),
+    criterio,
+    estadoLocalizacao === "obtida" && posicao ? posicao : undefined,
+  );
 
   const atualizarPagina = (novaPagina: number) => {
     setSearchParams((atuais) => {
@@ -180,6 +189,35 @@ export default function LocaisPage() {
     });
   };
 
+  const filtrosAtivos = listarFiltrosAtivos(searchParams);
+
+  const removerFiltro = (filtro: FiltroAtivo, indice: number) => {
+    focoFiltroPendenteRef.current = indice;
+    if (filtro.tipo === "busca") setTextoBusca("");
+
+    atualizarParametros((params) => {
+      if (filtro.tipo === "busca") params.delete("busca");
+      if (filtro.tipo === "categoria") params.delete("categoria");
+      if (filtro.tipo === "favoritos") params.delete("favoritos");
+      if (filtro.tipo === "recurso") {
+        const recursosRestantes = params
+          .getAll("recurso")
+          .filter((recurso) => recurso !== filtro.valor);
+        params.delete("recurso");
+        recursosRestantes.forEach((recurso) => params.append("recurso", recurso));
+      }
+    });
+  };
+
+  useEffect(() => {
+    const indice = focoFiltroPendenteRef.current;
+    if (indice === null) return;
+
+    focoFiltroPendenteRef.current = null;
+    botoesFiltrosRef.current[indice]?.focus();
+    if (!botoesFiltrosRef.current[indice]) topoListaRef.current?.focus();
+  }, [filtrosAtivos, topoListaRef]);
+
   const temFiltrosAtivos =
     termo.trim() !== "" ||
     filtros.categoria !== "" ||
@@ -244,6 +282,24 @@ export default function LocaisPage() {
                 : "Locais acessíveis"}
             </h2>
           </div>
+          
+          <button
+            className="botao botao--secundario"
+            type="button"
+            onClick={solicitar}
+            disabled={estadoLocalizacao === "buscando"}
+          >
+            {estadoLocalizacao === "buscando" 
+              ? "Obtendo localização..."
+              : "Usar minha localização"}
+          </button>
+
+          {estadoLocalizacao === "erro" && (
+            <Mensagem tipo="erro" className="empty-state">
+              <p>Não foi possível obter sua localização. Tente novamente.</p>
+            </Mensagem>
+          )}
+
           <button
             className="botao botao--secundario filter-toggle"
             type="button"
@@ -277,6 +333,9 @@ export default function LocaisPage() {
             >
               <option value="nome">Nome</option>
               <option value="categoria">Categoria</option>
+              {estadoLocalizacao === "obtida" && (
+                <option value="proximidade">Mais próximos</option>
+              )}
             </select>
           </div>
         )}
@@ -403,43 +462,21 @@ export default function LocaisPage() {
           </fieldset>
         </aside>
 
-        {estado === "pronto" && temFiltrosAtivos && (
+        {estado === "pronto" && filtrosAtivos.length > 0 && (
           <div className="active-filters" aria-label="Filtros ativos">
             <span>Filtros ativos:</span>
-            {filtros.somenteFavoritos && <span>Somente favoritos</span>}
-            {termo.trim() && (
-              <button className="botao botao--secundario" type="button" onClick={() => {
-                const parametros = new URLSearchParams(searchParams);
-                parametros.delete("busca");
-                setSearchParams(parametros);
-              }}>
-
-                Busca: “{termo}” ×
-              </button>
-            )}
-            {filtros.categoria && (
-
+            {filtrosAtivos.map((filtro, indice) => (
               <button
                 className="botao botao--secundario"
                 type="button"
-                onClick={() => {
-                  const parametros = new URLSearchParams(searchParams);
-                  parametros.delete("categoria");
-                  setSearchParams(parametros);
-                }}  
+                key={`${filtro.tipo}-${filtro.valor}-${indice}`}
+                ref={(botao) => {
+                  botoesFiltrosRef.current[indice] = botao;
+                }}
+                onClick={() => removerFiltro(filtro, indice)}
+                aria-label={`Remover filtro: ${filtro.rotulo}`}
               >
-
-                {filtros.categoria} ×
-              </button>
-            )}
-            {filtros.recursos.map((recurso) => (
-              <button
-                className="botao botao--secundario"
-                type="button"
-                key={recurso}
-                onClick={() => alternarRecurso(recurso)}
-              >
-                {recurso} ×
+                {filtro.rotulo} <span aria-hidden="true">×</span>
               </button>
             ))}
           </div>
