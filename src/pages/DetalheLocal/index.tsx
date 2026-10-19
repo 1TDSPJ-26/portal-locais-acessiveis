@@ -252,6 +252,9 @@ export default function DetalheLocal() {
       >
         {resultadoCompartilhamento === "copiado" &&
           "Link copiado. Agora é só colar onde quiser."}
+          
+          {resultadoCompartilhamento === "compartilhado" &&
+  "Compartilhamento concluído."}
 
         {resultadoCompartilhamento === "falhou" &&
           "Não foi possível copiar o link. Ele está no campo abaixo; selecione e copie o endereço manualmente."}
