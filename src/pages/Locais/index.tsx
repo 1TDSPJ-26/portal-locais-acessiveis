@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
+import { useLocalizacao } from "../../useLocalizacao";
 import { useFavoritos } from "../../useFavoritos";
 import {
   categoriasLocais,
@@ -19,6 +20,7 @@ import Mensagem from "../../components/Mensagem";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
+const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -86,7 +88,11 @@ export default function LocaisPage() {
     return () => window.clearTimeout(timeout);
   }, [location.state, location.search, navigate]);
 
-  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
+  const resultados = ordenarLocais(
+    filtrarLocais(locais, termo, filtros, favoritos),
+    criterio,
+    estadoLocalizacao === "obtida" && posicao ? posicao : undefined,
+  );
 
   const atualizarPagina = (novaPagina: number) => {
     setSearchParams((atuais) => {
@@ -276,6 +282,24 @@ export default function LocaisPage() {
                 : "Locais acessíveis"}
             </h2>
           </div>
+          
+          <button
+            className="botao botao--secundario"
+            type="button"
+            onClick={solicitar}
+            disabled={estadoLocalizacao === "buscando"}
+          >
+            {estadoLocalizacao === "buscando" 
+              ? "Obtendo localização..."
+              : "Usar minha localização"}
+          </button>
+
+          {estadoLocalizacao === "erro" && (
+            <Mensagem tipo="erro" className="empty-state">
+              <p>Não foi possível obter sua localização. Tente novamente.</p>
+            </Mensagem>
+          )}
+
           <button
             className="botao botao--secundario filter-toggle"
             type="button"
@@ -309,6 +333,9 @@ export default function LocaisPage() {
             >
               <option value="nome">Nome</option>
               <option value="categoria">Categoria</option>
+              {estadoLocalizacao === "obtida" && (
+                <option value="proximidade">Mais próximos</option>
+              )}
             </select>
           </div>
         )}
