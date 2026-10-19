@@ -82,7 +82,11 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
     return () => window.clearTimeout(timeout);
   }, [location.state, location.search, navigate]);
 
-  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
+  const resultados = ordenarLocais(
+    filtrarLocais(locais, termo, filtros, favoritos),
+    criterio,
+    estadoLocalizacao === "obtida" && posicao ? posicao : undefined,
+  );
 
   const {
     visiveis,
