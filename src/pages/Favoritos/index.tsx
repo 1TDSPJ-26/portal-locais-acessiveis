@@ -17,7 +17,7 @@ export default function FavoritosPage() {
   );
 
   const anunciarRemocao = (local: Local) => {
-    setMensagemRemocao(`Local ${local.nome} removido dos favoritos.`);
+    setMensagemRemocao(`Local ${local.nome} (${local.endereco}) removido dos favoritos.`);
     // O título permanece na página mesmo quando o último cartão é removido.
     tituloListaRef.current?.focus();
   };
