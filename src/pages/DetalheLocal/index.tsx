@@ -11,14 +11,18 @@ import {
 } from "../../utils/compartilhar-link";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
 
-export default function DetalheLocal() { 
+export default function DetalheLocal() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
   const origemListagem = obterOrigemListagem(location.state);
   const niveisBase = [
     { rotulo: "Início", destino: "/" },
-    { rotulo: "Locais", destino: origemListagem, state: { retornoDaListagem: true } },
+    {
+      rotulo: "Locais",
+      destino: origemListagem,
+      state: { retornoDaListagem: true },
+    },
   ];
   const { locais, estado, tentarNovamente, removerLocal } = useLocais();
 
@@ -51,10 +55,14 @@ export default function DetalheLocal() {
   if (estado === "erro") {
     return (
       <div className="app-shell content">
-        <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
+        <title>
+          Erro ao carregar local | Portal de Locais e Serviços Acessíveis
+        </title>
 
         <h1>Não foi possível carregar o local</h1>
-        <Mensagem tipo="erro">Tente novamente para consultar as informações do local.</Mensagem>
+        <Mensagem tipo="erro">
+          Tente novamente para consultar as informações do local.
+        </Mensagem>
         <button
           className="botao botao--secundario"
           type="button"
@@ -62,23 +70,33 @@ export default function DetalheLocal() {
         >
           Tentar novamente
         </button>
-        <p><Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link></p>
+        <p>
+          <Link to={origemListagem} state={{ retornoDaListagem: true }}>
+            Voltar para a listagem de locais
+          </Link>
+        </p>
       </div>
     );
   }
 
   const local = buscarLocalPorId(locais, id);
 
-    if (!local) {
+  if (!local) {
     return (
       <div className="app-shell content">
-        <title>Local não encontrado | Portal de Locais e Serviços Acessíveis</title>
+        <title>
+          Local não encontrado | Portal de Locais e Serviços Acessíveis
+        </title>
         <TrilhaNavegacao
           niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
         />
         <h1>Local não encontrado</h1>
-        <Mensagem tipo="aviso">Não existe um local com o identificador informado.</Mensagem>
-        <Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link>
+        <Mensagem tipo="aviso">
+          Não existe um local com o identificador informado.
+        </Mensagem>
+        <Link to={origemListagem} state={{ retornoDaListagem: true }}>
+          Voltar para a listagem de locais
+        </Link>
       </div>
     );
   }
@@ -88,34 +106,31 @@ export default function DetalheLocal() {
   const telefone = local.telefone?.trim();
   const site = local.site?.trim();
   const urlSite = site
-    ? /^https?:\/\//i.test(site) ? site : `https://${site}`
+    ? /^https?:\/\//i.test(site)
+      ? site
+      : `https://${site}`
     : undefined;
 
-  const mensagemSucesso = (location.state as { mensagem?: string } | null)?.mensagem;
+  const mensagemSucesso = (location.state as { mensagem?: string } | null)
+    ?.mensagem;
 
   const nomeLocal = local.nome;
 
-  const urlCompartilhamento =
-    `${window.location.origin}/locais/${local.id}`;
+  const urlCompartilhamento = `${window.location.origin}/locais/${local.id}`;
 
   async function handleCompartilharLocal() {
+    setResultadoCompartilhamento(null);
+
     const share = navigator.share;
     const clipboard = navigator.clipboard;
 
-    const resultado = await compartilharLink(
-    nomeLocal,
-    urlCompartilhamento,
-      {
-        share:
-          typeof share === "function"
-            ? share.bind(navigator)
-            : undefined,
-        writeText:
-          typeof clipboard?.writeText === "function"
-            ? clipboard.writeText.bind(clipboard)
-            : undefined,
-      },
-    );
+    const resultado = await compartilharLink(nomeLocal, urlCompartilhamento, {
+      share: typeof share === "function" ? share.bind(navigator) : undefined,
+      writeText:
+        typeof clipboard?.writeText === "function"
+          ? clipboard.writeText.bind(clipboard)
+          : undefined,
+    });
 
     setResultadoCompartilhamento(resultado);
   }
@@ -133,7 +148,11 @@ export default function DetalheLocal() {
         <BotaoFavorito local={local} />
       </div>
       <div className="mb-4">
-        <Link to={`/locais/${local.id}/editar`} state={{ origemListagem }} className="text-(--accent) underline underline-offset-2">
+        <Link
+          to={`/locais/${local.id}/editar`}
+          state={{ origemListagem }}
+          className="text-(--accent) underline underline-offset-2"
+        >
           Editar local
         </Link>
       </div>
@@ -170,7 +189,9 @@ export default function DetalheLocal() {
             {email && (
               <>
                 <dt>E-mail</dt>
-                <dd><a href={`mailto:${email}`}>{email}</a></dd>
+                <dd>
+                  <a href={`mailto:${email}`}>{email}</a>
+                </dd>
               </>
             )}
             {telefone && (
@@ -198,7 +219,9 @@ export default function DetalheLocal() {
       )}
 
       <div className="local-actions">
-        <Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link>
+        <Link to={origemListagem} state={{ retornoDaListagem: true }}>
+          Voltar para a listagem de locais
+        </Link>
 
         <button
           type="button"
@@ -225,9 +248,7 @@ export default function DetalheLocal() {
 
       {resultadoCompartilhamento === "falhou" && (
         <div className="mb-4">
-          <label htmlFor="link-compartilhamento">
-            Copie o link do local:
-          </label>
+          <label htmlFor="link-compartilhamento">Copie o link do local:</label>
 
           <input
             ref={campoLinkRef}
@@ -251,8 +272,8 @@ export default function DetalheLocal() {
       >
         <h2 id="titulo-exclusao">Excluir local?</h2>
         <p id="descricao-exclusao">
-          O local <strong>{local.nome}</strong> será excluído. Esta ação não pode
-          ser desfeita.
+          O local <strong>{local.nome}</strong> será excluído. Esta ação não
+          pode ser desfeita.
         </p>
         <div className="local-actions">
           <button
@@ -269,7 +290,9 @@ export default function DetalheLocal() {
             onClick={() => {
               dialogRef.current?.close();
               removerLocal(local.id);
-              void navigate(origemListagem, { state: { localExcluido: local.nome } });
+              void navigate(origemListagem, {
+                state: { localExcluido: local.nome },
+              });
             }}
           >
             Excluir
