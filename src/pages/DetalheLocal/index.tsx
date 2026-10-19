@@ -2,6 +2,7 @@ import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
+import { DistanciaLocal } from "../../components/DistanciaLocal";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
@@ -194,6 +195,7 @@ export default function DetalheLocal() {
               </>
             )}
           </dl>
+          <DistanciaLocal local={local} />
         </section>
       )}
 

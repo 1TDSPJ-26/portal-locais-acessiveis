@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router";
 import type { Local } from "../../types/local";
 import { BotaoFavorito } from "../BotaoFavorito";
+import { DistanciaLocal } from "../DistanciaLocal";
 
 type LocalCardProps = {
   local: Local;
@@ -10,6 +11,7 @@ export function LocalCard({ local }: LocalCardProps) {
   const idTituloRecursos = `recursos-local-${local.id}`;
   const location = useLocation();
   const origemListagem = { pathname: "/locais" as const, search: location.search };
+  
 
   return (
     <article className="place-card">
@@ -21,6 +23,8 @@ export function LocalCard({ local }: LocalCardProps) {
       </h3>
       <BotaoFavorito local={local} />
       <p className="place-address">{local.endereco}</p>
+      <DistanciaLocal local={local} />
+
       {local.recursos.length > 0 && (
         <>
           <span id={idTituloRecursos} className="sr-only">
@@ -35,4 +39,5 @@ export function LocalCard({ local }: LocalCardProps) {
       )}
     </article>
   );
+  
 }
