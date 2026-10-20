@@ -25,7 +25,7 @@ export function LocalCard({ local, onDesfavoritar }: LocalCardProps) {
       <BotaoFavorito local={local} onDesfavoritar={onDesfavoritar} />
       <div className="place-card-details">
         <p className="place-address">{local.endereco}</p>
-        <DistanciaLocal local={local} />
+        <DistanciaLocal local={local}/>
       </div>
 
       {local.recursos.length > 0 && (
