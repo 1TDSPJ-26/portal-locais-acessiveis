@@ -16,18 +16,28 @@ export function LocalCard({ local, onDesfavoritar }: LocalCardProps) {
     <article className="place-card">
       <div className="place-card-top">
         <span className="place-category">{local.categoria}</span>
+        <div className="place-card-actions">
+          <BotaoFavorito local={local} onDesfavoritar={onDesfavoritar} />
+        </div>
       </div>
-      <h3>
-        <Link to={`/locais/${local.id}`} state={{ origemListagem }}>{local.nome}</Link>
+      <h3 className="place-card-title">
+        <Link
+          className="place-card-link"
+          to={`/locais/${local.id}`}
+          state={{ origemListagem }}
+        >
+          {local.nome}
+        </Link>
       </h3>
-      <BotaoFavorito local={local} onDesfavoritar={onDesfavoritar} />
-      <p className="place-address">{local.endereco}</p>
+      <div className="place-card-details">
+        <p className="place-address">{local.endereco}</p>
+      </div>
       {local.recursos.length > 0 && (
         <>
           <span id={idTituloRecursos} className="sr-only">
             Recursos de acessibilidade de {local.nome}
           </span>
-          <ul aria-labelledby={idTituloRecursos}>
+          <ul className="place-resources" aria-labelledby={idTituloRecursos}>
             {local.recursos.map((recurso) => (
               <li key={recurso}>{recurso}</li>
             ))}
