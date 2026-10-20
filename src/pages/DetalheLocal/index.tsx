@@ -12,7 +12,7 @@ import {
 } from "../../utils/compartilhar-link";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
 
-export default function DetalheLocal() {
+export default function DetalheLocal() { 
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ export default function DetalheLocal() {
 
   const local = buscarLocalPorId(locais, id);
 
-  if (!local) {
+    if (!local) {
     return (
       <div className="app-shell content">
         <title>Local não encontrado | Portal de Locais e Serviços Acessíveis</title>
@@ -102,8 +102,8 @@ export default function DetalheLocal() {
     const clipboard = navigator.clipboard;
 
     const resultado = await compartilharLink(
-      nomeLocal,
-      urlCompartilhamento,
+    nomeLocal,
+    urlCompartilhamento,
       {
         share:
           typeof share === "function"
@@ -125,119 +125,165 @@ export default function DetalheLocal() {
       <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
 
       <MensagemConfirmacao />
-      <h1>{local.nome}</h1>
-      <div className="mb-4">
-        <BotaoFavorito local={local} />
-      </div>
-      <div className="mb-4">
-        <Link to={`/locais/${local.id}/editar`} state={{ origemListagem }} className="text-(--accent) underline underline-offset-2">
-          Editar local
-        </Link>
-      </div>
-      <dl>
-        <dt>Categoria</dt>
-        <dd>{local.categoria}</dd>
-        <dt>Endereço</dt>
-        <dd>{local.endereco}</dd>
-      </dl>
+      <header className="detalhe-identificacao">
+  <span className="detalhe-categoria">{local.categoria}</span>
+  <h1>{local.nome}</h1>
+</header>
 
-      {descricao && (
-        <section aria-labelledby="titulo-descricao-local">
-          <h2 id="titulo-descricao-local">Descrição</h2>
-          <p>{descricao}</p>
-        </section>
-      )}
+<div className="detalhe-layout">
+  <div className="detalhe-principal">
+    <dl className="detalhe-informacoes">
+      <dt>Endereço</dt>
+      <dd>{local.endereco}</dd>
+    </dl>
 
-      <section aria-labelledby="titulo-recursos-local">
-        <h2 id="titulo-recursos-local">Recursos de acessibilidade</h2>
-        <ul>
-          {local.recursos.map((recurso) => (
-            <li key={recurso}>{recurso}</li>
-          ))}
-        </ul>
-        {local.recursos.length === 0 && (
-          <p>Nenhum recurso de acessibilidade informado.</p>
-        )}
+    {descricao && (
+      <section
+        className="detalhe-descricao"
+        aria-labelledby="titulo-descricao-local"
+      >
+        <h2 id="titulo-descricao-local">Descrição</h2>
+        <p>{descricao}</p>
       </section>
+    )}
 
-      {(email || telefone || site) && (
-        <section aria-labelledby="titulo-contato-local">
-          <h2 id="titulo-contato-local">Contato</h2>
-          <dl>
-            {email && (
-              <>
-                <dt>E-mail</dt>
-                <dd><a href={`mailto:${email}`}>{email}</a></dd>
-              </>
-            )}
-            {telefone && (
-              <>
-                <dt>Telefone</dt>
-                <dd>
-                  <a href={`tel:${telefone.replace(/[^\d+]/g, "")}`}>
-                    {telefone}
-                  </a>
-                </dd>
-              </>
-            )}
-            {site && (
-              <>
-                <dt>Site</dt>
-                <dd>
-                  <a href={urlSite} target="_blank" rel="noopener noreferrer">
-                    {site} (abre em nova aba)
-                  </a>
-                </dd>
-              </>
-            )}
-          </dl>
-        </section>
+    <section
+      className="detalhe-recursos"
+      aria-labelledby="titulo-recursos-local"
+    >
+      <h2 id="titulo-recursos-local">Recursos de acessibilidade</h2>
+
+      <ul>
+        {local.recursos.map((recurso) => (
+          <li key={recurso}>{recurso}</li>
+        ))}
+      </ul>
+
+      {local.recursos.length === 0 && (
+        <p>Nenhum recurso de acessibilidade informado.</p>
       )}
+    </section>
+  </div>
 
-      <div className="local-actions">
-        <Link to={origemListagem} state={{ retornoDaListagem: true }}>Voltar para a listagem de locais</Link>
+  <div className="detalhe-lateral">
+    <section
+      className="detalhe-acoes"
+      aria-labelledby="titulo-acoes-local"
+    >
+      <h2 id="titulo-acoes-local" className="sr-only">
+        Ações do local
+      </h2>
 
-        <button
-          type="button"
-          className="botao botao--secundario"
-          onClick={() => {
-            void handleCompartilharLocal();
+      <BotaoFavorito local={local} />
+
+      <button
+        type="button"
+        className="botao botao--secundario"
+        onClick={() => {
+          void handleCompartilharLocal();
+        }}
+      >
+        Compartilhar local
+      </button>
+
+      <Link
+        to={`/locais/${local.id}/editar`}
+        state={{ origemListagem }}
+        className="botao botao--secundario"
+      >
+        Editar local
+      </Link>
+    </section>
+
+    {resultadoCompartilhamento === "falhou" && (
+      <div className="detalhe-compartilhamento-manual">
+        <label htmlFor="link-compartilhamento">
+          Copie o link do local:
+        </label>
+
+        <input
+          ref={campoLinkRef}
+          id="link-compartilhamento"
+          className="campo"
+          type="text"
+          value={urlCompartilhamento}
+          readOnly
+          onFocus={(evento) => {
+            evento.currentTarget.select();
           }}
-        >
-          Compartilhar local
-        </button>
-
-        <button
-          ref={excluirRef}
-          type="button"
-          className="botao botao--secundario"
-          onClick={() => {
-            dialogRef.current?.showModal();
-            cancelarRef.current?.focus();
-          }}
-        >
-          Excluir local
-        </button>
+        />
       </div>
+    )}
 
-      {resultadoCompartilhamento === "falhou" && (
-        <div className="mb-4">
-          <label htmlFor="link-compartilhamento">
-            Copie o link do local:
-          </label>
+    {(email || telefone || site) && (
+      <section
+        className="detalhe-contato"
+        aria-labelledby="titulo-contato-local"
+      >
+        <h2 id="titulo-contato-local">Contato</h2>
 
-          <input
-            ref={campoLinkRef}
-            id="link-compartilhamento"
-            type="text"
-            value={urlCompartilhamento}
-            readOnly
-            onFocus={(evento) => {
-              evento.currentTarget.select();
-            }}
-          />
-        </div>
-      )}
+        <dl className="detalhe-informacoes">
+          {email && (
+            <>
+              <dt>E-mail</dt>
+              <dd>
+                <a href={`mailto:${email}`}>{email}</a>
+              </dd>
+            </>
+          )}
+
+          {telefone && (
+            <>
+              <dt>Telefone</dt>
+              <dd>
+                <a href={`tel:${telefone.replace(/[^\d+]/g, "")}`}>
+                  {telefone}
+                </a>
+              </dd>
+            </>
+          )}
+
+          {site && (
+            <>
+              <dt>Site</dt>
+              <dd>
+                <a
+                  href={urlSite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {site} (abre em nova aba)
+                </a>
+              </dd>
+            </>
+          )}
+        </dl>
+      </section>
+    )}
+
+    <div className="detalhe-exclusao">
+      <button
+        ref={excluirRef}
+        type="button"
+        className="botao botao--perigo"
+        onClick={() => {
+          dialogRef.current?.showModal();
+          cancelarRef.current?.focus();
+        }}
+      >
+        Excluir local
+      </button>
+    </div>
+  </div>
+</div>
+
+<Link
+  className="detalhe-voltar"
+  to={origemListagem}
+  state={{ retornoDaListagem: true }}
+>
+  Voltar para a listagem de locais
+</Link>
 
       <dialog
         ref={dialogRef}
