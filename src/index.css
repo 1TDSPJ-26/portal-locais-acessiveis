@@ -494,6 +494,11 @@ legend span {
 
 
 header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+#menu-principal .nav-link.active {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
 header, main, footer { min-width: 0; }
 
 /* Linha que agrupa o título e o botão do menu mobile. Em telas largas o
