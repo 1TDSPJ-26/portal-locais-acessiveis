@@ -1,6 +1,7 @@
 import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
+import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
@@ -11,7 +12,7 @@ import {
 } from "../../utils/compartilhar-link";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
 
-export default function DetalheLocal() { 
+export default function DetalheLocal() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ export default function DetalheLocal() {
 
   const local = buscarLocalPorId(locais, id);
 
-    if (!local) {
+  if (!local) {
     return (
       <div className="app-shell content">
         <title>Local não encontrado | Portal de Locais e Serviços Acessíveis</title>
@@ -91,8 +92,6 @@ export default function DetalheLocal() {
     ? /^https?:\/\//i.test(site) ? site : `https://${site}`
     : undefined;
 
-  const mensagemSucesso = (location.state as { mensagem?: string } | null)?.mensagem;
-
   const nomeLocal = local.nome;
 
   const urlCompartilhamento =
@@ -103,8 +102,8 @@ export default function DetalheLocal() {
     const clipboard = navigator.clipboard;
 
     const resultado = await compartilharLink(
-    nomeLocal,
-    urlCompartilhamento,
+      nomeLocal,
+      urlCompartilhamento,
       {
         share:
           typeof share === "function"
@@ -125,9 +124,7 @@ export default function DetalheLocal() {
       <title>{`${local.nome} | Portal de Locais e Serviços Acessíveis`}</title>
       <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
 
-      <Mensagem tipo="sucesso" className={mensagemSucesso ? "mb-4" : undefined}>
-        {mensagemSucesso}
-      </Mensagem>
+      <MensagemConfirmacao />
       <h1>{local.nome}</h1>
       <div className="mb-4">
         <BotaoFavorito local={local} />
@@ -269,7 +266,9 @@ export default function DetalheLocal() {
             onClick={() => {
               dialogRef.current?.close();
               removerLocal(local.id);
-              void navigate(origemListagem, { state: { localExcluido: local.nome } });
+              void navigate(origemListagem, {
+                state: { confirmacao: `Local ${local.nome} excluído com sucesso.` },
+              });
             }}
           >
             Excluir

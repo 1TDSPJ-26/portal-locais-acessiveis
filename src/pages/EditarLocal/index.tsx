@@ -256,7 +256,7 @@ function FormularioEdicao({ local, atualizarLocal, origemListagem }: FormularioE
             });
 
             navigate(`/locais/${local.id}`, {
-                state: { mensagem: `${form.nome.trim()} foi atualizado com sucesso.`, origemListagem },
+                state: { confirmacao: `${form.nome.trim()} foi atualizado com sucesso.`, origemListagem },
             });
         } catch (erro) {
             setMensagem(
