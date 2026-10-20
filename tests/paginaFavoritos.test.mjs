@@ -109,13 +109,43 @@ test("a reserva avisa da falha, permite tentar novamente e conta somente os cart
 
 test("o menu inclui Favoritos e destaca o link somente na sua rota", () => {
   for (const rota of ["/favoritos", "/locais"]) {
-    const html = renderToStaticMarkup(createElement(MemoryRouter, { initialEntries: [rota] },
-      createElement(PreferenciasContext.Provider, { value: { fonte: "normal", contraste: "normal" } },
-        createElement(Header),
+    const html = renderToStaticMarkup(
+      createElement(
+        MemoryRouter,
+        { initialEntries: [rota] },
+        createElement(
+          PreferenciasContext.Provider,
+          {
+            value: {
+              fonte: "normal",
+              contraste: "normal",
+            },
+          },
+          createElement(
+            FavoritosContext.Provider,
+            {
+              value: {
+                favoritos: [],
+                ehFavorito: () => false,
+                alternarFavorito() {},
+                totalFavoritos: 0,
+              },
+            },
+            createElement(Header),
+          ),
+        ),
       ),
-    ));
-    const link = html.match(/<a\b[^>]*href="\/favoritos"[^>]*>Favoritos<\/a>/)?.[0];
-    assert.ok(link, "o link pertence ao mesmo painel usado no desktop e no mobile");
+    );
+
+    const link = html.match(
+      /<a\b(?=[^>]*href="\/favoritos")[^>]*>[\s\S]*?<\/a>/,
+    )?.[0];
+
+    assert.ok(
+      link,
+      "o link pertence ao mesmo painel usado no desktop e no mobile",
+    );
+
     if (rota === "/favoritos") {
       assert.match(link, /aria-current="page"/);
       assert.match(link, /class="nav-link active"/);
