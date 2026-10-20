@@ -17,7 +17,11 @@ import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
 import Mensagem from "../../components/Mensagem";
-
+import {
+  adicionarAoHistorico,
+  carregarHistorico,
+  salvarHistorico,
+} from "../../historicoBuscas";
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
 const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
@@ -57,6 +61,10 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
   const botoesFiltrosRef = useRef<(HTMLButtonElement | null)[]>([]);
   const focoFiltroPendenteRef = useRef<number | null>(null);
   const [textoBusca, setTextoBusca] = useState(termo);
+  const [historico, setHistorico] = useState<string[]>(() =>
+  carregarHistorico()
+);
+const ultimaBuscaRegistradaRef = useRef<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -153,7 +161,39 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
       else params.delete("busca");
     });
   };
+const registrarBusca = (valor: string) => {
+  const termoLimpo = valor.trim().replace(/\s+/g, " ");
 
+  if (termoLimpo.length < 2) return;
+
+  const termoNormalizado = termoLimpo
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("pt-BR");
+
+  if (ultimaBuscaRegistradaRef.current === termoNormalizado) return;
+
+  ultimaBuscaRegistradaRef.current = termoNormalizado;
+
+  const novoHistorico = adicionarAoHistorico(historico, termoLimpo);
+
+  setHistorico(novoHistorico);
+  salvarHistorico(novoHistorico);
+};
+
+const repetirBusca = (pesquisa: string) => {
+  ultimaBuscaRegistradaRef.current = null;
+  setTextoBusca(pesquisa);
+  alterarTermo(pesquisa);
+  registrarBusca(pesquisa);
+  campoBuscaRef.current?.focus();
+};
+
+const limparHistorico = () => {
+  setHistorico([]);
+  ultimaBuscaRegistradaRef.current = null;
+  salvarHistorico([]);
+};
   const alterarCategoria = (valor: FiltrosLocais["categoria"]) => {
     atualizarParametros((params) => {
       if (valor) params.set("categoria", valor);
@@ -251,9 +291,16 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
             ref={campoBuscaRef}
             value={textoBusca}
             onChange={(evento) => {
-              setTextoBusca(evento.target.value);
-              alterarTermo(evento.target.value);
-            }}
+  setTextoBusca(evento.target.value);
+  ultimaBuscaRegistradaRef.current = null;
+  alterarTermo(evento.target.value);
+}}
+onKeyDown={(evento) => {
+  if (evento.key === "Enter") {
+    registrarBusca(textoBusca);
+  }
+}}
+onBlur={() => registrarBusca(textoBusca)}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
@@ -267,6 +314,34 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
             )}
           </output>
         </label>
+                {historico.length > 0 && (
+          <div className="historico-buscas" aria-label="Pesquisas recentes">
+            <p>Pesquisas recentes</p>
+
+            <div className="historico-buscas__lista">
+              {historico.map((pesquisa) => (
+                <button
+                  key={pesquisa}
+                  className="botao botao--secundario"
+                  type="button"
+                  onMouseDown={(evento) => evento.preventDefault()}
+                  onClick={() => repetirBusca(pesquisa)}
+                >
+                  {pesquisa}
+                </button>
+              ))}
+
+              <button
+                className="botao botao--secundario"
+                type="button"
+                onMouseDown={(evento) => evento.preventDefault()}
+                onClick={limparHistorico}
+              >
+                Limpar histórico
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
