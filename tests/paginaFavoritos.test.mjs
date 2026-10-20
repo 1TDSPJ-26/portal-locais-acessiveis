@@ -35,6 +35,7 @@ function compilar(caminho) {
 const { default: Favoritos } = await import(compilar("../src/pages/Favoritos/index.tsx"));
 const { LocaisContext } = await import(compilar("../src/LocaisContext.ts"));
 const { FavoritosContext } = await import(compilar("../src/FavoritosContext.ts"));
+const { LocalizacaoContext } = await import(compilar("../src/LocalizacaoContext.ts"));
 const { Header } = await import(compilar("../src/components/Header/index.tsx"));
 const { PreferenciasContext } = await import(compilar("../src/PreferenciasContext.tsx"));
 
@@ -48,7 +49,9 @@ function renderizar({ ids = [3, 1], estado = "pronto", usandoReserva = false } =
   return renderToStaticMarkup(createElement(MemoryRouter, { initialEntries: ["/favoritos"] },
     createElement(LocaisContext.Provider, { value: { locais, estado, usandoReserva, tentarNovamente() {} } },
       createElement(FavoritosContext.Provider, { value: { ehFavorito: (id) => ids.includes(id), alternarFavorito() {} } },
-        createElement(Favoritos),
+        createElement(LocalizacaoContext.Provider, { value: { estado: "inativo", posicao: null, erro: null, solicitar() {} } },
+          createElement(Favoritos),
+        ),
       ),
     ),
   ));
