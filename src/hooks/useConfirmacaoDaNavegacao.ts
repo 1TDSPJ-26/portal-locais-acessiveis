@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import {
@@ -9,22 +9,26 @@ import {
 export default function useConfirmacaoDaNavegacao(): string | null {
     const location = useLocation();
     const navigate = useNavigate();
-    const confirmacao = obterConfirmacaoDoEstado(location.state);
-    const consumiuRef = useRef(false);
+    const recebida = obterConfirmacaoDoEstado(location.state);
+    // Guarda o texto, porque o efeito abaixo limpa o histórico e, sem isso,
+    // a confirmação sumiria logo após aparecer.
+    const [confirmacao, setConfirmacao] = useState(recebida);
+
+    if (recebida && recebida !== confirmacao) {
+        setConfirmacao(recebida);
+    }
 
     useEffect(() => {
-        if (!confirmacao || consumiuRef.current) {
+        if (!recebida) {
             return;
         }
-
-        consumiuRef.current = true;
 
         const estadoSemConfirmacao = removerConfirmacaoDoEstado(location.state);
         void navigate(
             { pathname: location.pathname, search: location.search },
             { replace: true, state: estadoSemConfirmacao },
         );
-    }, [confirmacao, location.pathname, location.search, location.state, navigate]);
+    }, [recebida, location.pathname, location.search, location.state, navigate]);
 
     return confirmacao;
 }
