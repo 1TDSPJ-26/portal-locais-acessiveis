@@ -11,7 +11,11 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
-import { listarFiltrosAtivos, type FiltroAtivo } from "../../utils/filtros-ativos";
+import {
+  descreverFiltrosAtivos,
+  listarFiltrosAtivos,
+  type FiltroAtivo,
+} from "../../utils/filtros-ativos";
 import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
@@ -57,6 +61,7 @@ export default function LocaisPage() {
   const botoesFiltrosRef = useRef<(HTMLButtonElement | null)[]>([]);
   const focoFiltroPendenteRef = useRef<number | null>(null);
   const [textoBusca, setTextoBusca] = useState(termo);
+  const [buscaEmEdicao, setBuscaEmEdicao] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -183,7 +188,23 @@ export default function LocaisPage() {
     });
   };
 
-  const filtrosAtivos = listarFiltrosAtivos(searchParams);
+const filtrosAtivos = listarFiltrosAtivos(searchParams);
+const resumoFiltros = descreverFiltrosAtivos(filtrosAtivos);
+
+const textoAnuncio =
+  estado === "carregando"
+    ? "Carregando locais..."
+    : estado === "pronto" && !buscaEmEdicao
+      ? `${resultados.length} ${
+          resultados.length === 1
+            ? "local encontrado"
+            : "locais encontrados"
+        }${
+          filtrosAtivos.length > 0
+            ? ` com ${resumoFiltros}`
+            : ""
+        }`
+      : "";
 
   const removerFiltro = (filtro: FiltroAtivo, indice: number) => {
     focoFiltroPendenteRef.current = indice;
@@ -239,27 +260,29 @@ export default function LocaisPage() {
             ⌕
           </span>
           <span className="sr-only">Buscar por nome, bairro ou endereço</span>
-          <input
+         <input
             id="campo-busca-locais"
             type="search"
             ref={campoBuscaRef}
             value={textoBusca}
+            onFocus={() => setBuscaEmEdicao(true)}
+            onBlur={() => setBuscaEmEdicao(false)}
             onChange={(evento) => {
               setTextoBusca(evento.target.value);
               alterarTermo(evento.target.value);
             }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
-          <output aria-live="polite">
-            {estado === "pronto" && (
-              <>
-                {resultados.length}{" "}
-                {resultados.length === 1
-                  ? "local encontrado"
-                  : "locais encontrados"}
-              </>
-            )}
-          </output>
+         <output>
+          {estado === "pronto" && (
+            <>
+              {resultados.length}{" "}
+              {resultados.length === 1
+                ? "local encontrado"
+                : "locais encontrados"}
+            </>
+          )}
+       </output>
         </label>
       </header>
 
@@ -334,9 +357,10 @@ export default function LocaisPage() {
 
         <output
           aria-live="polite"
+          aria-atomic="true"
           className={estado === "carregando" ? "empty-state" : "sr-only"}
         >
-          {estado === "carregando" ? "Carregando locais..." : ""}
+          {textoAnuncio}
         </output>
 
         <Mensagem
@@ -455,8 +479,11 @@ export default function LocaisPage() {
         </aside>
 
         {estado === "pronto" && filtrosAtivos.length > 0 && (
-          <div className="active-filters" aria-label="Filtros ativos">
-            <span>Filtros ativos:</span>
+          <section
+            className="active-filters"
+            aria-labelledby="filtros-ativos-titulo"
+          >
+            <h3 id="filtros-ativos-titulo">Filtros ativos</h3>
             {filtrosAtivos.map((filtro, indice) => (
               <button
                 className="botao botao--secundario"
@@ -471,7 +498,7 @@ export default function LocaisPage() {
                 {filtro.rotulo} <span aria-hidden="true">×</span>
               </button>
             ))}
-          </div>
+          </section>
         )}
 
         {estado === "pronto" &&
