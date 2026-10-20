@@ -3,9 +3,10 @@ import { useFavoritos } from "../../useFavoritos";
 
 type BotaoFavoritoProps = {
   local: Local;
+  onDesfavoritar?: (local: Local) => void;
 };
 
-export function BotaoFavorito({ local }: BotaoFavoritoProps) {
+export function BotaoFavorito({ local, onDesfavoritar }: BotaoFavoritoProps) {
   const { ehFavorito, alternarFavorito } = useFavoritos();
   const favorito = ehFavorito(local.id);
 
@@ -15,7 +16,10 @@ export function BotaoFavorito({ local }: BotaoFavoritoProps) {
       className="botao botao--secundario"
       aria-label={`Favoritar ${local.nome}`}
       aria-pressed={favorito}
-      onClick={() => alternarFavorito(local.id)}
+      onClick={() => {
+        alternarFavorito(local.id);
+        if (favorito) onDesfavoritar?.(local);
+      }}
     >
       <span aria-hidden="true">{favorito ? "★" : "☆"}</span>
       <span>Favoritar</span>

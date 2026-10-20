@@ -153,6 +153,10 @@ export function Header() {
           Locais
         </NavLink>
 
+        <NavLink to="/favoritos" className={linkClass} onClick={() => setMenuAberto(false)}>
+          Favoritos
+        </NavLink>
+
         <NavLink to="/cadastrar" className={linkClass} onClick={() => setMenuAberto(false)}>
           Cadastro
         </NavLink>
