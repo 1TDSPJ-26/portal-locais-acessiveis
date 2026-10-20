@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 import Locais from "../pages/Locais";
+import Favoritos from "../pages/Favoritos";
 import DetalheLocal from "../pages/DetalheLocal";
 import EditarLocal from "../pages/EditarLocal";
 import Cadastro from "../pages/Cadastro";
@@ -13,6 +14,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/locais" element={<Locais />} />
+      <Route path="/favoritos" element={<Favoritos />} />
       <Route path="/locais/:id/editar" element={<EditarLocal />} />
       <Route path="/locais/:id" element={<DetalheLocal />} />
       <Route path="/cadastrar" element={<Cadastro />} />
