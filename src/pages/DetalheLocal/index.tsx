@@ -1,6 +1,7 @@
 import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
+import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { DistanciaLocal } from "../../components/DistanciaLocal";
 import { useLocais } from "../../useLocais";
@@ -92,8 +93,6 @@ export default function DetalheLocal() {
     ? /^https?:\/\//i.test(site) ? site : `https://${site}`
     : undefined;
 
-  const mensagemSucesso = (location.state as { mensagem?: string } | null)?.mensagem;
-
   const nomeLocal = local.nome;
 
   const urlCompartilhamento =
@@ -126,9 +125,7 @@ export default function DetalheLocal() {
       <title>{`${local.nome} | Portal de Locais e Serviços Acessíveis`}</title>
       <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
 
-      <Mensagem tipo="sucesso" className={mensagemSucesso ? "mb-4" : undefined}>
-        {mensagemSucesso}
-      </Mensagem>
+      <MensagemConfirmacao />
       <header className="detalhe-identificacao">
   <span className="detalhe-categoria">{local.categoria}</span>
   <h1>{local.nome}</h1>
@@ -317,7 +314,9 @@ export default function DetalheLocal() {
             onClick={() => {
               dialogRef.current?.close();
               removerLocal(local.id);
-              void navigate(origemListagem, { state: { localExcluido: local.nome } });
+              void navigate(origemListagem, {
+                state: { confirmacao: `Local ${local.nome} excluído com sucesso.` },
+              });
             }}
           >
             Excluir
