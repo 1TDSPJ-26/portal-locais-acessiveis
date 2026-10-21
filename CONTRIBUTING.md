@@ -12,8 +12,6 @@ Esta configuração é feita uma única vez em cada computador, depois do clone:
 git flow version
 git flow init
 ```
-
-
 Durante o `git flow init`:
 
 - confirme `main` como branch de produção;

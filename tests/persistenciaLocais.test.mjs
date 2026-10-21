@@ -6,6 +6,7 @@ import {
   salvarLocais,
   validarLocais,
 } from "../src/persistenciaLocais.ts";
+import { ErroCarregamentoLocais } from "../src/services/erros.ts";
 
 const localValido = {
   id: 1,
@@ -67,17 +68,26 @@ test("carregarLocaisSalvos retorna a lista gravada quando é válida", () => {
 
 test("carregarLocaisSalvos propaga erro com JSON corrompido", () => {
   armazenamento.setItem(CHAVE_LOCAIS, "{isso não é json");
-  assert.throws(() => carregarLocaisSalvos(), SyntaxError);
+  assert.throws(
+    () => carregarLocaisSalvos(),
+    (erro) => erro instanceof ErroCarregamentoLocais && erro.motivo === "desconhecido",
+  );
 });
 
 test("carregarLocaisSalvos rejeita estrutura inválida gravada à mão", () => {
   armazenamento.setItem(CHAVE_LOCAIS, JSON.stringify({ nao: "sou lista" }));
-  assert.throws(() => carregarLocaisSalvos(), /lista salva de locais é inválida/);
+  assert.throws(
+    () => carregarLocaisSalvos(),
+    (erro) => erro instanceof ErroCarregamentoLocais && erro.motivo === "dados-invalidos",
+  );
 });
 
 test("carregarLocaisSalvos propaga erro com o armazenamento bloqueado", () => {
   globalThis.localStorage = montarArmazenamento(true);
-  assert.throws(() => carregarLocaisSalvos(), /armazenamento bloqueado/);
+  assert.throws(
+    () => carregarLocaisSalvos(),
+    (erro) => erro instanceof ErroCarregamentoLocais && erro.motivo === "armazenamento-indisponivel",
+  );
 });
 
 test("salvarLocais grava a lista no armazenamento", () => {

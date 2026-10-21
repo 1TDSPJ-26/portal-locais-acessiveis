@@ -7,6 +7,7 @@ import {
   type DadosCadastroLocal,
 } from "./services/cadastroLocal";
 import { carregarComReserva, carregarLocais } from "./services/locais";
+import type { MotivoErro } from "./services/erros";
 import { locais as locaisReserva } from "./data/locais";
 import type { Local } from "./types/local";
 import {
@@ -29,6 +30,7 @@ export function LocaisProvider({
   const [estado, setEstado] = useState<EstadoLocais>("carregando");
   const [tentativa, setTentativa] = useState(0);
   const [usandoReserva, setUsandoReserva] = useState(false);
+  const [motivoErro, setMotivoErro] = useState<MotivoErro | undefined>(undefined);
   const [alteradoPeloUsuario, setAlteradoPeloUsuario] = useState(false);
   const [atualizadoEm, setAtualizadoEm] = useState<Date | null>(carregarAtualizadoEm); 
   // Guarda o histórico de IDs desta sessão, mesmo quando a lista fica vazia.
@@ -48,6 +50,7 @@ export function LocaisProvider({
           );
           setLocais(dados);
           setUsandoReserva(resultado.usandoReserva);
+          setMotivoErro(resultado.motivo);
           setAlteradoPeloUsuario(false);
           setEstado("pronto");
         }
@@ -121,7 +124,7 @@ export function LocaisProvider({
   };
 
   return (
-    <LocaisContext.Provider value={{ locais, estado, usandoReserva, atualizadoEm, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal }}>
+    <LocaisContext.Provider value={{ locais, estado, usandoReserva, motivoErro, atualizadoEm, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal }}>
       {children}
     </LocaisContext.Provider>
   );

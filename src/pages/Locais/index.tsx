@@ -11,6 +11,7 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 import {
   descreverFiltrosAtivos,
   listarFiltrosAtivos,
@@ -25,7 +26,7 @@ import Mensagem from "../../components/Mensagem";
 import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 
 export default function LocaisPage() {
-  const { locais, estado, usandoReserva, atualizadoEm, tentarNovamente } = useLocais();
+  const { locais, estado, usandoReserva, motivoErro, atualizadoEm, tentarNovamente } = useLocais();
   const { estado: estadoLocalizacao, posicao, solicitar } = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -374,34 +375,37 @@ const textoAnuncio =
           tipo="aviso"
           className={estado === "pronto" && usandoReserva ? "empty-state" : undefined}
         >
-          {estado === "pronto" && usandoReserva && (
-            <>
-              <h2>Exibindo dados de reserva</h2>
-              <p>
-                Não foi possível carregar os locais salvos. A lista exibida
-                contém os dados de reserva do projeto, e não a lista salva.
-              </p>
-              <button className="botao botao--secundario" type="button" onClick={tentarNovamente}>
-                Tentar novamente
-              </button>
-            </>
-          )}
+          {estado === "pronto" && usandoReserva && (() => {
+            const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
+            return (
+              <>
+                <h2>{titulo}</h2>
+                <p>{texto}</p>
+                <button className="botao botao--secundario" type="button" onClick={tentarNovamente}>
+                  Tentar novamente
+                </button>
+              </>
+            );
+          })()}
         </Mensagem>
 
         <Mensagem tipo="erro" className={estado === "erro" ? "empty-state" : undefined}>
-          {estado === "erro" && (
-            <>
-              <h2>Não foi possível carregar os locais</h2>
-              <p>Tente novamente para consultar os locais disponíveis.</p>
-              <button
-                className="botao botao--secundario"
-                type="button"
-                onClick={tentarNovamente}
-              >
-                Tentar novamente
-              </button>
-            </>
-          )}
+          {estado === "erro" && (() => {
+            const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
+            return (
+              <>
+                <h2>{titulo}</h2>
+                <p>{texto}</p>
+                <button
+                  className="botao botao--secundario"
+                  type="button"
+                  onClick={tentarNovamente}
+                >
+                  Tentar novamente
+                </button>
+              </>
+            );
+          })()}
         </Mensagem>
 
         <aside

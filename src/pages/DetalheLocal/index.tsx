@@ -6,6 +6,7 @@ import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { DistanciaLocal } from "../../components/DistanciaLocal";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
 import {
   compartilharLink,
@@ -22,7 +23,7 @@ export default function DetalheLocal() {
     { rotulo: "Início", destino: "/" },
     { rotulo: "Locais", destino: origemListagem, state: { retornoDaListagem: true } },
   ];
-  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+  const { locais, estado, motivoErro, tentarNovamente, removerLocal } = useLocais();
 
   const excluirRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -51,12 +52,13 @@ export default function DetalheLocal() {
   }
 
   if (estado === "erro") {
+    const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
     return (
       <div className="app-shell content">
         <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
 
-        <h1>Não foi possível carregar o local</h1>
-        <Mensagem tipo="erro">Tente novamente para consultar as informações do local.</Mensagem>
+        <h1>{titulo}</h1>
+        <Mensagem tipo="erro">{texto}</Mensagem>
         <button
           className="botao botao--secundario"
           type="button"
