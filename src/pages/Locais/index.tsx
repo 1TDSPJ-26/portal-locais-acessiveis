@@ -16,6 +16,7 @@ import {
   listarFiltrosAtivos,
   type FiltroAtivo,
 } from "../../utils/filtros-ativos";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
 import { formatarDataAtualizacao } from "../../utils/formatar-data-atualizacao";
 import { usePaginacao } from "../../hooks/usePaginacao";
@@ -25,7 +26,7 @@ import Mensagem from "../../components/Mensagem";
 import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 
 export default function LocaisPage() {
-  const { locais, estado, usandoReserva, atualizadoEm, tentarNovamente } = useLocais();
+  const { locais, estado, usandoReserva, motivoErro, atualizadoEm, tentarNovamente } = useLocais();
   const { estado: estadoLocalizacao, posicao, solicitar } = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();

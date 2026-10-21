@@ -11,6 +11,7 @@ import {
   compartilharLink,
   type ResultadoCompartilhamento,
 } from "../../utils/compartilhar-link";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
 
 export default function DetalheLocal() { 
@@ -22,7 +23,7 @@ export default function DetalheLocal() {
     { rotulo: "Início", destino: "/" },
     { rotulo: "Locais", destino: origemListagem, state: { retornoDaListagem: true } },
   ];
-  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+  const { locais, estado, motivoErro, tentarNovamente, removerLocal } = useLocais();
 
   const excluirRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);

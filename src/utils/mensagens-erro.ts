@@ -4,18 +4,18 @@ export function getMensagemErro(motivo: MotivoErro): { titulo: string; texto: st
   switch (motivo) {
     case "dados-invalidos":
       return {
-        titulo: "Lista de locais com problema",
-        texto: "Os dados salvos estão em um formato que não reconhecemos. Estamos usando os locais de exemplo.",
+        titulo: "Não conseguimos ler sua lista salva",
+        texto: "Os dados deste aparelho parecem incompletos ou alterados. Vamos continuar com os locais de exemplo por enquanto.",
       };
-      case "armazenamento-indisponivel":
-        return {
-          titulo: "Lista de locais com problema",
-          texto: "Os dados salvos estão em um formato que não reconhecemos. Estamos usando os locais de exemplo.",
-        };
-      default:
-        return {
-          titulo: "Lista de locais com problema",
-          texto: "Os dados salvos estão em um formato que não reconhecemos. Estamos usando os locais de exemplo.",
-        };
+    case "armazenamento-indisponivel":
+      return {
+        titulo: "Não foi possível acessar os dados deste aparelho",
+        texto: "O armazenamento local não está disponível agora. Vamos mostrar os locais de exemplo até a conexão voltar ao normal.",
+      };
+    default:
+      return {
+        titulo: "Não foi possível carregar sua lista no momento",
+        texto: "Ocorreu uma falha inesperada e vamos usar os locais de exemplo para que você continue navegando.",
+      };
   }
 }
