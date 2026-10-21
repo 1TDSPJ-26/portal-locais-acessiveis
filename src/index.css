@@ -726,16 +726,54 @@ code, .counter { font-size: 0.9375rem; }
   h1 { font-size: clamp(1.75rem, 5vw, 2.25rem); }
   h2 { font-size: 1.25rem; }
 }
-footer nav {
+
+.rodape {
+  padding-block: var(--espaco-6);
+  border-top: 1px solid var(--line);
+  font-size: var(--texto-sm);
+  line-height: var(--entrelinha-texto);
+}
+
+.rodape-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding-inline: 7.5%;
+}
+
+.rodape-links {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem 1rem;
+  gap: var(--espaco-1) var(--espaco-5);
 }
 
-footer nav a {
+.rodape-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: max(44px, 2.75rem);
+  padding-inline: var(--espaco-2);
+  border-radius: var(--raio-sm);
   color: inherit;
+  text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+
+.rodape-direitos {
+  margin: 0;
+  padding-top: var(--espaco-4);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 48rem) {
+  .rodape-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
 }
 
 /* Cores compartilhadas do indicador de foco. */
