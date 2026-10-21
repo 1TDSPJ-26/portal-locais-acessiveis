@@ -11,6 +11,7 @@ export interface LocaisContextValue {
   usandoReserva: boolean;
   /** Motivo da falha quando usandoReserva é true. Undefined quando carregou normalmente. */
   motivoErro?: MotivoErro;
+  atualizadoEm: Date | null;
   tentarNovamente: () => void;
   cadastrarLocal: (dados: DadosCadastroLocal) => Local;
   atualizarLocal: (id: number, dados: DadosCadastroLocal) => Local;

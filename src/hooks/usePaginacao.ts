@@ -1,13 +1,18 @@
 import { useMemo, useRef, useState } from "react";
 
-export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[], porPaginaInicial = 10) {
-    const [pagina, setPagina] = useState<number>(1);
+export function usePaginacao<T>(
+    filtrados: T[],
+    optionsPorPagina?: number[],
+    porPaginaInicial = 10,
+    paginaSolicitada = 1,
+    aoMudarPagina?: (pagina: number) => void,
+) {
     const [porPagina, setPorPagina] = useState<number>(porPaginaInicial);
 
     const availableOptions = optionsPorPagina ?? [10, 20, 50];
         
     const totalPaginas = Math.max(1, Math.ceil(filtrados.length / porPagina));
-    const paginaAtual = Math.min(pagina, totalPaginas);
+    const paginaAtual = Math.min(Math.max(1, paginaSolicitada), totalPaginas);
 
     const inicio = (paginaAtual - 1) * porPagina;
 
@@ -19,18 +24,18 @@ export function usePaginacao<T>(filtrados: T[], optionsPorPagina?: number[], por
     const topoListaRef = useRef<HTMLHeadingElement | null>(null);
 
     function handleMudarPagina(novaPagina: number) {
-        setPagina(novaPagina);
+        aoMudarPagina?.(novaPagina);
         topoListaRef.current?.focus();
     }
 
     function handleMudarPorPagina(novoValor: number) {
         setPorPagina(novoValor);
-        setPagina(1);
+        aoMudarPagina?.(1);
     }
 
     // Handler que o componente de busca/filters deve chamar ao alterar o termo/filtros
     function handleFiltroAlterado() {
-        setPagina(1);
+        aoMudarPagina?.(1);
     }
 
     // Contador de intervalo e total
