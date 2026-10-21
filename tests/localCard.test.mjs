@@ -31,6 +31,7 @@ function compilar(caminho) {
 
 const { LocalCard } = await import(compilar("../src/components/LocalCard/index.tsx"));
 const { FavoritosContext } = await import(compilar("../src/FavoritosContext.ts"));
+const { LocalizacaoContext } = await import(compilar("../src/LocalizacaoContext.ts"));
 const css = readFileSync(new URL("../src/index.css", import.meta.url), "utf8");
 
 const local = {
@@ -41,12 +42,21 @@ const local = {
   recursos: ["Libras", "Piso tátil"],
 };
 
-function renderizar() {
+function renderizar({ local: localCartao = local, posicao = null } = {}) {
   return renderToStaticMarkup(
     createElement(MemoryRouter, { initialEntries: ["/locais?busca=biblioteca"] },
-      createElement(FavoritosContext.Provider, {
-        value: { favoritos: [], ehFavorito: () => false, alternarFavorito() {}, totalFavoritos: 0 },
-      }, createElement(LocalCard, { local })),
+      createElement(LocalizacaoContext.Provider, {
+        value: {
+          estado: posicao ? "obtida" : "inativo",
+          posicao,
+          erro: null,
+          solicitar() {},
+        },
+      },
+        createElement(FavoritosContext.Provider, {
+          value: { favoritos: [], ehFavorito: () => false, alternarFavorito() {}, totalFavoritos: 0 },
+        }, createElement(LocalCard, { local: localCartao })),
+      ),
     ),
   );
 }
@@ -71,6 +81,27 @@ test("usa somente o nome como conteúdo do link e mantém o botão fora dele", (
   assert.doesNotMatch(link[0], /<button/);
   assert.doesNotMatch(html, /<article[^>]+aria-(?:label|labelledby)/);
   assert.equal((html.match(/<a /g) ?? []).length, 1);
+});
+test("não mostra distância quando não há posição", () => {
+  const html = renderizar({ local: { ...local, latitude: -23.547, longitude: -46.629 } });
+
+  assert.doesNotMatch(html, /place-distance/);
+});
+
+test("mostra a distância aproximada, com unidade por extenso para leitor de tela", () => {
+  const html = renderizar({
+    local: { ...local, latitude: -23.5505, longitude: -46.6333 },
+    posicao: { latitude: -23.547, longitude: -46.629 },
+  });
+
+  assert.match(html, /<span aria-hidden="true">Aproximadamente 600 m<\/span>/);
+  assert.match(html, /<span class="sr-only">Aproximadamente 600 metros<\/span>/);
+});
+
+test("mostra Distância indisponível quando o local não tem coordenadas", () => {
+  const html = renderizar({ posicao: { latitude: -23.547, longitude: -46.629 } });
+
+  assert.match(html, /class="place-distance">Distância indisponível<\/p>/);
 });
 
 test("define uma, duas e três colunas nos breakpoints escolhidos", () => {

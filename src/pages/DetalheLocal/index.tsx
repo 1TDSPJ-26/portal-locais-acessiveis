@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
 import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
+import { DistanciaLocal } from "../../components/DistanciaLocal";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
@@ -136,6 +137,7 @@ export default function DetalheLocal() {
       <dt>Endereço</dt>
       <dd>{local.endereco}</dd>
     </dl>
+    <DistanciaLocal local={local} />
 
     {descricao && (
       <section
