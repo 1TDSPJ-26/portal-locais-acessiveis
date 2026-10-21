@@ -11,6 +11,7 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 import {
   descreverFiltrosAtivos,
   listarFiltrosAtivos,
@@ -25,7 +26,7 @@ import Mensagem from "../../components/Mensagem";
 import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 
 export default function LocaisPage() {
-  const { locais, estado, usandoReserva, atualizadoEm, tentarNovamente } = useLocais();
+  const { locais, estado, usandoReserva, atualizadoEm, tentarNovamente, motivoErro } = useLocais();
   const { estado: estadoLocalizacao, posicao, solicitar } = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();

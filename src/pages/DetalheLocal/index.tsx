@@ -6,6 +6,7 @@ import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { DistanciaLocal } from "../../components/DistanciaLocal";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
 import {
   compartilharLink,
@@ -22,7 +23,7 @@ export default function DetalheLocal() {
     { rotulo: "Início", destino: "/" },
     { rotulo: "Locais", destino: origemListagem, state: { retornoDaListagem: true } },
   ];
-  const { locais, estado, tentarNovamente, removerLocal } = useLocais();
+  const { locais, estado, tentarNovamente, removerLocal, motivoErro } = useLocais();
 
   const excluirRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
