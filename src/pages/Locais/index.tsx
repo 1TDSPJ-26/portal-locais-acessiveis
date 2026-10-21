@@ -11,16 +11,21 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
-import { listarFiltrosAtivos, type FiltroAtivo } from "../../utils/filtros-ativos";
+import {
+  descreverFiltrosAtivos,
+  listarFiltrosAtivos,
+  type FiltroAtivo,
+} from "../../utils/filtros-ativos";
 import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
 import Mensagem from "../../components/Mensagem";
+import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 
 export default function LocaisPage() {
   const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
-const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
+  const { estado: estadoLocalizacao, posicao, solicitar } = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -51,12 +56,12 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
   const paginaParam = Number(searchParams.get("pagina"));
   const paginaSolicitada = Number.isInteger(paginaParam) && paginaParam > 0 ? paginaParam : 1;
   const [painelAberto, setPainelAberto] = useState(false);
-  const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
   const campoBuscaRef = useRef<HTMLInputElement>(null);
   const botoesFiltrosRef = useRef<(HTMLButtonElement | null)[]>([]);
   const focoFiltroPendenteRef = useRef<number | null>(null);
   const [textoBusca, setTextoBusca] = useState(termo);
+  const [buscaEmEdicao, setBuscaEmEdicao] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -70,23 +75,17 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
   }, [termo]);
 
   useEffect(() => {
-    const nome = location.state?.localExcluido;
-    if (typeof nome !== "string" || !nome) return;
+    if (!location.state || typeof location.state !== "object") {
+      return;
+    }
+
+    const temConfirmacao = "confirmacao" in location.state;
+    if (!temConfirmacao) {
+      return;
+    }
 
     tituloRef.current?.focus();
-    // A região viva nasce vazia e recebe o anúncio depois de montar a listagem.
-    const timeout = window.setTimeout(() => {
-      setMensagemExclusao(`Local ${nome} excluído com sucesso.`);
-      // Consome o aviso para não repeti-lo ao voltar pelo histórico,
-      // mantendo os filtros que estavam na URL.
-      void navigate(
-        { pathname: "/locais", search: location.search },
-        { replace: true, state: null }
-      );
-    }, 100);
-
-    return () => window.clearTimeout(timeout);
-  }, [location.state, location.search, navigate]);
+  }, [location.state]);
 
   const resultados = ordenarLocais(
     filtrarLocais(locais, termo, filtros, favoritos),
@@ -189,7 +188,23 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
     });
   };
 
-  const filtrosAtivos = listarFiltrosAtivos(searchParams);
+const filtrosAtivos = listarFiltrosAtivos(searchParams);
+const resumoFiltros = descreverFiltrosAtivos(filtrosAtivos);
+
+const textoAnuncio =
+  estado === "carregando"
+    ? "Carregando locais..."
+    : estado === "pronto" && !buscaEmEdicao
+      ? `${resultados.length} ${
+          resultados.length === 1
+            ? "local encontrado"
+            : "locais encontrados"
+        }${
+          filtrosAtivos.length > 0
+            ? ` com ${resumoFiltros}`
+            : ""
+        }`
+      : "";
 
   const removerFiltro = (filtro: FiltroAtivo, indice: number) => {
     focoFiltroPendenteRef.current = indice;
@@ -245,34 +260,34 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
             ⌕
           </span>
           <span className="sr-only">Buscar por nome, bairro ou endereço</span>
-          <input
+         <input
             id="campo-busca-locais"
             type="search"
             ref={campoBuscaRef}
             value={textoBusca}
+            onFocus={() => setBuscaEmEdicao(true)}
+            onBlur={() => setBuscaEmEdicao(false)}
             onChange={(evento) => {
               setTextoBusca(evento.target.value);
               alterarTermo(evento.target.value);
             }}
             placeholder="Buscar por nome, bairro ou endereço"
           />
-          <output aria-live="polite">
-            {estado === "pronto" && (
-              <>
-                {resultados.length}{" "}
-                {resultados.length === 1
-                  ? "local encontrado"
-                  : "locais encontrados"}
-              </>
-            )}
-          </output>
+         <output>
+          {estado === "pronto" && (
+            <>
+              {resultados.length}{" "}
+              {resultados.length === 1
+                ? "local encontrado"
+                : "locais encontrados"}
+            </>
+          )}
+       </output>
         </label>
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
-        <Mensagem tipo="sucesso" className="delete-notice">
-          {mensagemExclusao}
-        </Mensagem>
+        <MensagemConfirmacao />
         <div className="results-heading">
           <div>
             <p className="section-kicker">Explorar locais</p>
@@ -282,14 +297,14 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
                 : "Locais acessíveis"}
             </h2>
           </div>
-          
+
           <button
             className="botao botao--secundario"
             type="button"
             onClick={solicitar}
             disabled={estadoLocalizacao === "buscando"}
           >
-            {estadoLocalizacao === "buscando" 
+            {estadoLocalizacao === "buscando"
               ? "Obtendo localização..."
               : "Usar minha localização"}
           </button>
@@ -342,9 +357,10 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
 
         <output
           aria-live="polite"
+          aria-atomic="true"
           className={estado === "carregando" ? "empty-state" : "sr-only"}
         >
-          {estado === "carregando" ? "Carregando locais..." : ""}
+          {textoAnuncio}
         </output>
 
         <Mensagem
@@ -463,8 +479,11 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
         </aside>
 
         {estado === "pronto" && filtrosAtivos.length > 0 && (
-          <div className="active-filters" aria-label="Filtros ativos">
-            <span>Filtros ativos:</span>
+          <section
+            className="active-filters"
+            aria-labelledby="filtros-ativos-titulo"
+          >
+            <h3 id="filtros-ativos-titulo">Filtros ativos</h3>
             {filtrosAtivos.map((filtro, indice) => (
               <button
                 className="botao botao--secundario"
@@ -479,7 +498,7 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
                 {filtro.rotulo} <span aria-hidden="true">×</span>
               </button>
             ))}
-          </div>
+          </section>
         )}
 
         {estado === "pronto" &&
@@ -524,8 +543,8 @@ const { estado: estadoLocalizacao, posicao, solicitar} = useLocalizacao();
                 {filtros.somenteFavoritos && favoritos.length === 0
                   ? "Você ainda não favoritou nenhum local. Favorite locais para encontrá-los com este filtro."
                   : termo.trim()
-                  ? `Não foi possível encontrar locais para “${termo.trim()}”`
-                  : "Tente remover algum filtro ou buscar por outro termo."}
+                    ? `Não foi possível encontrar locais para “${termo.trim()}”`
+                    : "Tente remover algum filtro ou buscar por outro termo."}
               </p>
               <button
                 className="clear-button prominent"
