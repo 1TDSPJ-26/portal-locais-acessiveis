@@ -1,3 +1,4 @@
+
 import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
@@ -5,10 +6,7 @@ import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
-import {
-  compartilharLink,
-  type ResultadoCompartilhamento,
-} from "../../utils/compartilhar-link";
+import type { ResultadoCompartilhamento } from "../../utils/compartilhar-link";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
 
 export default function DetalheLocal() {
@@ -68,9 +66,11 @@ export default function DetalheLocal() {
       <div className="app-shell content">
         <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
         <h1>Não foi possível carregar o local</h1>
+
         <Mensagem tipo="erro">
           Tente novamente para consultar as informações do local.
         </Mensagem>
+
         <button
           className="botao botao--secundario"
           type="button"
@@ -78,6 +78,7 @@ export default function DetalheLocal() {
         >
           Tentar novamente
         </button>
+
         <p>
           <Link to={origemListagem} state={{ retornoDaListagem: true }}>
             Voltar para a listagem de locais
@@ -93,13 +94,17 @@ export default function DetalheLocal() {
     return (
       <div className="app-shell content">
         <title>Local não encontrado | Portal de Locais e Serviços Acessíveis</title>
+
         <TrilhaNavegacao
           niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
         />
+
         <h1>Local não encontrado</h1>
+
         <Mensagem tipo="aviso">
           Não existe um local com o identificador informado.
         </Mensagem>
+
         <Link to={origemListagem} state={{ retornoDaListagem: true }}>
           Voltar para a listagem de locais
         </Link>
@@ -122,32 +127,22 @@ export default function DetalheLocal() {
     location.state as { mensagem?: string } | null
   )?.mensagem;
 
-  const nomeLocal = local.nome;
   const urlCompartilhamento =
     `${window.location.origin}/locais/${local.id}`;
 
   async function handleCompartilharLocal() {
     setResultadoCompartilhamento(null);
 
-    const share = navigator.share;
-    const clipboard = navigator.clipboard;
-
-    const resultado = await compartilharLink(
-      nomeLocal,
-      urlCompartilhamento,
-      {
-        share:
-          typeof share === "function"
-            ? share.bind(navigator)
-            : undefined,
-        writeText:
-          typeof clipboard?.writeText === "function"
-            ? clipboard.writeText.bind(clipboard)
-            : undefined,
-      },
-    );
-
-    setResultadoCompartilhamento(resultado);
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(urlCompartilhamento);
+        setResultadoCompartilhamento("copiado");
+      } else {
+        setResultadoCompartilhamento("falhou");
+      }
+    } catch {
+      setResultadoCompartilhamento("falhou");
+    }
   }
 
   return (
@@ -282,9 +277,7 @@ export default function DetalheLocal() {
                   <>
                     <dt>Telefone</dt>
                     <dd>
-                      <a
-                        href={`tel:${telefone.replace(/[^\d+]/g, "")}`}
-                      >
+                      <a href={`tel:${telefone.replace(/[^\d+]/g, "")}`}>
                         {telefone}
                       </a>
                     </dd>
@@ -384,6 +377,7 @@ export default function DetalheLocal() {
         onClose={() => excluirRef.current?.focus()}
       >
         <h2 id="titulo-exclusao">Excluir local?</h2>
+
         <p id="descricao-exclusao">
           O local <strong>{local.nome}</strong> será excluído. Esta ação não pode
           ser desfeita.
