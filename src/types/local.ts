@@ -20,6 +20,8 @@ export interface Local {
   nome: string
   categoria: CategoriaLocal
   endereco: string
+  latitude?: number
+  longitude?: number
   recursos: RecursoAcessibilidade[]
   /* Preenchidos pelo cadastro. Sao opcionais porque os locais de exemplo em
      `src/data/locais.ts` antecedem o formulario e nao os possuem. */
@@ -32,6 +34,7 @@ export interface Local {
 export interface FiltrosLocais {
   categoria: CategoriaLocal | ''
   recursos: RecursoAcessibilidade[]
+  somenteFavoritos: boolean
 }
 
 /* ── Formulário de cadastro ────────────────────────────────────────────────

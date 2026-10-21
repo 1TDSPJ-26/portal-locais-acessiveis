@@ -10,7 +10,11 @@ import { carregarComReserva, carregarLocais } from "./services/locais";
 import type { MotivoErro } from "./services/erros";
 import { locais as locaisReserva } from "./data/locais";
 import type { Local } from "./types/local";
-import { salvarLocais } from "./persistenciaLocais";
+import {
+  carregarAtualizadoEm,
+  registrarAtualizacao,
+  salvarLocais,
+} from "./persistenciaLocais";
 
 interface LocaisProviderProps {
   children: ReactNode;
@@ -28,6 +32,7 @@ export function LocaisProvider({
   const [usandoReserva, setUsandoReserva] = useState(false);
   const [motivoErro, setMotivoErro] = useState<MotivoErro | undefined>(undefined);
   const [alteradoPeloUsuario, setAlteradoPeloUsuario] = useState(false);
+  const [atualizadoEm, setAtualizadoEm] = useState<Date | null>(carregarAtualizadoEm); 
   // Guarda o histórico de IDs desta sessão, mesmo quando a lista fica vazia.
   const maiorIdUtilizado = useRef(0);
 
@@ -67,6 +72,12 @@ export function LocaisProvider({
     }
   }, [estado, locais, usandoReserva, alteradoPeloUsuario]);
 
+  const registrarAlteracao = () => {
+    const agora = new Date();
+    registrarAtualizacao(agora);
+    setAtualizadoEm(agora);
+  };
+
   const tentarNovamente = () => {
     setEstado("carregando");
     setTentativa((atual) => atual + 1);
@@ -83,6 +94,7 @@ export function LocaisProvider({
     maiorIdUtilizado.current = novoLocal.id;
     setLocais((anteriores) => [...anteriores, novoLocal]);
     setAlteradoPeloUsuario(true);
+    registrarAlteracao();
     return novoLocal;
   };
 
@@ -94,6 +106,7 @@ export function LocaisProvider({
     const locaisAtualizados = editarLocal(locais, id, dados);
     setLocais(locaisAtualizados);
     setAlteradoPeloUsuario(true);
+    registrarAlteracao();
 
     const localAtualizado = locaisAtualizados.find((local) => local.id === id);
     if (!localAtualizado) {
@@ -107,10 +120,11 @@ export function LocaisProvider({
     if (estado !== "pronto" || !locais.some((local) => local.id === id)) return;
     setLocais((anteriores) => excluirLocal(anteriores, id));
     setAlteradoPeloUsuario(true);
+    registrarAlteracao();
   };
 
   return (
-    <LocaisContext.Provider value={{ locais, estado, usandoReserva, motivoErro, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal }}>
+    <LocaisContext.Provider value={{ locais, estado, usandoReserva, atualizadoEm, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal }}>
       {children}
     </LocaisContext.Provider>
   );
