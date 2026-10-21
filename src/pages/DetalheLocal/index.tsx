@@ -12,7 +12,6 @@ import {
   compartilharLink,
   type ResultadoCompartilhamento,
 } from "../../utils/compartilhar-link";
-import { getMensagemErro } from "../../utils/mensagens-erro";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
 
 export default function DetalheLocal() { 

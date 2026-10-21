@@ -9,7 +9,6 @@ export interface LocaisContextValue {
   locais: Local[];
   estado: EstadoLocais;
   usandoReserva: boolean;
-  motivoErro?: MotivoErro;
   atualizadoEm: Date | null;
   tentarNovamente: () => void;
   cadastrarLocal: (dados: DadosCadastroLocal) => Local;

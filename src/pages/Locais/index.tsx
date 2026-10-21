@@ -17,7 +17,6 @@ import {
   listarFiltrosAtivos,
   type FiltroAtivo,
 } from "../../utils/filtros-ativos";
-import { getMensagemErro } from "../../utils/mensagens-erro";
 import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
 import { formatarDataAtualizacao } from "../../utils/formatar-data-atualizacao";
 import { usePaginacao } from "../../hooks/usePaginacao";
