@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { listarFiltrosAtivos } from "../src/utils/filtros-ativos.ts";
+import {
+  listarFiltrosAtivos,
+  descreverFiltrosAtivos,
+} from "../src/utils/filtros-ativos.ts";
 
 test("lista os filtros ativos com tipo, valor e rótulo", () => {
   const params = new URLSearchParams(
@@ -23,3 +26,32 @@ test("ignora parâmetros vazios ou que não representam filtros válidos", () =>
 
   assert.deepEqual(listarFiltrosAtivos(params), []);
 });
+
+
+test("descreve quando não existem filtros ativos", () => {
+  assert.equal(descreverFiltrosAtivos([]), "Nenhum filtro ativo");
+});
+
+test("descreve um filtro ativo no singular", () => {
+  const filtros = [
+    { tipo: "categoria", valor: "Cultura", rotulo: "Cultura" },
+  ];
+
+  assert.equal(
+    descreverFiltrosAtivos(filtros),
+    "1 filtro ativo: categoria Cultura"
+  );
+});
+
+test("descreve vários filtros ativos no plural", () => {
+  const filtros = [
+    { tipo: "categoria", valor: "Cultura", rotulo: "Cultura" },
+    { tipo: "recurso", valor: "Libras", rotulo: "Libras" },
+  ];
+
+  assert.equal(
+    descreverFiltrosAtivos(filtros),
+    "2 filtros ativos: categoria Cultura e recurso Libras"
+  );
+});
+

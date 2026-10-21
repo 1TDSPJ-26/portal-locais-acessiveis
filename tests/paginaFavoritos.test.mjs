@@ -35,6 +35,7 @@ function compilar(caminho) {
 const { default: Favoritos } = await import(compilar("../src/pages/Favoritos/index.tsx"));
 const { LocaisContext } = await import(compilar("../src/LocaisContext.ts"));
 const { FavoritosContext } = await import(compilar("../src/FavoritosContext.ts"));
+const { LocalizacaoContext } = await import(compilar("../src/LocalizacaoContext.ts"));
 const { Header } = await import(compilar("../src/components/Header/index.tsx"));
 const { PreferenciasContext } = await import(compilar("../src/PreferenciasContext.tsx"));
 
@@ -48,7 +49,9 @@ function renderizar({ ids = [3, 1], estado = "pronto", usandoReserva = false } =
   return renderToStaticMarkup(createElement(MemoryRouter, { initialEntries: ["/favoritos"] },
     createElement(LocaisContext.Provider, { value: { locais, estado, usandoReserva, tentarNovamente() {} } },
       createElement(FavoritosContext.Provider, { value: { ehFavorito: (id) => ids.includes(id), alternarFavorito() {} } },
-        createElement(Favoritos),
+        createElement(LocalizacaoContext.Provider, { value: { estado: "inativo", posicao: null, erro: null, solicitar() {} } },
+          createElement(Favoritos),
+        ),
       ),
     ),
   ));
@@ -109,13 +112,43 @@ test("a reserva avisa da falha, permite tentar novamente e conta somente os cart
 
 test("o menu inclui Favoritos e destaca o link somente na sua rota", () => {
   for (const rota of ["/favoritos", "/locais"]) {
-    const html = renderToStaticMarkup(createElement(MemoryRouter, { initialEntries: [rota] },
-      createElement(PreferenciasContext.Provider, { value: { fonte: "normal", contraste: "normal" } },
-        createElement(Header),
+    const html = renderToStaticMarkup(
+      createElement(
+        MemoryRouter,
+        { initialEntries: [rota] },
+        createElement(
+          PreferenciasContext.Provider,
+          {
+            value: {
+              fonte: "normal",
+              contraste: "normal",
+            },
+          },
+          createElement(
+            FavoritosContext.Provider,
+            {
+              value: {
+                favoritos: [],
+                ehFavorito: () => false,
+                alternarFavorito() {},
+                totalFavoritos: 0,
+              },
+            },
+            createElement(Header),
+          ),
+        ),
       ),
-    ));
-    const link = html.match(/<a\b[^>]*href="\/favoritos"[^>]*>Favoritos<\/a>/)?.[0];
-    assert.ok(link, "o link pertence ao mesmo painel usado no desktop e no mobile");
+    );
+
+    const link = html.match(
+      /<a\b(?=[^>]*href="\/favoritos")[^>]*>[\s\S]*?<\/a>/,
+    )?.[0];
+
+    assert.ok(
+      link,
+      "o link pertence ao mesmo painel usado no desktop e no mobile",
+    );
+
     if (rota === "/favoritos") {
       assert.match(link, /aria-current="page"/);
       assert.match(link, /class="nav-link active"/);
