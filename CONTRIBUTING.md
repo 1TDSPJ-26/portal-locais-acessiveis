@@ -13,6 +13,7 @@ git flow version
 git flow init
 ```
 
+
 Durante o `git flow init`:
 
 - confirme `main` como branch de produção;
