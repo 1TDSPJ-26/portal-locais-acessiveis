@@ -30,7 +30,7 @@ export function LocaisProvider({
   const [estado, setEstado] = useState<EstadoLocais>("carregando");
   const [tentativa, setTentativa] = useState(0);
   const [usandoReserva, setUsandoReserva] = useState(false);
-  const [motivoErro, setMotivoErro] = useState<MotivoErro | undefined>(undefined);
+  const [__motivoErro, setMotivoErro] = useState<MotivoErro | undefined>(undefined);
   const [alteradoPeloUsuario, setAlteradoPeloUsuario] = useState(false);
   const [atualizadoEm, setAtualizadoEm] = useState<Date | null>(carregarAtualizadoEm); 
   // Guarda o histórico de IDs desta sessão, mesmo quando a lista fica vazia.

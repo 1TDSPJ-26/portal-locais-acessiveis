@@ -60,7 +60,7 @@ export function carregarLocaisSalvos(): Local[] | null {
   let bruto: string | null;
   try {
     bruto = localStorage.getItem(CHAVE_LOCAIS);
-  } catch (erro) {
+  } catch {
     throw new ErroCarregamentoLocais(
       "armazenamento-indisponivel",
       "O armazenamento do navegador não está disponível.",
@@ -120,6 +120,6 @@ export function registrarAtualizacao(data: Date = new Date()): void {
   try {
     localStorage.setItem(CHAVE_ATUALIZADO_EM, data.toISOString());
   } catch {
+    // ignora falha de armazenamento
   }
-
 }

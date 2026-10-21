@@ -1,6 +1,5 @@
 import { createContext } from "react";
 import type { DadosCadastroLocal } from "./services/cadastroLocal";
-import type { MotivoErro } from "./services/erros";
 import type { Local } from "./types/local";
 
 export type EstadoLocais = "carregando" | "pronto" | "erro";
