@@ -8,6 +8,7 @@ export interface LocaisContextValue {
   locais: Local[];
   estado: EstadoLocais;
   usandoReserva: boolean;
+  atualizadoEm: Date | null;
   tentarNovamente: () => void;
   cadastrarLocal: (dados: DadosCadastroLocal) => Local;
   atualizarLocal: (id: number, dados: DadosCadastroLocal) => Local;

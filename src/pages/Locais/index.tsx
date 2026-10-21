@@ -17,6 +17,7 @@ import {
   type FiltroAtivo,
 } from "../../utils/filtros-ativos";
 import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
+import { formatarDataAtualizacao } from "../../utils/formatar-data-atualizacao";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
@@ -32,8 +33,7 @@ import {
 import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 
 export default function LocaisPage() {
-export default function LocaisPage() {
-  const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
+  const { locais, estado, usandoReserva, atualizadoEm, tentarNovamente } = useLocais();
   const { estado: estadoLocalizacao, posicao, solicitar } = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -328,16 +328,22 @@ onKeyDown={(evento) => {
 onBlur={() => registrarBusca(textoBusca)}
             placeholder="Buscar por nome, bairro ou endereço"
           />
-          <output>
-          {estado === "pronto" && (
-            <>
-              {resultados.length}{" "}
-              {resultados.length === 1
-                ? "local encontrado"
-                : "locais encontrados"}
-            </>
-          )}
-        </output>
+          <output aria-live="polite">
+            {estado === "pronto" && (
+              <p className="data-atualizacao">
+                {atualizadoEm ? (
+                  <>
+                    Lista atualizada em{" "}
+                    <time dateTime={atualizadoEm.toISOString()}>
+                      {formatarDataAtualizacao(atualizadoEm)}
+                    </time>
+                  </>
+                ) : (
+                  "Lista com os dados de exemplo do portal"
+                )}
+              </p>
+            )}
+          </output>
         </label>
                 {historico.length > 0 && (
           <div className="historico-buscas" aria-label="Pesquisas recentes">

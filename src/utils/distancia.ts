@@ -15,3 +15,24 @@ export function calcularDistanciaKm(origem: Coordenadas, destino: Coordenadas): 
     
     return RAIO_TERRA_KM * anguloCentral
 }
+const formatadorKm = new Intl.NumberFormat("pt-BR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+});
+
+function arredondarMetros(km: number): number {
+    return Math.round((km * 1000) / 50) * 50;
+}
+
+export function formatarDistancia(km: number): string {
+    const metros = arredondarMetros(km);
+    if (metros < 1000) return `${metros} m`;
+    return `${formatadorKm.format(km)} km`;
+}
+
+export function formatarDistanciaPorExtenso(km: number): string {
+    const metros = arredondarMetros(km);
+    if (metros < 1000) return `${metros} metros`;
+    const unidade = Math.round(km * 10) / 10 < 2 ? "quilômetro" : "quilômetros";
+    return `${formatadorKm.format(km)} ${unidade}`;
+}
