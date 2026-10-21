@@ -1,8 +1,9 @@
-import { Link } from "react-router";
+import { Link, type To } from "react-router";
 
 export interface NivelTrilha {
   rotulo: string;
-  destino?: string;
+  destino?: To;
+  state?: unknown;
 }
 
 interface TrilhaNavegacaoProps {
@@ -23,7 +24,7 @@ export default function TrilhaNavegacao({ niveis }: TrilhaNavegacaoProps) {
                   {nivel.rotulo}
                 </span>
               ) : (
-                <Link to={nivel.destino}>{nivel.rotulo}</Link>
+                <Link to={nivel.destino} state={nivel.state}>{nivel.rotulo}</Link>
               )}
             </li>
           );
