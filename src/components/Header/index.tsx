@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useFavoritos } from "../../useFavoritos";
 import { NavLink, useLocation } from "react-router";
 import { usePreferencias } from "../../PreferenciasContext";
 
@@ -6,6 +7,13 @@ export function Header() {
   const { fonte, contraste, definirFonte, alternarContraste, restaurar } =
     usePreferencias();
   const location = useLocation();
+
+  const { totalFavoritos } = useFavoritos();
+
+const rotuloFavoritos =
+  totalFavoritos === 1
+    ? "Favoritos, 1 local"
+    : `Favoritos, ${totalFavoritos} locais`;
 
   const [menuAberto, setMenuAberto] = useState(false);
   const botaoMenuRef = useRef<HTMLButtonElement>(null);
@@ -153,10 +161,6 @@ export function Header() {
           Locais
         </NavLink>
 
-        <NavLink to="/favoritos" className={linkClass} onClick={() => setMenuAberto(false)}>
-          Favoritos
-        </NavLink>
-
         <NavLink to="/cadastrar" className={linkClass} onClick={() => setMenuAberto(false)}>
           Cadastro
         </NavLink>
@@ -168,6 +172,21 @@ export function Header() {
         <NavLink to="/acessibilidade" className={linkClass} onClick={() => setMenuAberto(false)}>
           Acessibilidade
         </NavLink>
+
+        <NavLink
+  to="/favoritos"
+  className={linkClass}
+  onClick={() => setMenuAberto(false)}
+  aria-label={totalFavoritos > 0 ? rotuloFavoritos : "Favoritos"}
+>
+  Favoritos
+
+  {totalFavoritos > 0 && (
+    <span className="favoritos-contador" aria-hidden="true">
+      {totalFavoritos}
+    </span>
+  )}
+</NavLink>
       </nav>
 
       <fieldset className="controles-exibicao">

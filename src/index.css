@@ -497,6 +497,23 @@ h3 {
   color: var(--on-accent);
   font-size: 12px;
 }
+
+.favoritos-contador {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  min-height: 20px;
+  margin-inline-start: 7px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
 .filters-panel {
   margin: 28px 0;
   padding: 25px 28px;
@@ -643,11 +660,6 @@ legend span {
 
 
 header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
-#menu-principal .nav-link.active {
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
 header, main, footer { min-width: 0; }
 
 /* Linha que agrupa o título e o botão do menu mobile. Em telas largas o
@@ -911,199 +923,4 @@ main:focus {
   background: var(--card);
   color: var(--ink);
   padding: 8px 12px;
-}
-
-.sort-field select {
-  border: 1px solid var(--control);
-  background: var(--card);
-  color: var(--ink);
-  padding: 8px 12px;
-}
-
-
-/* Issue #162 - layout da página de detalhe */
-
-.detalhe-identificacao {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-3);
-  margin-bottom: var(--espaco-6);
-}
-
-.detalhe-categoria {
-  align-self: flex-start;
-  padding: var(--espaco-2) var(--espaco-3);
-  border-radius: var(--raio-lg);
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: var(--texto-sm);
-  font-weight: 700;
-}
-
-.detalhe-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr);
-  gap: var(--espaco-7);
-  align-items: start;
-}
-
-.detalhe-principal,
-.detalhe-lateral {
-  min-width: 0;
-}
-
-.detalhe-principal {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-6);
-}
-
-.detalhe-lateral {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-5);
-}
-
-@media (max-width: 48rem) {
-  .detalhe-layout {
-    grid-template-columns: 1fr;
-    gap: var(--espaco-6);
-  }
-}
-
-.detalhe-informacoes {
-  margin: 0;
-}
-
-.detalhe-informacoes dt {
-  margin-bottom: var(--espaco-1);
-  color: var(--muted);
-  font-size: var(--texto-sm);
-  font-weight: 700;
-}
-
-.detalhe-informacoes dd {
-  margin: 0 0 var(--espaco-4);
-  color: var(--ink);
-  font-size: var(--texto-lg);
-}
-
-.detalhe-informacoes dd:last-child {
-  margin-bottom: 0;
-}
-
-.detalhe-descricao {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-3);
-}
-
-.detalhe-descricao p {
-  max-width: var(--largura-texto);
-  margin: 0;
-  line-height: var(--entrelinha-texto);
-}
-
-.detalhe-recursos {
-  padding: var(--espaco-5);
-  border: 1px solid var(--accent);
-  border-radius: var(--raio-lg);
-  background: var(--accent-soft);
-}
-
-.detalhe-recursos ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--espaco-2);
-  margin: var(--espaco-4) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.detalhe-recursos li {
-  padding: var(--espaco-2) var(--espaco-3);
-  border: 1px solid var(--accent);
-  border-radius: var(--raio-lg);
-  background: var(--card);
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.detalhe-recursos p {
-  margin: var(--espaco-4) 0 0;
-}
-
-.detalhe-acoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--espaco-2);
-}
-
-.detalhe-contato {
-  padding: var(--espaco-5);
-  border: 1px solid var(--line);
-  border-radius: var(--raio-lg);
-  background: var(--card);
-}
-
-.detalhe-contato h2 {
-  margin-bottom: var(--espaco-4);
-}
-
-.detalhe-exclusao {
-  padding-top: var(--espaco-5);
-  border-top: 1px solid var(--line);
-}
-
-.botao--perigo {
-  color: var(--alert);
-  background: var(--card);
-  border-color: var(--alert);
-}
-
-.botao--perigo:hover {
-  color: var(--card);
-  background: var(--alert);
-}
-
-.detalhe-voltar {
-  display: inline-block;
-  margin-top: var(--espaco-6);
-  color: var(--accent);
-  font-weight: 600;
-  text-underline-offset: 0.2em;
-}
-
-.detalhe-compartilhamento-manual {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-2);
-}
-
-@media (max-width: 48rem) {
-  .detalhe-acoes {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .detalhe-acoes .botao {
-    width: 100%;
-  }
-
-  .detalhe-recursos {
-    padding: var(--espaco-4);
-  }
-
-  .detalhe-recursos li {
-    max-width: 100%;
-    overflow-wrap: anywhere;
-  }
-
-  .detalhe-contato {
-    padding: var(--espaco-4);
-  }
-
-  .detalhe-voltar {
-    overflow-wrap: anywhere;
-  }
 }
