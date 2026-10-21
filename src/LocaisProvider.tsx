@@ -124,7 +124,7 @@ export function LocaisProvider({
   };
 
   return (
-    <LocaisContext.Provider value={{ locais, estado, usandoReserva, atualizadoEm, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal, motivoErro }}>
+    <LocaisContext.Provider value={{ locais, estado, usandoReserva, motivoErro, atualizadoEm, tentarNovamente, cadastrarLocal, atualizarLocal, removerLocal }}>
       {children}
     </LocaisContext.Provider>
   );

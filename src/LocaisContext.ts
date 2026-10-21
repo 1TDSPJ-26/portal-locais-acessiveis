@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { DadosCadastroLocal } from "./services/cursos";
+import type { DadosCadastroLocal } from "./services/cadastroLocal";
 import type { MotivoErro } from "./services/erros";
 import type { Local } from "./types/local";
 
@@ -9,6 +9,7 @@ export interface LocaisContextValue {
   locais: Local[];
   estado: EstadoLocais;
   usandoReserva: boolean;
+  motivoErro?: MotivoErro;
   atualizadoEm: Date | null;
   tentarNovamente: () => void;
   cadastrarLocal: (dados: DadosCadastroLocal) => Local;
