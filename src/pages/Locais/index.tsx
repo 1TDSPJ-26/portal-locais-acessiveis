@@ -23,6 +23,14 @@ import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
 import Mensagem from "../../components/Mensagem";
+import { Paginacao } from "../../components/Paginacao";
+import { LocalCard } from "../../components/LocalCard";
+import Mensagem from "../../components/Mensagem";
+import {
+  adicionarAoHistorico,
+  carregarHistorico,
+  salvarHistorico,
+} from "../../historicoBuscas";
 import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 
 export default function LocaisPage() {
@@ -63,7 +71,14 @@ export default function LocaisPage() {
   const botoesFiltrosRef = useRef<(HTMLButtonElement | null)[]>([]);
   const focoFiltroPendenteRef = useRef<number | null>(null);
   const [textoBusca, setTextoBusca] = useState(termo);
-  const [buscaEmEdicao, setBuscaEmEdicao] = useState(false);
+
+import {
+  adicionarAoHistorico,
+  carregarHistorico,
+  salvarHistorico,
+} from "../../historicoBuscas";
+import MensagemConfirmacao from "../../components/MensagemConfirmacao";
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -154,7 +169,39 @@ export default function LocaisPage() {
       else params.delete("busca");
     });
   };
+const registrarBusca = (valor: string) => {
+  const termoLimpo = valor.trim().replace(/\s+/g, " ");
 
+  if (termoLimpo.length < 2) return;
+
+  const termoNormalizado = termoLimpo
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("pt-BR");
+
+  if (ultimaBuscaRegistradaRef.current === termoNormalizado) return;
+
+  ultimaBuscaRegistradaRef.current = termoNormalizado;
+
+  const novoHistorico = adicionarAoHistorico(historico, termoLimpo);
+
+  setHistorico(novoHistorico);
+  salvarHistorico(novoHistorico);
+};
+
+const repetirBusca = (pesquisa: string) => {
+  ultimaBuscaRegistradaRef.current = null;
+  setTextoBusca(pesquisa);
+  alterarTermo(pesquisa);
+  registrarBusca(pesquisa);
+  campoBuscaRef.current?.focus();
+};
+
+const limparHistorico = () => {
+  setHistorico([]);
+  ultimaBuscaRegistradaRef.current = null;
+  salvarHistorico([]);
+};
   const alterarCategoria = (valor: FiltrosLocais["categoria"]) => {
     atualizarParametros((params) => {
       if (valor) params.set("categoria", valor);
@@ -262,7 +309,7 @@ const textoAnuncio =
             ⌕
           </span>
           <span className="sr-only">Buscar por nome, bairro ou endereço</span>
-         <input
+          <input
             id="campo-busca-locais"
             type="search"
             ref={campoBuscaRef}
@@ -270,9 +317,16 @@ const textoAnuncio =
             onFocus={() => setBuscaEmEdicao(true)}
             onBlur={() => setBuscaEmEdicao(false)}
             onChange={(evento) => {
-              setTextoBusca(evento.target.value);
-              alterarTermo(evento.target.value);
-            }}
+  setTextoBusca(evento.target.value);
+  ultimaBuscaRegistradaRef.current = null;
+  alterarTermo(evento.target.value);
+}}
+onKeyDown={(evento) => {
+  if (evento.key === "Enter") {
+    registrarBusca(textoBusca);
+  }
+}}
+onBlur={() => registrarBusca(textoBusca)}
             placeholder="Buscar por nome, bairro ou endereço"
           />
           <output aria-live="polite">
@@ -292,6 +346,34 @@ const textoAnuncio =
             )}
           </output>
         </label>
+                {historico.length > 0 && (
+          <div className="historico-buscas" aria-label="Pesquisas recentes">
+            <p>Pesquisas recentes</p>
+
+            <div className="historico-buscas__lista">
+              {historico.map((pesquisa) => (
+                <button
+                  key={pesquisa}
+                  className="botao botao--secundario"
+                  type="button"
+                  onMouseDown={(evento) => evento.preventDefault()}
+                  onClick={() => repetirBusca(pesquisa)}
+                >
+                  {pesquisa}
+                </button>
+              ))}
+
+              <button
+                className="botao botao--secundario"
+                type="button"
+                onMouseDown={(evento) => evento.preventDefault()}
+                onClick={limparHistorico}
+              >
+                Limpar histórico
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
