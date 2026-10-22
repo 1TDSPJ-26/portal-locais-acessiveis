@@ -1,11 +1,9 @@
-
 import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
-import { getMensagemErro } from "../../utils/mensagens-erro";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
 import type { ResultadoCompartilhamento } from "../../utils/compartilhar-link";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
@@ -63,10 +61,12 @@ export default function DetalheLocal() {
   }
 
   if (estado === "erro") {
-    const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
     return (
       <div className="app-shell content">
-        <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
+        <title>
+          Erro ao carregar local | Portal de Locais e Serviços Acessíveis
+        </title>
+
         <h1>Não foi possível carregar o local</h1>
 
         <Mensagem tipo="erro">
@@ -95,7 +95,9 @@ export default function DetalheLocal() {
   if (!local) {
     return (
       <div className="app-shell content">
-        <title>Local não encontrado | Portal de Locais e Serviços Acessíveis</title>
+        <title>
+          Local não encontrado | Portal de Locais e Serviços Acessíveis
+        </title>
 
         <TrilhaNavegacao
           niveis={[...niveisBase, { rotulo: "Local não encontrado" }]}
@@ -125,12 +127,10 @@ export default function DetalheLocal() {
       : `https://${site}`
     : undefined;
 
-  const mensagemSucesso = (
-    location.state as { mensagem?: string } | null
-  )?.mensagem;
+  const mensagemSucesso = (location.state as { mensagem?: string } | null)
+    ?.mensagem;
 
-  const urlCompartilhamento =
-    `${window.location.origin}/locais/${local.id}`;
+  const urlCompartilhamento = `${window.location.origin}/locais/${local.id}`;
 
   async function handleCompartilharLocal() {
     setResultadoCompartilhamento(null);
@@ -149,18 +149,11 @@ export default function DetalheLocal() {
 
   return (
     <article className="app-shell content">
-      <title>
-        {`${local.nome} | Portal de Locais e Serviços Acessíveis`}
-      </title>
+      <title>{`${local.nome} | Portal de Locais e Serviços Acessíveis`}</title>
 
-      <TrilhaNavegacao
-        niveis={[...niveisBase, { rotulo: local.nome }]}
-      />
+      <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
 
-      <Mensagem
-        tipo="sucesso"
-        className={mensagemSucesso ? "mb-4" : undefined}
-      >
+      <Mensagem tipo="sucesso" className={mensagemSucesso ? "mb-4" : undefined}>
         {mensagemSucesso}
       </Mensagem>
 
@@ -190,9 +183,7 @@ export default function DetalheLocal() {
             className="detalhe-recursos"
             aria-labelledby="titulo-recursos-local"
           >
-            <h2 id="titulo-recursos-local">
-              Recursos de acessibilidade
-            </h2>
+            <h2 id="titulo-recursos-local">Recursos de acessibilidade</h2>
 
             <ul>
               {local.recursos.map((recurso) => (
@@ -331,16 +322,16 @@ export default function DetalheLocal() {
       {resultadoCompartilhamento && (
         <div
           className="detalhe-compartilhamento-overlay"
+          role="presentation"
           onMouseDown={(evento) => {
             if (evento.target === evento.currentTarget) {
               fecharCompartilhamento();
             }
           }}
         >
-          <section
+          <dialog
+            open
             className="detalhe-compartilhamento-modal"
-            role="dialog"
-            aria-modal="true"
             aria-label="Compartilhamento do local"
           >
             <button
@@ -355,11 +346,7 @@ export default function DetalheLocal() {
             </button>
 
             <Mensagem
-              tipo={
-                resultadoCompartilhamento === "falhou"
-                  ? "erro"
-                  : "sucesso"
-              }
+              tipo={resultadoCompartilhamento === "falhou" ? "erro" : "sucesso"}
             >
               {resultadoCompartilhamento === "copiado" &&
                 "Link copiado. Agora é só colar onde quiser."}
@@ -367,7 +354,7 @@ export default function DetalheLocal() {
               {resultadoCompartilhamento === "falhou" &&
                 "Não foi possível copiar o link. Ele está no campo abaixo; selecione e copie o endereço manualmente."}
             </Mensagem>
-          </section>
+          </dialog>
         </div>
       )}
 
@@ -381,8 +368,8 @@ export default function DetalheLocal() {
         <h2 id="titulo-exclusao">Excluir local?</h2>
 
         <p id="descricao-exclusao">
-          O local <strong>{local.nome}</strong> será excluído. Esta ação não pode
-          ser desfeita.
+          O local <strong>{local.nome}</strong> será excluído. Esta ação não
+          pode ser desfeita.
         </p>
 
         <div className="local-actions">

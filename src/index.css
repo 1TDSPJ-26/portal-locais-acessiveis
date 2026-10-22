@@ -1138,9 +1138,12 @@ main:focus {
   max-height: 90vh;
   overflow-y: auto;
   padding: 2.5rem 1.5rem 1.5rem;
+  border: none;
+  outline: none;
   border-radius: 12px;
-  background: var(--cor-fundo, #fff);
-  box-shadow: 0 8px 32px rgb(0 0 0 / 25%);
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: none;
 }
 
 .detalhe-compartilhamento-fechar {
