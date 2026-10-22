@@ -119,3 +119,28 @@ Plano adotado para não travar as dependentes: nenhum plano
 | #144 | #168 | milasnt | nulo | nulo | nulo |
 | #145 | #176 | henriqueosuka | nulo | nulo | nulo |
 | #146 | nulo | Tadeul | nulo | nulo | nulo |
+
+## 7. Verificação final em `develop`
+
+Cenário: local favoritado que também exibe a distância.
+
+| Tela | Favorito aparece | Distância aparece | Resultado |
+|---|---|---|---|
+| Listagem (`/locais`) | nada | nenhuma poisnao favoritei nada | tudo certo |
+
+Caminhos testados na página de favoritos:
+
+- Localização pedida na listagem e depois navegação para favoritos:
+  tudo certo
+- Abertura direta de favoritos, sem pedir a localização antes:
+  tudo certo
+
+Commit de `develop` verificado: sim
+Problemas encontrados: nenhum
+Captura de tela: nenhuma
+
+## 8. Resultado dos comandos
+
+- `npm run lint`: Found 0 warnings and 0 errors.
+- `npm run build`: fez a build em 344ms
+- `npm test`: testou os 208 funcoes, todas passam no teste
