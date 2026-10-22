@@ -5,6 +5,7 @@ import Mensagem from "../../components/Mensagem";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
+import { getMensagemErro } from "../../utils/mensagens-erro";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
 import type { ResultadoCompartilhamento } from "../../utils/compartilhar-link";
 import { obterOrigemListagem } from "../../utils/origem-listagem";
@@ -62,6 +63,7 @@ export default function DetalheLocal() {
   }
 
   if (estado === "erro") {
+    const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
     return (
       <div className="app-shell content">
         <title>Erro ao carregar local | Portal de Locais e Serviços Acessíveis</title>
