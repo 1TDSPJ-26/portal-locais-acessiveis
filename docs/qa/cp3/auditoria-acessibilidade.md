@@ -13,6 +13,7 @@
 
 - **Lighthouse CLI 12.8.2:** auditoria da categoria Acessibilidade em cada uma das quatro rotas. A pontuação registrada é a pontuação numérica do Lighthouse (0–100).
 - **axe-core 4.10.3:** verificação automatizada dos critérios WCAG 2.0/2.1 A/AA e 2.2 AA, nas quatro rotas em tema padrão e alto contraste, e no diálogo nos dois temas. O axe informa violações e verificações inconclusivas; não produz pontuação numérica.
+- **`node:test`:** verificação automatizada de que o diálogo de exclusão associa suas referências `aria-labelledby` e `aria-describedby` a elementos existentes dentro do diálogo (`tests/dialogoExclusaoAcessibilidade.test.mjs`).
 - **Teclado:** percurso com `Tab` até o ciclo de foco completo em cada rota. No diálogo, foram verificados o ciclo de foco, `Escape`, o botão Cancelar e a devolução do foco.
 - **Reflow:** verificação do conteúdo e da largura de rolagem em 320, 480 e 960 px CSS. As larguras de 480 e 960 px representam a área de layout equivalente a 400% e 200% de zoom, respectivamente, tomando 1920 px como referência. **O nível de zoom do navegador não foi alterado diretamente**; esses resultados verificam o reflow nas larguras equivalentes.
 - **Leitor de tela:** não foi possível operar NVDA, VoiceOver ou outro leitor de tela neste ambiente. Foram inspecionados os nomes, papéis, estados, landmarks e a árvore de acessibilidade disponibilizada pelo navegador, mas isso não substitui o teste com tecnologia assistiva.
