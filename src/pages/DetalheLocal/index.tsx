@@ -2,9 +2,7 @@
 import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
-import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
-import { DistanciaLocal } from "../../components/DistanciaLocal";
 import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
@@ -157,68 +155,34 @@ export default function DetalheLocal() {
         niveis={[...niveisBase, { rotulo: local.nome }]}
       />
 
-      <MensagemConfirmacao />
+      <Mensagem
+        tipo="sucesso"
+        className={mensagemSucesso ? "mb-4" : undefined}
+      >
+        {mensagemSucesso}
+      </Mensagem>
+
       <header className="detalhe-identificacao">
-  <span className="detalhe-categoria">{local.categoria}</span>
-  <h1>{local.nome}</h1>
-</header>
+        <span className="detalhe-categoria">{local.categoria}</span>
+        <h1>{local.nome}</h1>
+      </header>
 
-<div className="detalhe-layout">
-  <div className="detalhe-principal">
-    <dl className="detalhe-informacoes">
-      <dt>Endereço</dt>
-      <dd>{local.endereco}</dd>
-    </dl>
-    <DistanciaLocal local={local} />
+      <div className="detalhe-layout">
+        <div className="detalhe-principal">
+          <dl className="detalhe-informacoes">
+            <dt>Endereço</dt>
+            <dd>{local.endereco}</dd>
+          </dl>
 
-    {descricao && (
-      <section
-        className="detalhe-descricao"
-        aria-labelledby="titulo-descricao-local"
-      >
-        <h2 id="titulo-descricao-local">Descrição</h2>
-        <p>{descricao}</p>
-      </section>
-    )}
-
-    <section
-      className="detalhe-recursos"
-      aria-labelledby="titulo-recursos-local"
-    >
-      <h2 id="titulo-recursos-local">Recursos de acessibilidade</h2>
-
-      <ul>
-        {local.recursos.map((recurso) => (
-          <li key={recurso}>{recurso}</li>
-        ))}
-      </ul>
-
-      {local.recursos.length === 0 && (
-        <p>Nenhum recurso de acessibilidade informado.</p>
-      )}
-    </section>
-  </div>
-
-  <div className="detalhe-lateral">
-    <section
-      className="detalhe-acoes"
-      aria-labelledby="titulo-acoes-local"
-    >
-      <h2 id="titulo-acoes-local" className="sr-only">
-        Ações do local
-      </h2>
-
-      <BotaoFavorito local={local} />
-
-      <button
-        type="button"
-        className="botao botao--secundario"
-        onClick={() => {
-          void handleCompartilharLocal();
-        }}
-      >
-        Compartilhar local
-      </button>
+          {descricao && (
+            <section
+              className="detalhe-descricao"
+              aria-labelledby="titulo-descricao-local"
+            >
+              <h2 id="titulo-descricao-local">Descrição</h2>
+              <p>{descricao}</p>
+            </section>
+          )}
 
           <section
             className="detalhe-recursos"
@@ -436,7 +400,7 @@ export default function DetalheLocal() {
               dialogRef.current?.close();
               removerLocal(local.id);
               void navigate(origemListagem, {
-                state: { confirmacao: `Local ${local.nome} excluído com sucesso.` },
+                state: { localExcluido: local.nome },
               });
             }}
           >
