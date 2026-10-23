@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { useLocais } from "../../useLocais";
+import { useLocalizacao } from "../../useLocalizacao";
 import { useFavoritos } from "../../useFavoritos";
 import {
   categoriasLocais,
@@ -10,14 +11,23 @@ import {
   type RecursoAcessibilidade,
 } from "../../types/local";
 import { filtrarLocais } from "../../utils/filtrar-locais";
+import { getMensagemErro } from "../../utils/mensagens-erro";
+import {
+  descreverFiltrosAtivos,
+  listarFiltrosAtivos,
+  type FiltroAtivo,
+} from "../../utils/filtros-ativos";
 import { ordenarLocais, type CriterioOrdenacao } from "../../utils/ordenar-locais";
+import { formatarDataAtualizacao } from "../../utils/formatar-data-atualizacao";
 import { usePaginacao } from "../../hooks/usePaginacao";
 import { Paginacao } from "../../components/Paginacao";
 import { LocalCard } from "../../components/LocalCard";
 import Mensagem from "../../components/Mensagem";
+import MensagemConfirmacao from "../../components/MensagemConfirmacao";
 
 export default function LocaisPage() {
-  const { locais, estado, usandoReserva, tentarNovamente } = useLocais();
+  const { locais, estado, usandoReserva, motivoErro, atualizadoEm, tentarNovamente } = useLocais();
+  const { estado: estadoLocalizacao, posicao, solicitar } = useLocalizacao();
   const { favoritos } = useFavoritos();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -43,12 +53,17 @@ export default function LocaisPage() {
     somenteFavoritos: searchParams.get("favoritos") === "1",
   };
 
-  const [criterio, setCriterio] = useState<CriterioOrdenacao>("nome");
+  const criterioParam = searchParams.get("ordem");
+  const criterio: CriterioOrdenacao = criterioParam === "categoria" ? "categoria" : "nome";
+  const paginaParam = Number(searchParams.get("pagina"));
+  const paginaSolicitada = Number.isInteger(paginaParam) && paginaParam > 0 ? paginaParam : 1;
   const [painelAberto, setPainelAberto] = useState(false);
-  const [mensagemExclusao, setMensagemExclusao] = useState("");
   const tituloRef = useRef<HTMLHeadingElement>(null);
   const campoBuscaRef = useRef<HTMLInputElement>(null);
+  const botoesFiltrosRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const focoFiltroPendenteRef = useRef<number | null>(null);
   const [textoBusca, setTextoBusca] = useState(termo);
+  const [buscaEmEdicao, setBuscaEmEdicao] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -62,25 +77,32 @@ export default function LocaisPage() {
   }, [termo]);
 
   useEffect(() => {
-    const nome = location.state?.localExcluido;
-    if (typeof nome !== "string" || !nome) return;
+    if (!location.state || typeof location.state !== "object") {
+      return;
+    }
+
+    const temConfirmacao = "confirmacao" in location.state;
+    if (!temConfirmacao) {
+      return;
+    }
 
     tituloRef.current?.focus();
-    // A região viva nasce vazia e recebe o anúncio depois de montar a listagem.
-    const timeout = window.setTimeout(() => {
-      setMensagemExclusao(`Local ${nome} excluído com sucesso.`);
-      // Consome o aviso para não repeti-lo ao voltar pelo histórico,
-      // mantendo os filtros que estavam na URL.
-      void navigate(
-        { pathname: "/locais", search: location.search },
-        { replace: true, state: null }
-      );
-    }, 100);
+  }, [location.state]);
 
-    return () => window.clearTimeout(timeout);
-  }, [location.state, location.search, navigate]);
+  const resultados = ordenarLocais(
+    filtrarLocais(locais, termo, filtros, favoritos),
+    criterio,
+    estadoLocalizacao === "obtida" && posicao ? posicao : undefined,
+  );
 
-  const resultados = ordenarLocais(filtrarLocais(locais, termo, filtros, favoritos), criterio);
+  const atualizarPagina = (novaPagina: number) => {
+    setSearchParams((atuais) => {
+      const proximos = new URLSearchParams(atuais);
+      if (novaPagina <= 1) proximos.delete("pagina");
+      else proximos.set("pagina", String(novaPagina));
+      return proximos;
+    });
+  };
 
   const {
     visiveis,
@@ -94,8 +116,24 @@ export default function LocaisPage() {
     topoListaRef,
     handleMudarPagina,
     handleMudarPorPagina,
-    handleFiltroAlterado,
-  } = usePaginacao(resultados, [3, 6, 12], 3);
+  } = usePaginacao(resultados, [3, 6, 12], 3, paginaSolicitada, atualizarPagina);
+
+  useEffect(() => {
+    if (paginaSolicitada === paginaAtual) return;
+    setSearchParams((atuais) => {
+      const proximos = new URLSearchParams(atuais);
+      if (paginaAtual === 1) proximos.delete("pagina");
+      else proximos.set("pagina", String(paginaAtual));
+      return proximos;
+    }, { replace: true });
+  }, [paginaAtual, paginaSolicitada, setSearchParams]);
+
+  useEffect(() => {
+    const estadoRetorno = location.state as { retornoDaListagem?: unknown } | null;
+    if (!estadoRetorno?.retornoDaListagem) return;
+    topoListaRef.current?.focus();
+    void navigate({ pathname: "/locais", search: location.search }, { replace: true, state: null });
+  }, [location.state, location.search, navigate, topoListaRef]);
 
   // Toda alteração de busca ou filtro grava na URL e volta para a primeira página.
   const atualizarParametros = (alterar: (params: URLSearchParams) => void) => {
@@ -103,11 +141,11 @@ export default function LocaisPage() {
       (atuais) => {
         const proximos = new URLSearchParams(atuais);
         alterar(proximos);
+        proximos.delete("pagina");
         return proximos;
       },
       { replace: true }
     );
-    handleFiltroAlterado();
   };
 
   const alterarTermo = (valor: string) => {
@@ -148,14 +186,61 @@ export default function LocaisPage() {
       params.delete("categoria");
       params.delete("recurso");
       params.delete("favoritos");
+      params.delete("ordem");
     });
   };
+
+const filtrosAtivos = listarFiltrosAtivos(searchParams);
+const resumoFiltros = descreverFiltrosAtivos(filtrosAtivos);
+
+const textoAnuncio =
+  estado === "carregando"
+    ? "Carregando locais..."
+    : estado === "pronto" && !buscaEmEdicao
+      ? `${resultados.length} ${
+          resultados.length === 1
+            ? "local encontrado"
+            : "locais encontrados"
+        }${
+          filtrosAtivos.length > 0
+            ? ` com ${resumoFiltros}`
+            : ""
+        }`
+      : "";
+
+  const removerFiltro = (filtro: FiltroAtivo, indice: number) => {
+    focoFiltroPendenteRef.current = indice;
+    if (filtro.tipo === "busca") setTextoBusca("");
+
+    atualizarParametros((params) => {
+      if (filtro.tipo === "busca") params.delete("busca");
+      if (filtro.tipo === "categoria") params.delete("categoria");
+      if (filtro.tipo === "favoritos") params.delete("favoritos");
+      if (filtro.tipo === "recurso") {
+        const recursosRestantes = params
+          .getAll("recurso")
+          .filter((recurso) => recurso !== filtro.valor);
+        params.delete("recurso");
+        recursosRestantes.forEach((recurso) => params.append("recurso", recurso));
+      }
+    });
+  };
+
+  useEffect(() => {
+    const indice = focoFiltroPendenteRef.current;
+    if (indice === null) return;
+
+    focoFiltroPendenteRef.current = null;
+    botoesFiltrosRef.current[indice]?.focus();
+    if (!botoesFiltrosRef.current[indice]) topoListaRef.current?.focus();
+  }, [filtrosAtivos, topoListaRef]);
 
   const temFiltrosAtivos =
     termo.trim() !== "" ||
     filtros.categoria !== "" ||
     filtros.recursos.length > 0 ||
-    filtros.somenteFavoritos;
+    filtros.somenteFavoritos ||
+    criterio !== "nome";
 
   const totalFiltros = filtros.recursos.length + (filtros.categoria ? 1 : 0) + (filtros.somenteFavoritos ? 1 : 0);
 
@@ -177,11 +262,13 @@ export default function LocaisPage() {
             ⌕
           </span>
           <span className="sr-only">Buscar por nome, bairro ou endereço</span>
-          <input
+         <input
             id="campo-busca-locais"
             type="search"
             ref={campoBuscaRef}
             value={textoBusca}
+            onFocus={() => setBuscaEmEdicao(true)}
+            onBlur={() => setBuscaEmEdicao(false)}
             onChange={(evento) => {
               setTextoBusca(evento.target.value);
               alterarTermo(evento.target.value);
@@ -190,21 +277,25 @@ export default function LocaisPage() {
           />
           <output aria-live="polite">
             {estado === "pronto" && (
-              <>
-                {resultados.length}{" "}
-                {resultados.length === 1
-                  ? "local encontrado"
-                  : "locais encontrados"}
-              </>
+              <p className="data-atualizacao">
+                {atualizadoEm ? (
+                  <>
+                    Lista atualizada em{" "}
+                    <time dateTime={atualizadoEm.toISOString()}>
+                      {formatarDataAtualizacao(atualizadoEm)}
+                    </time>
+                  </>
+                ) : (
+                  "Lista com os dados de exemplo do portal"
+                )}
+              </p>
             )}
           </output>
         </label>
       </header>
 
       <section className="content" aria-label="Locais acessíveis">
-        <Mensagem tipo="sucesso" className="delete-notice">
-          {mensagemExclusao}
-        </Mensagem>
+        <MensagemConfirmacao />
         <div className="results-heading">
           <div>
             <p className="section-kicker">Explorar locais</p>
@@ -214,6 +305,24 @@ export default function LocaisPage() {
                 : "Locais acessíveis"}
             </h2>
           </div>
+
+          <button
+            className="botao botao--secundario"
+            type="button"
+            onClick={solicitar}
+            disabled={estadoLocalizacao === "buscando"}
+          >
+            {estadoLocalizacao === "buscando"
+              ? "Obtendo localização..."
+              : "Usar minha localização"}
+          </button>
+
+          {estadoLocalizacao === "erro" && (
+            <Mensagem tipo="erro" className="empty-state">
+              <p>Não foi possível obter sua localização. Tente novamente.</p>
+            </Mensagem>
+          )}
+
           <button
             className="botao botao--secundario filter-toggle"
             type="button"
@@ -235,53 +344,68 @@ export default function LocaisPage() {
             <select
               id="ordenar-locais"
               value={criterio}
-              onChange={(evento) => setCriterio(evento.target.value as CriterioOrdenacao)}
+              onChange={(evento) => {
+                const proximoCriterio = evento.target.value as CriterioOrdenacao;
+                setSearchParams((atuais) => {
+                  const proximos = new URLSearchParams(atuais);
+                  if (proximoCriterio === "nome") proximos.delete("ordem");
+                  else proximos.set("ordem", proximoCriterio);
+                  return proximos;
+                });
+              }}
             >
               <option value="nome">Nome</option>
               <option value="categoria">Categoria</option>
+              {estadoLocalizacao === "obtida" && (
+                <option value="proximidade">Mais próximos</option>
+              )}
             </select>
           </div>
         )}
 
         <output
           aria-live="polite"
+          aria-atomic="true"
           className={estado === "carregando" ? "empty-state" : "sr-only"}
         >
-          {estado === "carregando" ? "Carregando locais..." : ""}
+          {textoAnuncio}
         </output>
 
         <Mensagem
           tipo="aviso"
           className={estado === "pronto" && usandoReserva ? "empty-state" : undefined}
         >
-          {estado === "pronto" && usandoReserva && (
-            <>
-              <h2>Exibindo dados de reserva</h2>
-              <p>
-                Não foi possível carregar os locais salvos. A lista exibida
-                contém os dados de reserva do projeto, e não a lista salva.
-              </p>
-              <button className="botao botao--secundario" type="button" onClick={tentarNovamente}>
-                Tentar novamente
-              </button>
-            </>
-          )}
+          {estado === "pronto" && usandoReserva && (() => {
+            const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
+            return (
+              <>
+                <h2>{titulo}</h2>
+                <p>{texto}</p>
+                <button className="botao botao--secundario" type="button" onClick={tentarNovamente}>
+                  Tentar novamente
+                </button>
+              </>
+            );
+          })()}
         </Mensagem>
 
         <Mensagem tipo="erro" className={estado === "erro" ? "empty-state" : undefined}>
-          {estado === "erro" && (
-            <>
-              <h2>Não foi possível carregar os locais</h2>
-              <p>Tente novamente para consultar os locais disponíveis.</p>
-              <button
-                className="botao botao--secundario"
-                type="button"
-                onClick={tentarNovamente}
-              >
-                Tentar novamente
-              </button>
-            </>
-          )}
+          {estado === "erro" && (() => {
+            const { titulo, texto } = getMensagemErro(motivoErro ?? "desconhecido");
+            return (
+              <>
+                <h2>{titulo}</h2>
+                <p>{texto}</p>
+                <button
+                  className="botao botao--secundario"
+                  type="button"
+                  onClick={tentarNovamente}
+                >
+                  Tentar novamente
+                </button>
+              </>
+            );
+          })()}
         </Mensagem>
 
         <aside
@@ -365,46 +489,27 @@ export default function LocaisPage() {
           </fieldset>
         </aside>
 
-        {estado === "pronto" && temFiltrosAtivos && (
-          <div className="active-filters" aria-label="Filtros ativos">
-            <span>Filtros ativos:</span>
-            {filtros.somenteFavoritos && <span>Somente favoritos</span>}
-            {termo.trim() && (
-              <button className="botao botao--secundario" type="button" onClick={() => {
-                const parametros = new URLSearchParams(searchParams);
-                parametros.delete("busca");
-                setSearchParams(parametros);
-              }}>
-
-                Busca: “{termo}” ×
-              </button>
-            )}
-            {filtros.categoria && (
-
+        {estado === "pronto" && filtrosAtivos.length > 0 && (
+          <section
+            className="active-filters"
+            aria-labelledby="filtros-ativos-titulo"
+          >
+            <h3 id="filtros-ativos-titulo">Filtros ativos</h3>
+            {filtrosAtivos.map((filtro, indice) => (
               <button
                 className="botao botao--secundario"
                 type="button"
-                onClick={() => {
-                  const parametros = new URLSearchParams(searchParams);
-                  parametros.delete("categoria");
-                  setSearchParams(parametros);
-                }}  
+                key={`${filtro.tipo}-${filtro.valor}-${indice}`}
+                ref={(botao) => {
+                  botoesFiltrosRef.current[indice] = botao;
+                }}
+                onClick={() => removerFiltro(filtro, indice)}
+                aria-label={`Remover filtro: ${filtro.rotulo}`}
               >
-
-                {filtros.categoria} ×
-              </button>
-            )}
-            {filtros.recursos.map((recurso) => (
-              <button
-                className="botao botao--secundario"
-                type="button"
-                key={recurso}
-                onClick={() => alternarRecurso(recurso)}
-              >
-                {recurso} ×
+                {filtro.rotulo} <span aria-hidden="true">×</span>
               </button>
             ))}
-          </div>
+          </section>
         )}
 
         {estado === "pronto" &&
@@ -449,8 +554,8 @@ export default function LocaisPage() {
                 {filtros.somenteFavoritos && favoritos.length === 0
                   ? "Você ainda não favoritou nenhum local. Favorite locais para encontrá-los com este filtro."
                   : termo.trim()
-                  ? `Não foi possível encontrar locais para “${termo.trim()}”`
-                  : "Tente remover algum filtro ou buscar por outro termo."}
+                    ? `Não foi possível encontrar locais para “${termo.trim()}”`
+                    : "Tente remover algum filtro ou buscar por outro termo."}
               </p>
               <button
                 className="clear-button prominent"

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { carregarComReserva } from "../src/services/locais.ts";
+import { ErroCarregamentoLocais } from "../src/services/erros.ts";
 import { locais } from "../src/data/locais.ts";
 
 test("retorna os locais carregados sem usar a reserva", async (t) => {
@@ -19,7 +20,9 @@ test("usa a reserva e registra a causa quando a Promise rejeita", async (t) => {
 
   const resultado = await carregarComReserva(() => Promise.reject(erro), locais);
 
-  assert.deepEqual(resultado, { locais, usandoReserva: true });
+  assert.equal(resultado.usandoReserva, true);
+  assert.equal(resultado.motivo, "desconhecido");
+  assert.deepEqual(resultado.locais, locais);
   assert.equal(log.mock.callCount(), 1);
   assert.equal(log.mock.calls[0].arguments[1], erro);
 });
@@ -57,4 +60,16 @@ test("propaga a falha quando nem a reserva pode ser usada", async (t) => {
     carregarComReserva(() => Promise.reject(new Error("Falha na carga")), reserva),
     (erro) => erro === erroReserva,
   );
+});
+
+test("expõe o motivo correto quando o erro é ErroCarregamentoLocais", async (t) => {
+  t.mock.method(console, "error", () => {});
+
+  for (const motivo of /** @type {const} */ (["dados-invalidos", "armazenamento-indisponivel", "desconhecido"])) {
+    const erro = new ErroCarregamentoLocais(motivo, "Mensagem de teste");
+    const resultado = await carregarComReserva(() => Promise.reject(erro), locais);
+
+    assert.equal(resultado.usandoReserva, true);
+    assert.equal(resultado.motivo, motivo, `motivo esperado: ${motivo}`);
+  }
 });

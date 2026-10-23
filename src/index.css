@@ -306,6 +306,150 @@ h2 {
 h3 {
   font-size: 21px;
 }
+
+/* Issue #161 - cartões da listagem de locais */
+.places-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: var(--espaco-5);
+  margin-top: var(--espaco-5);
+}
+
+.place-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding: var(--espaco-5);
+  border: 1px solid var(--line);
+  border-radius: var(--raio-lg);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.place-card-top {
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--espaco-3);
+}
+
+.place-category,
+.place-resources li {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: var(--espaco-1) var(--espaco-3);
+  border: 1px solid var(--accent);
+  border-radius: var(--raio-lg);
+  overflow-wrap: anywhere;
+  font-size: var(--texto-sm);
+  font-weight: 700;
+  line-height: var(--entrelinha-texto);
+}
+
+.place-category {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.place-card-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+}
+
+.place-card-actions .botao {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.place-card-title {
+  font-size: var(--texto-xl);
+  line-height: var(--entrelinha-titulo);
+  overflow-wrap: anywhere;
+}
+
+.place-card-link {
+  color: var(--ink);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+.place-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.place-card-link:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.place-card:has(.place-card-link:hover) {
+  border-color: var(--accent);
+}
+
+.place-card:has(.place-card-link:focus-visible) {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px var(--cor-foco-externa),
+    0 0 0 6px var(--cor-foco-externa);
+}
+
+.place-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.place-address,
+.place-distance {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--texto-base);
+  line-height: var(--entrelinha-texto);
+  overflow-wrap: anywhere;
+}
+
+.place-resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.place-resources li {
+  color: var(--ink);
+  background: var(--card);
+  font-weight: 600;
+}
+
+@media (min-width: 48rem) {
+  .places-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .places-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .filter-toggle span:first-child {
   color: var(--accent);
 }
@@ -353,6 +497,23 @@ h3 {
   color: var(--on-accent);
   font-size: 12px;
 }
+
+.favoritos-contador {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  min-height: 20px;
+  margin-inline-start: 7px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
 .filters-panel {
   margin: 28px 0;
   padding: 25px 28px;
@@ -491,6 +652,11 @@ legend span {
   white-space: nowrap;
   border: 0;
 }
+.place-distance {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: var(--texto-sm);
+}
 
 
 header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
@@ -572,16 +738,54 @@ code, .counter { font-size: 0.9375rem; }
   h1 { font-size: clamp(1.75rem, 5vw, 2.25rem); }
   h2 { font-size: 1.25rem; }
 }
-footer nav {
+
+.rodape {
+  padding-block: var(--espaco-6);
+  border-top: 1px solid var(--line);
+  font-size: var(--texto-sm);
+  line-height: var(--entrelinha-texto);
+}
+
+.rodape-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding-inline: 7.5%;
+}
+
+.rodape-links {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem 1rem;
+  gap: var(--espaco-1) var(--espaco-5);
 }
 
-footer nav a {
+.rodape-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: max(44px, 2.75rem);
+  padding-inline: var(--espaco-2);
+  border-radius: var(--raio-sm);
   color: inherit;
+  text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+
+.rodape-direitos {
+  margin: 0;
+  padding-top: var(--espaco-4);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 48rem) {
+  .rodape-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
 }
 
 /* Cores compartilhadas do indicador de foco. */
@@ -719,4 +923,34 @@ main:focus {
   background: var(--card);
   color: var(--ink);
   padding: 8px 12px;
+}
+
+.paginacao-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.paginacao-controles {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Remove a margin duplicada já que .paginacao-barra cuida do espaçamento */
+.paginacao-barra .paginacao,
+.paginacao-barra .paginacao-por-pagina {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .paginacao-barra {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
