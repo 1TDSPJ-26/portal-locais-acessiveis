@@ -1,29 +1,27 @@
-
 import { Link } from "react-router";
 
 export default function FavoritosVazio() {
   return (
-    <section 
+    <output
       className="flex flex-col items-center justify-center text-center p-8 my-12 max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-100"
-      role="status"
       aria-live="polite"
     >
-      <div 
-        className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4" 
+      <div
+        className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4"
         aria-hidden="true"
       >
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          className="w-8 h-8" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor" 
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
           strokeWidth={2}
         >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
           />
         </svg>
       </div>
@@ -42,6 +40,6 @@ export default function FavoritosVazio() {
       >
         Explorar locais acessíveis
       </Link>
-    </section>
+    </output>
   );
 }
