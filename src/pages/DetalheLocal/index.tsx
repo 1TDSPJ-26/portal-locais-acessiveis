@@ -2,7 +2,7 @@ import { Link, useLocation, useParams, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Mensagem from "../../components/Mensagem";
 import { BotaoFavorito } from "../../components/BotaoFavorito";
-import { useLocais } from "../../useLocais";
+import MensagemConfirmacao from "../../components/MensagemConfirmacao";import { useLocais } from "../../useLocais";
 import { buscarLocalPorId } from "../../utils/buscar-local-por-id";
 import TrilhaNavegacao from "../../components/TrilhaNavegacao";
 import type { ResultadoCompartilhamento } from "../../utils/compartilhar-link";
@@ -152,7 +152,7 @@ export default function DetalheLocal() {
       <title>{`${local.nome} | Portal de Locais e Serviços Acessíveis`}</title>
 
       <TrilhaNavegacao niveis={[...niveisBase, { rotulo: local.nome }]} />
-
+      <MensagemConfirmacao />
       <Mensagem tipo="sucesso" className={mensagemSucesso ? "mb-4" : undefined}>
         {mensagemSucesso}
       </Mensagem>
@@ -358,45 +358,45 @@ export default function DetalheLocal() {
         </div>
       )}
 
-      <dialog
-        ref={dialogRef}
-        className="delete-dialog"
-        aria-labelledby="titulo-exclusao"
+          <dialog
+         ref={dialogRef}
+         className="delete-dialog"
+         aria-labelledby="titulo-exclusao"
         aria-describedby="descricao-exclusao"
         onClose={() => excluirRef.current?.focus()}
-      >
-        <h2 id="titulo-exclusao">Excluir local?</h2>
+         >
+     <h2 id="titulo-exclusao">Excluir local?</h2>
 
-        <p id="descricao-exclusao">
-          O local <strong>{local.nome}</strong> será excluído. Esta ação não
-          pode ser desfeita.
-        </p>
+ <p id="descricao-exclusao">
+   O local <strong>{local.nome}</strong> será excluído. Esta ação não
+   pode ser desfeita.
+ </p>
 
-        <div className="local-actions">
-          <button
-            ref={cancelarRef}
-            type="button"
-            className="botao botao--secundario"
-            onClick={() => dialogRef.current?.close()}
-          >
-            Cancelar
-          </button>
+ <div className="local-actions">
+   <button
+     ref={cancelarRef}
+     type="button"
+     className="botao botao--secundario"
+     onClick={() => dialogRef.current?.close()}
+   >
+     Cancelar
+   </button>
 
-          <button
-            type="button"
-            className="botao botao--secundario"
-            onClick={() => {
-              dialogRef.current?.close();
-              removerLocal(local.id);
-              void navigate(origemListagem, {
-                state: { localExcluido: local.nome },
-              });
-            }}
-          >
-            Excluir
-          </button>
-        </div>
-      </dialog>
+   <button
+     type="button"
+     className="botao botao--secundario"
+     onClick={() => {
+       dialogRef.current?.close();
+       removerLocal(local.id);
+       void navigate(origemListagem, {
+         state: { confirmacao: `O local ${local.nome} foi excluído.` },
+       });
+     }}
+   >
+     Excluir
+   </button>
+ </div>
+     </dialog>
     </article>
   );
 }
