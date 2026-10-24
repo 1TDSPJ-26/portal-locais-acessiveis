@@ -365,19 +365,37 @@ export default function DetalheLocal() {
         aria-describedby="descricao-exclusao"
         onClose={() => excluirRef.current?.focus()}
          >
-     <MensagemConfirmacao
-       titulo="Excluir local?"
-       descricao={`O local ${local.nome} será excluído. Esta ação não pode ser desfeita.`}
-       botaoCancelarRef={cancelarRef}
-       onCancelar={() => dialogRef.current?.close()}
-       onConfirmar={() => {
+     <h2 id="titulo-exclusao">Excluir local?</h2>
+
+ <p id="descricao-exclusao">
+   O local <strong>{local.nome}</strong> será excluído. Esta ação não
+   pode ser desfeita.
+ </p>
+
+ <div className="local-actions">
+   <button
+     ref={cancelarRef}
+     type="button"
+     className="botao botao--secundario"
+     onClick={() => dialogRef.current?.close()}
+   >
+     Cancelar
+   </button>
+
+   <button
+     type="button"
+     className="botao botao--secundario"
+     onClick={() => {
        dialogRef.current?.close();
        removerLocal(local.id);
        void navigate(origemListagem, {
-        state: { confirmacao: `O local ${local.nome} foi excluído.` },
+         state: { confirmacao: `O local ${local.nome} foi excluído.` },
        });
-       }}
-    />
+     }}
+   >
+     Excluir
+   </button>
+ </div>
      </dialog>
     </article>
   );
