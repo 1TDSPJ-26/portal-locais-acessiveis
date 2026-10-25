@@ -4,6 +4,7 @@ import { useFavoritos } from "../../useFavoritos";
 import { ordenarLocais } from "../../utils/ordenar-locais";
 import { LocalCard } from "../../components/LocalCard";
 import Mensagem from "../../components/Mensagem";
+import FavoritosVazio from "../../components/FavoritosVazio";
 import type { Local } from "../../types/local";
 
 export default function FavoritosPage() {
@@ -88,7 +89,7 @@ export default function FavoritosPage() {
               ))}
             </div>
           ) : (
-            <p className="empty-state">Você ainda não tem locais favoritos nesta lista.</p>
+           <FavoritosVazio/>
           )
         )}
       </section>
