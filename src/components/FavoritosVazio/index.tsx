@@ -27,7 +27,7 @@ export default function FavoritosVazio() {
       </div>
 
       <h2 className="text-xl font-bold text-gray-900 mb-2">
-        Você ainda não tem locais favoritos
+        Você ainda não tem locais favoritos nesta lista.
       </h2>
 
       <p className="text-gray-600 text-sm leading-relaxed mb-6">
